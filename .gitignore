@@ -31,6 +31,7 @@ bin/
 # fabric
 
 run/
+src/main/generated/
 
 # java
 
@@ -38,3 +39,61 @@ hs_err_*.log
 replay_*.log
 *.hprof
 *.jfr
+/arrays.glsl
+/dataTexture_version_1.png
+/dataTexture_version_2.png
+/dataTexture_version_3.png
+/dataTexture_version_4.png
+/dataTexture_version_5.png
+/dataTexture_version_5png
+/dataTexture_version_6.png
+/dataTexture_version_7.png
+/dataTexture_version_8.png
+/dataTexture_version_9.png
+/dataTexture_version_10.png
+/dataTexture_version_11.png
+/dataTexture_version_12.png
+/dataTexture_version_13.png
+/dataTexture_version_14.png
+/dataTexture_version_15.png
+/dataTexture_version_16.png
+/dataTexture_version_62_automated.png
+/dataTexture_version_63_automated_rainbow.png
+/dataTexture_version_64_automated_rainbow.png
+/dataTexture_version_65_automated_rainbow.png
+/dataTexture_version_66_automated_rainbow.png
+/dataTexture_version_67_automated.png
+/dataTexture_version_68_automated.png
+/dataTexture_version_69_automated.png
+/dataTexture_version_70_automated.png
+/dataTexture_version_71_automated.png
+/dataTexture_version_72_automated.png
+/dataTexture_version_73_automated.png
+/GENERATOR_TEST.png
+/GENERATOR_TEST_2.png
+/GENERATOR_TEST_3.png
+/GENERATOR_TEST_4.png
+/GENERATOR_TEST_5_new_bitshift.png
+/GENERATOR_TEST_5_new_bitshift_2.png
+/GENERATOR_TEST_5_new_way_of_encoding_ver_1.png
+/output.png
+/output.txt
+/output_array.glsl
+/output_array2.glsl
+/output_final_image.png
+/output_fixed_width_image.png
+/output_new.png
+/output_new_final_version_ver_1.png
+/output_new_test.png
+/output_new_test_2.png
+/output_new_test_3_flat.png
+/output_new_test_3_flat_2.png
+/output_new_test_3_flat_3.png
+/output_new_test_3_flat_4.png
+/output_new_test_3_flat_5.png
+/output_new_test_3_flat_6.png
+/output_new_test_3_flat_7.png
+/output_new_test_3_flat_8.png
+/output_new_test_3_flat_9.png
+/preprocessed_output.png
+/qodana.yaml
