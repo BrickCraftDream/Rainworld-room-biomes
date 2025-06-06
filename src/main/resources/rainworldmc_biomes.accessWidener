@@ -1,0 +1,10 @@
+accessWidener v2 named
+#accessible class net/minecraft/world/level/biome/Biome$ClimateSettings
+#accessible field net/minecraft/world/level/biome/Biome climateSettings Lnet/minecraft/world/level/biome/Biome$ClimateSettings;
+#accessible field net/minecraft/world/level/biome/Biome specialEffects Lnet/minecraft/world/level/biome/BiomeSpecialEffects;
+#accessible field net/minecraft/world/level/biome/Biome mobSettings Lnet/minecraft/world/level/biome/MobSpawnSettings;
+#accessible field net/minecraft/world/level/biome/Biome generationSettings Lnet/minecraft/world/level/biome/BiomeGenerationSettings;
+#accessible method net/minecraft/world/level/biome/Biome <init> (Lnet/minecraft/world/level/biome/Biome$ClimateSettings;Lnet/minecraft/world/level/biome/BiomeSpecialEffects;Lnet/minecraft/world/level/biome/BiomeGenerationSettings;Lnet/minecraft/world/level/biome/MobSpawnSettings;)V
+#accessible method net/minecraft/core/registries/Registries createRegistryKey (Ljava/lang/String;)Lnet/minecraft/resources/ResourceKey;
+#accessible method me/jellysquid/mods/sodium/client/render/chunk/compile/pipeline/BlockRenderer getVertexColors (Lme/jellysquid/mods/sodium/client/render/chunk/compile/pipeline/BlockRenderContext;Lme/jellysquid/mods/sodium/client/model/color/ColorProvider;Lme/jellysquid/mods/sodium/client/model/quad/BakedQuadView;)[I
+#accessible method me/jellysquid/mods/sodium/client/render/chunk/compile/pipeline/BlockRenderer writeGeometry (Lme/jellysquid/mods/sodium/client/render/chunk/compile/pipeline/BlockRenderContext;Lme/jellysquid/mods/sodium/client/render/chunk/compile/buffers/ChunkModelBuilder;Lnet/minecraft/world/phys/Vec3;Lme/jellysquid/mods/sodium/client/render/chunk/terrain/material/Material;Lme/jellysquid/mods/sodium/client/model/quad/BakedQuadView;[ILme/jellysquid/mods/sodium/client/model/light/data/QuadLightData;)V

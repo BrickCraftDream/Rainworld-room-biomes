@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "id": "rainworld",
+  "version": "${version}",
+  "name": "Rainworld-MC_Biomes",
+  "description": "rainworld-regions",
+  "authors": [],
+  "contact": {
+    "repo": "https://github.com/brickcraftdream/Rainworld-MC_Biomes"
+  },
+  "license": "All-Rights-Reserved",
+  "icon": "assets/rainworld/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "client": [
+      "net.brickcraftdream.rainworldmc_biomes.client.Rainworld_MC_BiomesClient"
+    ],
+    "main": [
+      "net.brickcraftdream.rainworldmc_biomes.Rainworld_MC_Biomes"
+    ],
+    "fabric-datagen": [
+      "net.brickcraftdream.rainworldmc_biomes.DataGenerator"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric": "*",
+    "minecraft": "${minecraft_version}"
+  },
+  "accessWidener" : "rainworldmc_biomes.accessWidener"
+}
