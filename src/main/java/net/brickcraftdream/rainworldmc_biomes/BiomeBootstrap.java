@@ -132,6 +132,28 @@ public class BiomeBootstrap {
                     )
             }, colorMap);
         }
+        for(int i = 0; i < 366; i++) {
+            String biomeName = String.valueOf(i);
+            registerTempBiome(biomeRegisterable, biomeName, indexTemp);
+            indexTemp = roomToImage(image,
+                    0,
+                    0,
+                    0,
+                    0.5f,
+                    0,
+                    0,
+                    0,
+                    indexTemp,
+                    biomeName);
+            jsonExporter.addRoomProperties(getRegionStandalone(biomeName),
+                                           biomeName,
+                                           0,
+                                           0,
+                                           0,
+                                           0.5f,
+                                           0,
+                                           0);
+        }
         try {
             saveImageToFile(image, "png", "/home/deck/IdeaProjects/Rainworld-MC_Biomes mojamap 1.21.1/src/main/resources/assets/rainworld/textures/dynamic/shader_data.png");
         }
@@ -142,29 +164,25 @@ public class BiomeBootstrap {
         jsonExporter.exportToFile("/home/deck/IdeaProjects/Rainworld-MC_Biomes mojamap 1.21.1/build/datagen/biomes.json");
     }
 
-    ///VERSION SPECIFIC: 1.21.1
     private static void registerBiome(BootstrapContext<Biome> biomeRegisterable, String filename, int indexTemp) {
-    ///VERSION SPECIFIC: 1.20.1
-    ///private static void registerBiome(BootstapContext<Biome> biomeRegisterable, String filename) {
 
         ResourceKey<Biome> BIOME = ResourceKey.create(
-                ///VERSION SPECIFIC: 1.21.1
                 Registries.BIOME, ResourceLocation.fromNamespaceAndPath(Rainworld_MC_Biomes.MOD_ID, getRegion(filename)));
-                ///VERSION SPECIFIC: 1.20.1
-                ///Registries.BIOME, new ResourceLocation(Rainworld_MC_Biomes.MOD_ID, getRegion(filename)));
-
-        //CustomBiomeRegistry.addCustomBiomeData(BIOME, new CustomBiomeData(customString, customNumber));
 
         if ((filename.contains("_s0") || filename.contains("_s1") || filename.contains("_s2")) 
                 && filename.length() < 9) {
             RainworldBiomeTagProvider.addTag(BIOME);
         }
 
-
-        //Biome finalBiome = createBiome(filename);
-
-
         biomeRegisterable.register(BIOME, createBiome(filename, indexTemp));
+    }
+
+    private static void registerTempBiome(BootstrapContext<Biome> biomeRegisterable, String filename, int indexTemp) {
+
+        ResourceKey<Biome> BIOME = ResourceKey.create(
+                Registries.BIOME, ResourceLocation.fromNamespaceAndPath(Rainworld_MC_Biomes.MOD_ID, "temp_biome." + filename));
+
+        biomeRegisterable.register(BIOME, createTempBiome(filename, indexTemp));
     }
 
     private static Biome createBiome(String filename, int indexTemp) {
@@ -176,7 +194,7 @@ public class BiomeBootstrap {
                 .hasPrecipitation(false)
                 //.temperature(temperature(filename))
                 .temperature(indexTemp)
-                .downfall(grime(filename))
+                .downfall(0)
                 .specialEffects((new BiomeSpecialEffects.Builder())
                     .skyColor(sky(filename))
                     .fogColor(fog(filename))
@@ -222,6 +240,63 @@ public class BiomeBootstrap {
                 .downfall(0.4f)
                 .specialEffects(new BiomeSpecialEffects.Builder().build())
                 .build();
+        }
+    }
+
+    private static Biome createTempBiome(String filename, int indexTemp) {
+        try {
+
+            return new Biome.BiomeBuilder()
+                    .generationSettings(BiomeGenerationSettings.EMPTY)
+                    .mobSpawnSettings(MobSpawnSettings.EMPTY)
+                    .hasPrecipitation(false)
+                    .temperature(indexTemp)
+                    .downfall(0.5f)
+                    .specialEffects((new BiomeSpecialEffects.Builder())
+                            .skyColor(0)
+                            .fogColor(0)
+                            .waterColor(0)
+                            .waterFogColor(0)
+                            .build())
+                    .build();
+        } catch (Exception e) {
+            try {
+                System.out.println(sky(filename));
+            }
+            catch (Exception a) {
+                System.out.println("Sky");
+            }
+
+            try {
+                System.out.println(fog(filename));
+            }
+            catch (Exception a) {
+                System.out.println("Fog");
+            }
+
+            try {
+                System.out.println(water(filename));
+            }
+            catch (Exception a) {
+                System.out.println("Water");
+            }
+
+            try {
+                System.out.println(waterfog(filename));
+            }
+            catch (Exception a) {
+                System.out.println("Water Fog");
+            }
+            // Only log critical errors
+            System.err.println("Critical error creating biome " + filename + ": " + e.getMessage() + ", Content of the list: " + formatMap(getExtractedRoomFiles().get(filename)));
+            return new Biome.BiomeBuilder()
+                    .generationSettings(BiomeGenerationSettings.EMPTY)
+                    .mobSpawnSettings(MobSpawnSettings.EMPTY)
+                    .hasPrecipitation(false)
+                    .temperature(0.8f)
+                    .downfall(0.4f)
+                    .specialEffects(new BiomeSpecialEffects.Builder().build())
+                    .build();
         }
     }
 

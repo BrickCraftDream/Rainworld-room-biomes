@@ -11,13 +11,20 @@ import java.io.FileInputStream;
 import java.io.IOException;
 
 public class DynamicAssets {
-    private static final ResourceLocation DYNAMIC_TEXTURE_ID = ResourceLocation.fromNamespaceAndPath("rainworld", "dynamic_texture");
+    private static final ResourceLocation DYNAMIC_TEXTURE_ID = ResourceLocation.fromNamespaceAndPath("rainworld", "textures/dynamic/shader_data.png");
 
     public static void loadOrUpdateTexture() {
-        File textureFile = new File(Minecraft.getInstance().gameDirectory, "config/customtexture/texture.png");
+        File textureFile;
+        if(System.getProperty("os.name").toLowerCase().contains("win")) {
+            textureFile = new File(Minecraft.getInstance().gameDirectory, "config\\customtexture\\texture.png");
+        }
+        else {
+            textureFile = new File(Minecraft.getInstance().gameDirectory, "config/customtexture/texture.png");
+        }
+
 
         if (!textureFile.exists()) {
-            System.err.println("[CustomTexMod] Texture file does not exist: " + textureFile.getAbsolutePath());
+            System.err.println("Texture file does not exist: " + textureFile.getAbsolutePath());
             return;
         }
 
@@ -27,10 +34,10 @@ public class DynamicAssets {
 
             TextureManager textureManager = Minecraft.getInstance().getTextureManager();
             textureManager.register(DYNAMIC_TEXTURE_ID, texture);
-            System.out.println("[CustomTexMod] Registered dynamic texture at " + DYNAMIC_TEXTURE_ID);
+            System.out.println("Registered dynamic texture at " + DYNAMIC_TEXTURE_ID);
 
         } catch (IOException e) {
-            System.err.println("[CustomTexMod] Failed to load texture: " + e.getMessage());
+            System.err.println("Failed to load texture: " + e.getMessage());
         }
     }
 }

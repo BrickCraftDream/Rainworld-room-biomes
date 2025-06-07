@@ -1,7 +1,5 @@
 package net.brickcraftdream.rainworldmc_biomes.networking;
 
-import com.google.gson.JsonElement;
-import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.core.GlobalPos;
 import net.minecraft.core.UUIDUtil;
 import net.minecraft.network.FriendlyByteBuf;
@@ -10,8 +8,6 @@ import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.ExtraCodecs;
-import org.apache.logging.log4j.core.jmx.Server;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -77,16 +73,16 @@ public class NetworkManager {
     }
 
 
-    public record ServerBiomeUpdatePacket(String customBiomeName, String internalBiomeName,
-                                          int palette, int fadePalette, float fadeStrength,
-                                          float grime, int effectColorA, int effectColorB,
-                                          int dangerType, byte[] imageData)
+    public record BiomeUpdatePacket(String customBiomeName, String internalBiomeName,
+                                    int palette, int fadePalette, float fadeStrength,
+                                    float grime, int effectColorA, int effectColorB,
+                                    int dangerType, byte[] imageData)
             implements CustomPacketPayload {
 
-        public static final CustomPacketPayload.Type<ServerBiomeUpdatePacket> ID =
+        public static final CustomPacketPayload.Type<BiomeUpdatePacket> ID =
                 new CustomPacketPayload.Type<>(SERVER_BIOME_UPDATE_PACKET_ID);
 
-        public static final StreamCodec<RegistryFriendlyByteBuf, ServerBiomeUpdatePacket> CODEC = StreamCodec.of(
+        public static final StreamCodec<RegistryFriendlyByteBuf, BiomeUpdatePacket> CODEC = StreamCodec.of(
                 (buf, packet) -> {
                     ByteBufCodecs.STRING_UTF8.encode(buf, packet.customBiomeName());
                     ByteBufCodecs.STRING_UTF8.encode(buf, packet.internalBiomeName());
@@ -113,7 +109,7 @@ public class NetworkManager {
                     int imageLength = ByteBufCodecs.INT.decode(buf);
                     byte[] imageData = new byte[imageLength];
                     buf.readBytes(imageData);
-                    return new ServerBiomeUpdatePacket(
+                    return new BiomeUpdatePacket(
                             customName, internalName, palette, fadePalette,
                             fadeStrength, grime, effectColorA, effectColorB,
                             dangerType, imageData

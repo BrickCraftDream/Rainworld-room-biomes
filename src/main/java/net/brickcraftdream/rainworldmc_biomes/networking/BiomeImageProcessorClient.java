@@ -40,6 +40,23 @@ public class BiomeImageProcessorClient {
         }
     }
 
+    public static BufferedImage resourceLocationToBufferedImage(ResourceLocation resourceLocation) {
+        try {
+            // Get the resource as an input stream
+            InputStream inputStream = Minecraft.getInstance().getResourceManager()
+                    .getResource(resourceLocation)
+                    .orElseThrow(() -> new IOException("Resource not found: " + resourceLocation))
+                    .open();
+
+            BufferedImage bufferedImage = ImageIO.read(inputStream);
+            inputStream.close();
+            return bufferedImage;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     public static BufferedImage byteArrayToBufferedImage(byte[] imageData) {
         if (imageData == null || imageData.length == 0) {
             return null;
