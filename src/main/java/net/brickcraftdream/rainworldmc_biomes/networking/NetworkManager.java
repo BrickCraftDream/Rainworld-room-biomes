@@ -1,13 +1,23 @@
 package net.brickcraftdream.rainworldmc_biomes.networking;
 
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.mojang.serialization.DataResult;
+import com.mojang.serialization.DynamicOps;
+import com.mojang.serialization.JsonOps;
 import net.minecraft.core.GlobalPos;
 import net.minecraft.core.UUIDUtil;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.ExtraCodecs;
+import net.minecraft.world.level.biome.Biome;
+import org.apache.commons.lang3.ArrayUtils;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -15,6 +25,7 @@ import java.util.List;
 import java.util.UUID;
 
 import static net.brickcraftdream.rainworldmc_biomes.Rainworld_MC_Biomes.MOD_ID;
+import static net.brickcraftdream.rainworldmc_biomes.Rainworld_MC_Biomes.getFogColorFromPalette;
 
 public class NetworkManager {
     public static final ResourceLocation MAIN_PACKET_ID = ResourceLocation.fromNamespaceAndPath(MOD_ID, "main_packet");
@@ -27,6 +38,12 @@ public class NetworkManager {
 
     public static final ResourceLocation CLIENT_BIOME_UPDATE_PACKET_ID = ResourceLocation.fromNamespaceAndPath(MOD_ID, "client_biome_update_packet");
     public static final ResourceLocation SERVER_BIOME_UPDATE_PACKET_ID = ResourceLocation.fromNamespaceAndPath(MOD_ID, "server_biome_update_packet");
+
+    public static final ResourceLocation BIOME_UPDATE_DATA_REQUEST_PACKET_ID = ResourceLocation.fromNamespaceAndPath(MOD_ID, "biome_update_data_request_packet");
+
+    public static final ResourceLocation BIOME_SYNC_PACKET_ID = ResourceLocation.fromNamespaceAndPath(MOD_ID, "biome_sync_packet");
+
+    public static final ResourceLocation BIOME_CACHE_UPDATE_PACKET_ID = ResourceLocation.fromNamespaceAndPath(MOD_ID, "biome_cache_update_packet");
 
     //Client saves a new biome under a custom name
     //Client triggers an update packet
@@ -64,6 +81,76 @@ public class NetworkManager {
                         ByteBufCodecs.INT.decode(buf),
                         ByteBufCodecs.INT.decode(buf)
                 )
+        );
+
+        @Override
+        public @NotNull Type<? extends CustomPacketPayload> type() {
+            return ID;
+        }
+    }
+
+    public record BiomeCacheUpdatePacket(ResourceKey<Biome> key) implements CustomPacketPayload {
+        public static final CustomPacketPayload.Type<BiomeCacheUpdatePacket> ID = new CustomPacketPayload.Type<>(BIOME_CACHE_UPDATE_PACKET_ID);
+        public static final StreamCodec<RegistryFriendlyByteBuf, BiomeCacheUpdatePacket> CODEC = StreamCodec.of(
+                (buf, packet) -> buf.writeResourceKey(packet.key),
+                buf -> new BiomeCacheUpdatePacket(buf.readResourceKey(Registries.BIOME))
+        );
+
+        @Override
+        public @NotNull Type<? extends CustomPacketPayload> type() {
+            return ID;
+        }
+    }
+
+    public record BiomeSyncPacket(JsonElement configData, byte[] imageData) implements CustomPacketPayload {
+        public static final CustomPacketPayload.Type<BiomeSyncPacket> ID = new CustomPacketPayload.Type<>(BIOME_SYNC_PACKET_ID);
+        public static final StreamCodec<RegistryFriendlyByteBuf, BiomeSyncPacket> CODEC = StreamCodec.of(
+                (buf, packet) ->  {
+                    byte[] imageData = packet.imageData;
+                    if(imageData == null) {
+                        imageData = new byte[0];
+                    }
+                    buf.writeJsonWithCodec(ExtraCodecs.JSON, packet.configData);
+                    buf.writeInt(imageData.length);
+                    buf.writeBytes(imageData);
+                },
+                buf -> {
+                    JsonElement json = buf.readJsonWithCodec(ExtraCodecs.JSON);
+                    int imageLength = ByteBufCodecs.INT.decode(buf);
+                    byte[] imageData = new byte[imageLength];
+                    buf.readBytes(imageData);
+                    return new BiomeSyncPacket(json, imageData);
+                }
+        );
+
+        @Override
+        public Type<? extends CustomPacketPayload> type() {
+            return ID;
+        }
+    }
+
+    public record BiomeUpdateDataRequestPacket(List<String> biomeNames, byte[] imageData) implements CustomPacketPayload {
+        public static final CustomPacketPayload.Type<BiomeUpdateDataRequestPacket> ID = new CustomPacketPayload.Type<>(BIOME_UPDATE_DATA_REQUEST_PACKET_ID);
+        public static final StreamCodec<RegistryFriendlyByteBuf, BiomeUpdateDataRequestPacket> CODEC = StreamCodec.of(
+                (buf, packet) -> {
+                    ByteBufCodecs.INT.encode(buf, packet.biomeNames.size());
+                    for(String name : packet.biomeNames) {
+                        ByteBufCodecs.STRING_UTF8.encode(buf, name);
+                    }
+                    buf.writeInt(packet.imageData.length);
+                    buf.writeBytes(packet.imageData());
+                },
+                buf -> {
+                    int size = ByteBufCodecs.INT.decode(buf);
+                    List<String> names = new ArrayList<>(size);
+                    for (int i = 0; i < size; i++) {
+                        names.add(ByteBufCodecs.STRING_UTF8.decode(buf));
+                    }
+                    int imageLength = ByteBufCodecs.INT.decode(buf);
+                    byte[] imageData = new byte[imageLength];
+                    buf.readBytes(imageData);
+                    return new BiomeUpdateDataRequestPacket(names, imageData);
+                }
         );
 
         @Override
@@ -198,5 +285,36 @@ public class NetworkManager {
         public @NotNull Type<? extends CustomPacketPayload> type() {
             return ID;
         }
+
+        public static byte[] splitByteArray(byte[] data, int totalParts, int partIndex) {
+            if (partIndex < 0 || partIndex >= totalParts) {
+                throw new IllegalArgumentException("Part index must be between 0 and " + (totalParts - 1));
+            }
+
+            if (totalParts <= 0) {
+                throw new IllegalArgumentException("Total parts must be greater than 0");
+            }
+
+            if (data == null || data.length == 0) {
+                return new byte[0];
+            }
+
+            // Calculate the size of each part
+            int baseSize = data.length / totalParts;
+            int remainder = data.length % totalParts;
+
+            // Calculate the start position for the requested part
+            int startPos = partIndex * baseSize + Math.min(partIndex, remainder);
+
+            // Calculate the size of the requested part (some parts might be 1 byte larger due to remainder)
+            int partSize = baseSize + (partIndex < remainder ? 1 : 0);
+
+            // Create and fill the result array
+            byte[] result = new byte[partSize];
+            System.arraycopy(data, startPos, result, 0, partSize);
+
+            return result;
+        }
+
     }
 }

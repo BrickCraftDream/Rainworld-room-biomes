@@ -18,7 +18,7 @@ public class ConfigManagerServer {
 
 
     // For mod configuration data
-    public void saveDataToConfigFolder(String fileName, byte[] data) {
+    public static void saveDataToConfigFolder(String fileName, byte[] data) {
         try {
             // Get the config directory for your mod
             Path configDir = FabricLoader.getInstance().getConfigDir().resolve(MOD_ID);
@@ -37,7 +37,7 @@ public class ConfigManagerServer {
     }
 
     // Reading config data
-    public byte[] readDataFromConfigFolder(String fileName) {
+    public static byte[] readDataFromConfigFolder(String fileName) {
         try {
             Path configDir = FabricLoader.getInstance().getConfigDir().resolve(MOD_ID);
             Path filePath = configDir.resolve(fileName);

@@ -40,6 +40,25 @@ public class BiomeImageProcessorClient {
         }
     }
 
+    public static byte[] bufferedImageToByteArray(BufferedImage bufferedImage, String format) {
+        if (bufferedImage == null) {
+            return null;
+        }
+
+        try {
+            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+            ImageIO.write(bufferedImage, format, outputStream);
+            outputStream.flush();
+            byte[] imageData = outputStream.toByteArray();
+            outputStream.close();
+            return imageData;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+
     public static BufferedImage resourceLocationToBufferedImage(ResourceLocation resourceLocation) {
         try {
             // Get the resource as an input stream

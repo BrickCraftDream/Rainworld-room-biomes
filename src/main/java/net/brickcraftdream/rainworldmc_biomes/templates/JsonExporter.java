@@ -1,12 +1,15 @@
-package net.brickcraftdream.rainworldmc_biomes;
+package net.brickcraftdream.rainworldmc_biomes.templates;
 
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 import com.google.gson.*;
+import net.minecraft.client.Minecraft;
+import net.minecraft.resources.ResourceLocation;
+
+import static net.brickcraftdream.rainworldmc_biomes.Rainworld_MC_Biomes.MOD_ID;
+
 
 public class JsonExporter {
     private Gson gson;
@@ -25,9 +28,15 @@ public class JsonExporter {
      * @param filePath The path to the JSON file to load
      * @throws IOException If the file cannot be read
      */
-    public JsonExporter(String filePath) throws IOException {
+    public JsonExporter(String filePath){
         gson = new GsonBuilder().setPrettyPrinting().create();
-        loadFromFile(filePath);
+        try {
+            loadFromFile(filePath);
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+            rootNode = new JsonObject();
+        }
     }
 
 
@@ -115,8 +124,14 @@ public class JsonExporter {
         if (roomNode == null) {
             return null;
         }
-        return roomNode.has(screenName) ? roomNode.getAsJsonObject(screenName) : null;
+
+        // Check if the element exists and is a JsonObject
+        if (roomNode.has(screenName) && roomNode.get(screenName).isJsonObject()) {
+            return roomNode.getAsJsonObject(screenName);
+        }
+        return null;
     }
+
 
     /**
      * Sets an integer property value on a node
@@ -160,7 +175,7 @@ public class JsonExporter {
      */
     public void addProperties(JsonObject node, int palette, int fadePalette,
                               double fadeStrength, double grime,
-                              int effectColorA, int effectColorB) {
+                              int effectColorA, int effectColorB, int dangerType) {
         node.addProperty("palette", palette);
         node.addProperty("fade_palette", fadePalette);
         node.addProperty("fade_strength", fadeStrength);
@@ -171,6 +186,7 @@ public class JsonExporter {
         if(effectColorB != -10) {
             node.addProperty("effect_color_b", effectColorB);
         }
+        node.addProperty("danger_type", dangerType);
     }
 
     /**
@@ -187,9 +203,9 @@ public class JsonExporter {
      */
     public void addScreenProperties(String regionName, String roomName, String screenName,
                                     int palette, int fadePalette, double fadeStrength,
-                                    double grime, int effectColorA, int effectColorB) {
+                                    double grime, int effectColorA, int effectColorB, int dangerType) {
         JsonObject screenNode = addScreen(regionName, roomName, screenName);
-        addProperties(screenNode, palette, fadePalette, fadeStrength, grime, effectColorA, effectColorB);
+        addProperties(screenNode, palette, fadePalette, fadeStrength, grime, effectColorA, effectColorB, dangerType);
     }
 
     /**
@@ -205,9 +221,9 @@ public class JsonExporter {
      */
     public void addRoomProperties(String regionName, String roomName,
                                   int palette, int fadePalette, double fadeStrength,
-                                  double grime, int effectColorA, int effectColorB) {
+                                  double grime, int effectColorA, int effectColorB, int dangerType) {
         JsonObject roomNode = addRoom(regionName, roomName);
-        addProperties(roomNode, palette, fadePalette, fadeStrength, grime, effectColorA, effectColorB);
+        addProperties(roomNode, palette, fadePalette, fadeStrength, grime, effectColorA, effectColorB, dangerType);
     }
 
     /**
@@ -235,9 +251,20 @@ public class JsonExporter {
      * @throws IOException If the file cannot be read
      */
     public void loadFromFile(String filePath) throws IOException {
-        try (FileReader reader = new FileReader(filePath)) {
-            rootNode = JsonParser.parseReader(reader).getAsJsonObject();
+        //rootNode = Room_creation_toolClient.getTemplates();//JsonParser.parseReader(reader).getAsJsonObject();
+        ResourceLocation location = ResourceLocation.fromNamespaceAndPath(MOD_ID, "data/biomes.json");
+        // 2. Access the resource using Minecraft's resource manager
+        try (InputStream inputStream = Minecraft.getInstance().getResourceManager().getResource(location).get().open()) {
+            // 3. Parse the JSON
+            rootNode = new Gson().fromJson(new InputStreamReader(inputStream), JsonObject.class);
+
+            // 4. Use your JSON data
+            // ...
+        } catch (IOException e) {
+            // Handle exceptions
+            e.printStackTrace();
         }
+
     }
 
     /**
@@ -247,6 +274,7 @@ public class JsonExporter {
     public Set<String> getAllRegionNames() {
         Set<String> regionNames = new HashSet<>();
         for (Map.Entry<String, JsonElement> entry : rootNode.entrySet()) {
+            if(entry.getKey().length() < 2) continue;
             regionNames.add(entry.getKey());
         }
         return regionNames;
@@ -284,7 +312,7 @@ public class JsonExporter {
 
         Set<String> screenNames = new HashSet<>();
         for (Map.Entry<String, JsonElement> entry : roomNode.entrySet()) {
-            screenNames.add(entry.getKey());
+            if(entry.getKey().contains("screen")) screenNames.add(entry.getKey());
         }
         return screenNames;
     }
@@ -398,60 +426,5 @@ public class JsonExporter {
 
         return structure;
     }
-
-    /**
-     * Gets a specific integer property from a node
-     * @param node The node to get the property from
-     * @param propertyName The name of the property
-     * @param defaultValue The default value to return if the property doesn't exist
-     * @return The property value, or the default value if the property doesn't exist
-     */
-    public int getIntProperty(JsonObject node, String propertyName, int defaultValue) {
-        if (node != null && node.has(propertyName) && node.get(propertyName).isJsonPrimitive()) {
-            try {
-                return node.get(propertyName).getAsInt();
-            } catch (Exception e) {
-                return defaultValue;
-            }
-        }
-        return defaultValue;
-    }
-
-    /**
-     * Gets a specific double property from a node
-     * @param node The node to get the property from
-     * @param propertyName The name of the property
-     * @param defaultValue The default value to return if the property doesn't exist
-     * @return The property value, or the default value if the property doesn't exist
-     */
-    public double getDoubleProperty(JsonObject node, String propertyName, double defaultValue) {
-        if (node != null && node.has(propertyName) && node.get(propertyName).isJsonPrimitive()) {
-            try {
-                return node.get(propertyName).getAsDouble();
-            } catch (Exception e) {
-                return defaultValue;
-            }
-        }
-        return defaultValue;
-    }
-
-    /**
-     * Gets a specific string property from a node
-     * @param node The node to get the property from
-     * @param propertyName The name of the property
-     * @param defaultValue The default value to return if the property doesn't exist
-     * @return The property value, or the default value if the property doesn't exist
-     */
-    public String getStringProperty(JsonObject node, String propertyName, String defaultValue) {
-        if (node != null && node.has(propertyName) && node.get(propertyName).isJsonPrimitive()) {
-            try {
-                return node.get(propertyName).getAsString();
-            } catch (Exception e) {
-                return defaultValue;
-            }
-        }
-        return defaultValue;
-    }
-
-
 }
+

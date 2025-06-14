@@ -1,0 +1,41 @@
+{
+  "item.rainworld.room_selector_item": "Room Tool",
+  "gui.rainworld.main": "Room Creation Tool",
+  "gui.rainworld.create_title": "Create New Room",
+  "gui.rainworld.select_title": "Select Room",
+  "gui.rainworld.edit_title": "Edit Room",
+
+  "gui.rainworld.template": "Template",
+  "gui.rainworld.palette": "Palette",
+  "gui.rainworld.fade_palette": "Fade Palette",
+  "gui.rainworld.fade_strength": "Fade Strength",
+  "gui.rainworld.grime": "Grime",
+  "gui.rainworld.effect_color_a": "Effect Color A",
+  "gui.rainworld.effect_color_b": "Effect Color B",
+
+  "gui.rainworld.select_room": "Select Room",
+  "gui.rainworld.select_region": "Select Region",
+  "gui.rainworld.select_screen": "Select Screen",
+
+  "gui.rainworld.edit_all_biomes": "Edit All Biomes",
+
+  "gui.rainworld.create": "Create Room",
+  "gui.rainworld.edit": "Edit Room",
+  "gui.rainworld.save": "Save Changes",
+  "gui.rainworld.back": "Back",
+  "gui.rainworld.hide": "Hide GUI",
+  "gui.rainworld.save_tooltip": "Save the changes",
+  "gui.rainworld.hide_tooltip": "Hide the GUI",
+  "gui.rainworld.reset_button": "Reset to default",
+  "gui.rainworld.create_tooltip": "Create the room",
+  "gui.rainworld.edit_tooltip": "Edit the selected room",
+  "gui.rainworld.back_tooltip": "Back to the region selection",
+  "gui.rainworld.main_title": "Idk what to call this",
+  "gui.rainworld.edit_biome": "Edit the biome",
+  "gui.rainworld.place": "Place",
+  "gui.rainworld.place_tooltip": "Places the selected biome in the world",
+  "gui.rainworld.cancel_tooltip": "Cancels the changes made here and closes the GUI",
+  "gui.rainworld.cancel": "Cancel",
+  "gui.rainworld.name": "Custom biome name"
+
+}

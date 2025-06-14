@@ -82,6 +82,14 @@ public class ImageGenerator {
 
     public static void saveImageToFile(BufferedImage image, String format, String outputPath) throws IOException {
         File outputFile = new File(outputPath);
+
+        // Create parent directories if they don't exist
+        File parentDir = outputFile.getParentFile();
+        if (parentDir != null && !parentDir.exists()) {
+            parentDir.mkdirs();
+        }
+
         ImageIO.write(image, format, outputFile);
     }
+
 }

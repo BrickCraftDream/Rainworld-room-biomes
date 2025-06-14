@@ -12,6 +12,7 @@ import net.minecraft.world.biome.GenerationSettings;
 import net.minecraft.world.biome.SpawnSettings;
 
  */
+import net.brickcraftdream.rainworldmc_biomes.templates.JsonExporter;
 import net.minecraft.core.registries.Registries;
 
 ///VERSION SPECIFIC: 1.21.1
@@ -95,7 +96,8 @@ public class BiomeBootstrap {
                                                  getFadePaletteStrength(currentRoom),
                                                  getGrime(currentRoom),
                                                  getEffectColorA(currentRoom),
-                                                 getEffectColorB(currentRoom));
+                                                 getEffectColorB(currentRoom),
+                                                 getDangerType(currentRoom));
             }
             else {
                 jsonExporter.addRoomProperties(getRegionStandalone(currentRoom),
@@ -105,7 +107,8 @@ public class BiomeBootstrap {
                                                getFadePaletteStrength(currentRoom),
                                                getGrime(currentRoom),
                                                getEffectColorA(currentRoom),
-                                               getEffectColorB(currentRoom));
+                                               getEffectColorB(currentRoom),
+                                               getDangerType(currentRoom));
             }
 
             Map<String, Vector3f> colorMap = new HashMap<>();
@@ -152,16 +155,19 @@ public class BiomeBootstrap {
                                            0,
                                            0.5f,
                                            0,
+                                           0,
                                            0);
         }
         try {
             saveImageToFile(image, "png", "/home/deck/IdeaProjects/Rainworld-MC_Biomes mojamap 1.21.1/src/main/resources/assets/rainworld/textures/dynamic/shader_data.png");
+            saveImageToFile(image, "png", "/home/deck/IdeaProjects/room_creation_tool/src/main/resources/assets/room_creation_tool/textures/dynamic/shader_data.png");
         }
         catch (IOException e) {
             System.out.println("Error saving image: " + e.getMessage());
         }
         generator.saveSpreadsheet("/home/deck/IdeaProjects/Rainworld-MC_Biomes mojamap/build/datagen/colored_new.html");
         jsonExporter.exportToFile("/home/deck/IdeaProjects/Rainworld-MC_Biomes mojamap 1.21.1/build/datagen/biomes.json");
+        jsonExporter.exportToFile("/home/deck/IdeaProjects/Rainworld-MC_Biomes mojamap 1.21.1/src/main/resources/assets/rainworld/data/biomes.json");
     }
 
     private static void registerBiome(BootstrapContext<Biome> biomeRegisterable, String filename, int indexTemp) {

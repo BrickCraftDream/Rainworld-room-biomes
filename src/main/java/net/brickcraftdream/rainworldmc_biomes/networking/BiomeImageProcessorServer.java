@@ -26,7 +26,7 @@ public class BiomeImageProcessorServer {
                 ResourceKey<Biome> biomeKey = ResourceKey.create(Registries.BIOME, biomeId);
                 Biome biome = biomeRegistry.get(biomeKey);
                 assert biome != null;
-                float downfall = ((ExtendedBiome) (Object) biome).getDownfall();
+                float downfall = biome.climateSettings.downfall();
                 if(downfall == 0.5f) {
                     return biome.getBaseTemperature();
                 }

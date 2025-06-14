@@ -1,0 +1,70 @@
+'-' marks things that are not done yet
+'X' marks things that are done
+
+- Config system for storing modified rooms so they can be reapplied once the server restarts. Need to think about a way of permanently adding these biomes to the game
+    - Some system to reapply the biomes to the world when the server restarts.
+- The entire GUI
+    - How should the main GUI be opened?
+    - Things to add to the modify GUI:
+        - Tab system at the top for adding/modifying rooms
+        - Tab for adding rooms:
+            - 'Add' or 'Apply' button (adds it to the list of biome rooms)
+            - Name field (required)
+            - Manual palette
+            - Manual Fade-Palette
+            - Manual Fade-Strength
+            - Manual Grime
+            - Manual EffectColorA and B
+            - Maybe a view to preview how it would look like
+                - Either this or just temporary modifying the the biome in the world to see how it looks (second option is easier)
+        - Tab for modifying rooms:
+            - 3 Dropdowns for selecting the room biome to modify
+                - First dropdown: Region
+                - Second dropdown: Room
+                - Third dropdown: optional screen
+            - Same buttons/text areas as the add room tab
+                - Every button has a reset button next to it
+            - 'Apply' button (applies the changes to the selected room, syncing the changes to the world and everyone else)
+            - For every button/text area, there should be a reset button next to it
+                - Resets the value to the default value of the room
+X The tool should be in the operator tab
+- When a player first gets the tool or presses a specific key, a region select GUI should open where they can select the region they want to work on
+- How should the player select the edges of the room?
+    X Maybe use ctrl + scroll to change mode
+        - Modes:
+            X Area select
+            - current to-be-worked on room select (would open a GUI to select the current room and optionally the screen)
+            - current to-be-worked on region select (would open a GUI to select the current region)
+            - room add/modify (opens the main GUI)
+        - When in any of the selected modes except for area select, the player can left or right click to open the corresponding GUI
+        - When in area select mode, the player can left click to select the first corner and right click to select the second corner
+            - To confirm the selection, the player can press ctrl or something else
+                - After confirming the selection, the player can add another area to the selection (can be repeated as many times as needed)
+            - pressing the same button again would open a GUI to select the room/room screen which can then be applied to the selected area
+- QoL:
+    - When no block is in range and the player tries to add a point for the area, the players feet position should be used
+    - The visual selection box around the selected but not confirmed area should change the opacity following a sine wave
+    - The visual selection boxs color should follow the average color of all rooms in the selected region and if a room is selected, the color of the room should be used. Same applies for the screen
+
+
+
+- GUI:
+    - GUI that gets opened when confirming all selected boxes:
+        - Three dropdowns for region, room, and screen selection
+        - Checkbox to toggle the editing of the selected biome
+        - Palette textbox (cannot be accessed when the edit box is off)
+          - Reset button (resets the value to the default value of the room, only visible when the value in it's corresponding textbox is not the default value)
+        - Fade-Palette textbox (cannot be accessed when the edit box is off)
+          - Reset button (resets the value to the default value of the room, only visible when the value in it's corresponding textbox is not the default value)
+        - Fade-Strength textbox (cannot be accessed when the edit box is off)
+          - Reset button (resets the value to the default value of the room, only visible when the value in it's corresponding textbox is not the default value)
+        - Grime textbox (cannot be accessed when the edit box is off)
+          - Reset button (resets the value to the default value of the room, only visible when the value in it's corresponding textbox is not the default value)
+        - EffectColorA textbox (cannot be accessed when the edit box is off)
+          - Reset button (resets the value to the default value of the room, only visible when the value in it's corresponding textbox is not the default value)
+        - EffectColorB textbox (cannot be accessed when the edit box is off)
+          - Reset button (resets the value to the default value of the room, only visible when the value in it's corresponding textbox is not the default value)
+        - Place button (places the selected biome in the selected area)
+        - Cancel button (cancels the selection and closes the GUI)
+        - Naming box (allows for changing the name of the biome internally since the biome name is immutable. Can only be seen when the edit box is on)
+        - Save button (saves the modifications to an empty temp biome, only visible when the edit box is on. If the naming box has a value inside of it, the biome is saved with that name internally, otherwise it is saved with the name of the original temp biome)
