@@ -505,7 +505,7 @@ public class BiomeBootstrap {
         }
 
         // Fallback to using the original input with any extra parts
-        return "HEY_THIS_IS_BROKEN_!_PLEASE_REPORT_THIS_ENTIRE_TEXT_TO_BRICKCRAFTDREAM__" + originalInput;
+        return "temp_biomes_currently_unused";
     }
 
     public static void removeDuplicates(List<String[]> list) {

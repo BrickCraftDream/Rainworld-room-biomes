@@ -31,6 +31,8 @@ bin/
 # fabric
 
 run/
+!run/resourcepacks/SHADER/
+!run/resourcepacks/SHADER/**
 src/main/generated/
 
 # java

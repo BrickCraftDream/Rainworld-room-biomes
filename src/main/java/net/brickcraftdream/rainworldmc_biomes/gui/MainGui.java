@@ -1,11 +1,9 @@
 package net.brickcraftdream.rainworldmc_biomes.gui;
 
-import com.mojang.datafixers.types.templates.Check;
+import com.mojang.blaze3d.pipeline.RenderTarget;
 import net.brickcraftdream.rainworldmc_biomes.client.BoxRenderer;
-import net.brickcraftdream.rainworldmc_biomes.data.storage.ConfigManagerClient;
 import net.brickcraftdream.rainworldmc_biomes.data.storage.ConfigManagerServer;
 import net.brickcraftdream.rainworldmc_biomes.gui.widget.BlockViewWidget;
-import net.brickcraftdream.rainworldmc_biomes.networking.BiomeImageProcessorClient;
 import net.brickcraftdream.rainworldmc_biomes.networking.NetworkManager;
 import net.brickcraftdream.rainworldmc_biomes.templates.JsonExporter;
 import net.fabricmc.api.EnvType;
@@ -28,17 +26,15 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.chunk.*;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 import java.util.function.Consumer;
+import java.util.function.Predicate;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
@@ -70,6 +66,8 @@ public class MainGui extends Screen {
     public static String previousRegion = "";
     public static String previousRoom = "";
     public static String previousScreen = "";
+
+    private static boolean previousTickMalformedBiomeDetected = false;
 
 
     public static boolean biomeEdit = false;
@@ -110,6 +108,18 @@ public class MainGui extends Screen {
     }
 
     @Override
+    public void onClose() {
+        super.onClose();
+        if(BlockViewWidget.renderEffectChain != null) {
+            BlockViewWidget.renderEffectChain.close();
+            BlockViewWidget.renderEffectChain = null;
+            Minecraft.getInstance().gameRenderer.shutdownEffect();
+            BlockViewWidget.shouldRender = false;
+            BlockViewWidget.shouldHaveActiveEffectChain = false;
+        }
+    }
+
+    @Override
     protected <T extends GuiEventListener & Renderable & NarratableEntry> @NotNull T addRenderableWidget(T guiEventListener) {
         DataHandler.addRenderable(guiEventListener);
         DataHandler.addGuiContent(guiEventListener);
@@ -134,29 +144,40 @@ public class MainGui extends Screen {
     private void initMainGui() {
         this.addRenderableWidget(mainGui$title);
         this.addRenderableWidget(mainGui$regionDropdown);
+        dropdowns.add(mainGui$regionDropdown);
         this.addRenderableWidget(mainGui$roomDropdown);
+        dropdowns.add(mainGui$roomDropdown);
         this.addRenderableWidget(mainGui$screenDropdown);
+        dropdowns.add(mainGui$screenDropdown);
         this.addRenderableWidget(mainGui$toggleBiomeEditMode);
+        this.addRenderableWidget(mainGui$paletteTitle);
         this.addRenderableWidget(mainGui$paletteCoverButton);
         this.addRenderableWidget(mainGui$paletteBox);
         this.addRenderableWidget(mainGui$paletteResetButton);
+        this.addRenderableWidget(mainGui$fadePaletteTitle);
         this.addRenderableWidget(mainGui$fadePaletteCoverButton);
         this.addRenderableWidget(mainGui$fadePaletteBox);
         this.addRenderableWidget(mainGui$fadePaletteResetButton);
+        this.addRenderableWidget(mainGui$fadeStrengthTitle);
         this.addRenderableWidget(mainGui$fadeStrengthCoverButton);
         this.addRenderableWidget(mainGui$fadeStrengthBox);
         this.addRenderableWidget(mainGui$fadeStrengthResetButton);
+        this.addRenderableWidget(mainGui$grimeTitle);
         this.addRenderableWidget(mainGui$grimeCoverButton);
         this.addRenderableWidget(mainGui$grimeBox);
         this.addRenderableWidget(mainGui$grimeResetButton);
+        this.addRenderableWidget(mainGui$effectColorATitle);
         this.addRenderableWidget(mainGui$effectColorACoverButton);
         this.addRenderableWidget(mainGui$effectColorABox);
         this.addRenderableWidget(mainGui$effectColorAResetButton);
+        this.addRenderableWidget(mainGui$effectColorBTitle);
         this.addRenderableWidget(mainGui$effectColorBCoverButton);
         this.addRenderableWidget(mainGui$effectColorBBox);
         this.addRenderableWidget(mainGui$effectColorBResetButton);
+        this.addRenderableWidget(mainGui$dangerTypeTitle);
         this.addRenderableWidget(mainGui$dangerTypeCoverButton);
         this.addRenderableWidget(mainGui$dangerTypeDropdown);
+        //dropdowns.add(mainGui$dangerTypeDropdown);
         this.addRenderableWidget(mainGui$dangerTypeResetButton);
 
         this.addRenderableWidget(mainGui$placeButton);
@@ -172,6 +193,9 @@ public class MainGui extends Screen {
         DataHandler.addTextBox(mainGui$grimeBox);
         DataHandler.addTextBox(mainGui$effectColorABox);
         DataHandler.addTextBox(mainGui$effectColorBBox);
+
+
+        //this.addRenderableWidget(new EditBox(this.font, 0, 0, WIDGET_WIDTH, BUTTON_HEIGHT, Component.literal("text")));
     }
 
     private void initRoomCreateGui() {
@@ -237,9 +261,9 @@ public class MainGui extends Screen {
 
     private void onTemplateSelected(String template) {
         String[] parts = template.split("\\.");
-        DataHandler.setCurrentRegion(parts.length > 0 ? parts[0] : "");
-        DataHandler.setCurrentRoom(parts.length > 1 ? parts[1] : "");
-        DataHandler.setCurrentScreen(parts.length > 2 ? parts[2] : "");
+        //DataHandler.setCurrentRegion(parts.length > 0 ? parts[0] : "");
+        //DataHandler.setCurrentRoom(parts.length > 1 ? parts[1] : "");
+        //DataHandler.setCurrentScreen(parts.length > 2 ? parts[2] : "");
         DataHandler.setTemplateRoomEditName(template);
         DataHandler.setTemplateRoomCreateName(template);
     }
@@ -249,15 +273,57 @@ public class MainGui extends Screen {
     }
 
     private void onRoomSelected(String room) {
+        if(mainGui$roomDropdown.expanded) return;
         DataHandler.setCurrentRoom(room);
+        validBiomeSelected = false;
+        try {
+            String biomePath = DataHandler.getCurrentRegion() + "." + DataHandler.getCurrentRoom() + (DataHandler.getCurrentScreen().equals(Component.translatable("gui.rainworld.select_screen").getString()) ? "" : (DataHandler.getCurrentScreen().isEmpty() ? "" : "_" + DataHandler.getCurrentScreen()));
+            ResourceKey<Biome> biomeKey = ResourceKey.create(Registries.BIOME, ResourceLocation.fromNamespaceAndPath("rainworld", biomePath));
+            Registry<Biome> biomeRegistry = minecraft.level.registryAccess().registryOrThrow(Registries.BIOME);
+            Holder<Biome> biomeEntry = biomeRegistry.getHolderOrThrow(biomeKey);
+            validBiomeSelected = true;
+            //System.out.println("room");
+        }
+        catch (Exception e) {
+            //System.out.println(e.getMessage());
+            validBiomeSelected = false;
+        }
     }
 
     private void onRegionSelected(String region) {
+        if(mainGui$regionDropdown.expanded) return;
         DataHandler.setCurrentRegion(region);
+        validBiomeSelected = false;
+        try {
+            String biomePath = DataHandler.getCurrentRegion() + "." + DataHandler.getCurrentRoom() + (DataHandler.getCurrentScreen().equals(Component.translatable("gui.rainworld.select_screen").getString()) ? "" : (DataHandler.getCurrentScreen().isEmpty() ? "" : "_" + DataHandler.getCurrentScreen()));
+            ResourceKey<Biome> biomeKey = ResourceKey.create(Registries.BIOME, ResourceLocation.fromNamespaceAndPath("rainworld", biomePath));
+            Registry<Biome> biomeRegistry = minecraft.level.registryAccess().registryOrThrow(Registries.BIOME);
+            Holder<Biome> biomeEntry = biomeRegistry.getHolderOrThrow(biomeKey);
+            validBiomeSelected = true;
+            //System.out.println("region");
+        }
+        catch (Exception e) {
+            //System.out.println(e.getMessage());
+            validBiomeSelected = false;
+        }
     }
 
     private void onScreenSelected(String screen) {
+        if(mainGui$screenDropdown.expanded) return;
         DataHandler.setCurrentScreen(screen);
+        validBiomeSelected = false;
+        try {
+            String biomePath = DataHandler.getCurrentRegion() + "." + DataHandler.getCurrentRoom() + (DataHandler.getCurrentScreen().equals(Component.translatable("gui.rainworld.select_screen").getString()) ? "" : (DataHandler.getCurrentScreen().isEmpty() ? "" : "_" + DataHandler.getCurrentScreen()));
+            ResourceKey<Biome> biomeKey = ResourceKey.create(Registries.BIOME, ResourceLocation.fromNamespaceAndPath("rainworld", biomePath));
+            Registry<Biome> biomeRegistry = minecraft.level.registryAccess().registryOrThrow(Registries.BIOME);
+            Holder<Biome> biomeEntry = biomeRegistry.getHolderOrThrow(biomeKey);
+            validBiomeSelected = true;
+            //System.out.println("screen");
+        }
+        catch (Exception e) {
+            //System.out.println(e.getMessage());
+            validBiomeSelected = false;
+        }
     }
 
     private void onSaveSelected(String string) {
@@ -310,21 +376,48 @@ public class MainGui extends Screen {
     }
 
     private void onPlaceSelected(String string) {
+        //if(!mainGui$regionDropdown.getValue().isEmpty()) {
+        //    if(!mainGui$regionDropdown.getValue().equals(Component.translatable("gui.rainworld.select_region").getString())) {
+        //        DataHandler.setCurrentRegion(mainGui$regionDropdown.getValue());
+        //    }
+        //}
+        //if(!mainGui$roomDropdown.getValue().isEmpty()) {
+        //    if(!mainGui$roomDropdown.getValue().equals(Component.translatable("gui.rainworld.select_room").getString())) {
+        //        DataHandler.setCurrentRoom(mainGui$roomDropdown.getValue());
+        //    }
+        //}
+        //if(!mainGui$screenDropdown.getValue().isEmpty()) {
+        //    if(!mainGui$screenDropdown.getValue().equals(Component.translatable("gui.rainworld.select_screen").getString())) {
+        //        DataHandler.setCurrentScreen(mainGui$screenDropdown.getValue());
+        //    }
+        //}
+
+        if(!DataHandler.getLastPlacedRegion().isEmpty() && mainGui$regionDropdown.getValue().isEmpty() && !mainGui$regionDropdown.expanded) {
+            DataHandler.setCurrentRegion(DataHandler.getLastPlacedRegion());
+        }
+        if(!DataHandler.getLastPlacedRoom().isEmpty() && mainGui$roomDropdown.getValue().isEmpty() && !mainGui$roomDropdown.expanded) {
+            DataHandler.setCurrentRoom(DataHandler.getLastPlacedRoom());
+        }
+        if(!DataHandler.getLastPlacedScreen().isEmpty() && mainGui$screenDropdown.getValue().isEmpty() && !mainGui$screenDropdown.expanded) {
+            DataHandler.setCurrentScreen(DataHandler.getLastPlacedScreen());
+        }
+
         if(DataHandler.getCurrentRegion().isEmpty()) {
-            player.sendSystemMessage(Component.literal("You have to first select a region."));
+            player.sendSystemMessage(Component.literal("You have to first select a region." + mainGui$regionDropdown.getValue() + " " + mainGui$roomDropdown.getValue()));
         }
         else if(DataHandler.getCurrentRoom().isEmpty()) {
             player.sendSystemMessage(Component.literal("You have to first select a room."));
         }
         else {
             String biomeNamespace = "rainworld";
-            String biomePath = DataHandler.getCurrentRegion() + "." + DataHandler.getCurrentRoom() + (DataHandler.getCurrentScreen().equals(Component.translatable("gui.rainworld.select_screen").getString()) ? "" : "_" + DataHandler.getCurrentScreen());
-            for(GlobalPos pos : BoxRenderer.locations) {
-
-            }
+            String biomePath = DataHandler.getCurrentRegion() + "." + DataHandler.getCurrentRoom() + (DataHandler.getCurrentScreen().equals(Component.translatable("gui.rainworld.select_screen").getString()) ? "" : (DataHandler.getCurrentScreen().isEmpty() ? "" : "_" + DataHandler.getCurrentScreen()));
+            GlobalPos pos = BoxRenderer.getCenterOfAllBoxes();
             ClientPlayNetworking.send(new NetworkManager.BiomePlacePayload2(BoxRenderer.getLocations(), biomeNamespace, biomePath));
             resetSelections(player);
-            BoxRenderer.clearBoxes();
+            //BoxRenderer.clearBoxes();
+            DataHandler.setLastPlacedRegion(DataHandler.getCurrentRegion());
+            DataHandler.setLastPlacedRoom(DataHandler.getCurrentRoom());
+            DataHandler.setLastPlacedScreen(DataHandler.getCurrentScreen());
             assert minecraft != null;
             minecraft.setScreen(null);
         }
@@ -341,19 +434,7 @@ public class MainGui extends Screen {
 
     @Override
     public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
-        if(guiGraphics == null) {
-            return;
-        }
         super.render(guiGraphics, mouseX, mouseY, partialTick);
-
-        try {
-            String biomePath = DataHandler.getCurrentRegion() + "." + DataHandler.getCurrentRoom() + (DataHandler.getCurrentScreen().equals(Component.translatable("gui.rainworld.select_screen").getString()) ? "" : "_" + DataHandler.getCurrentScreen());
-            ResourceKey<Biome> biomeKey = ResourceKey.create(Registries.BIOME, ResourceLocation.fromNamespaceAndPath("rainworld", biomePath));
-            validBiomeSelected = true;
-        }
-        catch (Exception e) {
-            validBiomeSelected = false;
-        }
 
         if (DataHandler.templateDropdown != null && (type == GuiType.ROOM_CREATE || type == GuiType.ROOM_EDIT)) {
             DataHandler.templateDropdown.renderExpanded(guiGraphics, mouseX, mouseY, partialTick);
@@ -367,9 +448,23 @@ public class MainGui extends Screen {
         if (DataHandler.screenDropdown != null) {
             DataHandler.screenDropdown.renderExpanded(guiGraphics, mouseX, mouseY, partialTick);
         }
+
+        if(previousTickMalformedBiomeDetected) {
+            regionDropdown.collapseDropdown();
+            roomDropdown.collapseDropdown();
+            screenDropdown.collapseDropdown();
+            previousTickMalformedBiomeDetected = false;
+        }
+
         for(GuiEventListener guiEventListener : DataHandler.getGuiContent()) {
             if(guiEventListener == null) {
                 continue;
+            }
+
+            if(guiEventListener instanceof ClearingTextBox box) {
+                if(box.identifier.equals("danger_type")) {
+                    mainGui$dangerTypeResetButton.setX(box.getValue().length() * 6 + leftMargin);
+                }
             }
 
             if(guiEventListener instanceof SearchableDropdown box) {
@@ -385,46 +480,25 @@ public class MainGui extends Screen {
                         );
                 DataHandler.setTemplateRoomEditName(name);
                 DataHandler.setTemplateRoomCreateName(name);
-                if(box.identifier.equals("template.room_edit")) {
-                    if(box.getValue().length() != nameLength && !box.getValue().isEmpty() && !box.expanded) {
-                        nameLength = box.getValue().length();
-                    }
-                    else if(box.getValue().isEmpty() && !box.expanded) {
-                        nameLength = 13;
-                    }
-                    box.setWidth(textMargin + nameLength * 6 + textMargin + scrollbarWidth);
-                }
-                if(box.identifier.equals("template.room_create")) {
-                    if(box.getValue().length() != nameLength && !box.getValue().isEmpty() && !box.expanded) {
-                        nameLength = box.getValue().length();
-                    }
-                    else if(box.getValue().isEmpty() && !box.expanded) {
-                        nameLength = 13;
-                    }
-                    box.setWidth(textMargin + nameLength * 6 + textMargin + scrollbarWidth);
-                }
+                //if(box.identifier.equals("template.room_edit")) {
+                //    if(box.getValue().length() != nameLength && !box.getValue().isEmpty() && !box.expanded) {
+                //        nameLength = box.getValue().length();
+                //    }
+                //    else if(box.getValue().isEmpty() && !box.expanded) {
+                //        nameLength = 13;
+                //    }
+                //    box.setWidth(textMargin + nameLength * 6 + textMargin + scrollbarWidth);
+                //}
+                //if(box.identifier.equals("template.room_create")) {
+                //    if(box.getValue().length() != nameLength && !box.getValue().isEmpty() && !box.expanded) {
+                //        nameLength = box.getValue().length();
+                //    }
+                //    else if(box.getValue().isEmpty() && !box.expanded) {
+                //        nameLength = 13;
+                //    }
+                //    box.setWidth(textMargin + nameLength * 6 + textMargin + scrollbarWidth);
+                //}
                 if(box.identifier.equals("region.room_region_select")) {
-                    /*
-                    if(previousRegion.isEmpty()) {
-                        previousRegion = box.getValue();
-                    }
-                    if(!box.getValue().equals(previousRegion) && !previousRegion.equals(Component.translatable("gui.rainworld.select_region").getString())) {
-                        previousRegion = box.getValue();
-                        for(GuiEventListener guiEventListener2 : DataHandler.getGuiContent()) {
-                            if(guiEventListener2 instanceof SearchableDropdown box2) {
-                                if(box2.identifier.equals("room.room_region_select")) {
-                                    box2.setValue(Component.translatable("gui.rainworld.select_room").getString());
-                                }
-                                if(box2.identifier.equals("screen.room_region_select")) {
-                                    box2.setValue(Component.translatable("gui.rainworld.select_screen").getString());
-                                }
-                            }
-                        }
-                    }
-                    else if(!box.getValue().equals(previousRegion) && previousRegion.equals(Component.translatable("gui.rainworld.select_region").getString())) {
-                        previousRegion = box.getValue();
-                    }
-                    */
                     if(box.getValue().length() != regionLength && !box.getValue().isEmpty() && !box.expanded) {
                         regionLength = box.getValue().length();
                     }
@@ -432,28 +506,8 @@ public class MainGui extends Screen {
                         regionLength = 13;
                     }
                     box.setWidth(textMargin + regionLength * 6 + textMargin + scrollbarWidth);
-                    //20 + 4 + (7 * 6) + 4 = 20 + 4 + 42 + 4 = 70
                 }
                 if(box.identifier.equals("room.room_region_select")) {
-                    /*
-                    if(previousRoom.isEmpty()) {
-                        previousRoom = box.getValue();
-                    }
-                    if(!box.getValue().equals(previousRoom) && !previousRoom.equals(Component.translatable("gui.rainworld.select_room").getString())) {
-                        previousRoom = box.getValue();
-                        for(GuiEventListener guiEventListener2 : DataHandler.getGuiContent()) {
-                            if(guiEventListener2 instanceof SearchableDropdown box2) {
-                                if(box2.identifier.equals("screen.room_region_select")) {
-                                    box2.setValue(Component.translatable("gui.rainworld.select_screen").getString());
-                                }
-                            }
-                        }
-                    }
-                    else if(!box.getValue().equals(previousRoom) && previousRoom.equals(Component.translatable("gui.rainworld.select_room").getString())) {
-                        previousRoom = box.getValue();
-                    }
-
-                     */
                     if(box.getValue().length() != roomLength && !box.getValue().isEmpty() && !box.expanded) {
                         roomLength = box.getValue().length();
                     }
@@ -462,21 +516,8 @@ public class MainGui extends Screen {
                     }
                     box.setWidth(textMargin + roomLength * 6 + textMargin + scrollbarWidth);
                     box.setX(leftMargin + textMargin + regionLength * 6 + textMargin + scrollbarWidth);
-                    //20 + 4 + (7 * 6) + 4 = 20 + 4 + 42 + 4 = 70
                 }
                 if(box.identifier.equals("screen.room_region_select")) {
-                    /*
-                    if(previousScreen.isEmpty()) {
-                        previousScreen = box.getValue();
-                    }
-                    if(!box.getValue().equals(previousScreen) && !previousScreen.equals(Component.translatable("gui.rainworld.select_screen").getString())) {
-                        previousScreen = box.getValue();
-                    }
-                    else if(!box.getValue().equals(previousScreen) && previousScreen.equals(Component.translatable("gui.rainworld.select_screen").getString())) {
-                        previousScreen = box.getValue();
-                    }
-
-                     */
                     if(box.getValue().length() != screenLength && !box.getValue().isEmpty() && !box.expanded) {
                         screenLength = box.getValue().length();
                     }
@@ -490,7 +531,7 @@ public class MainGui extends Screen {
                 if(box.identifier.equals("screen.room_region_select")) {
                     if(((!DataHandler.regionDropdown.getValue().isEmpty() && !DataHandler.roomDropdown.getValue().isEmpty()) || (!DataHandler.regionDropdown.getValue().isEmpty() && !DataHandler.roomDropdown.getValue().isEmpty()))) {
                         if(!box.getValue().contains(Component.translatable("gui.rainworld.select_screen").getString())) {
-                            List<String> allOptions = List.copyOf(exporter.getAllScreenNames(regionDropdown.getValue(), roomDropdown.getValue()));
+                            List<String> allOptions = getSortedStrings(List.copyOf(exporter.getAllScreenNames(regionDropdown.getValue(), roomDropdown.getValue())));
                             screenOptions = allOptions;
                             box.allOptions = allOptions;
                         }
@@ -498,11 +539,21 @@ public class MainGui extends Screen {
                             box.allOptions = List.copyOf(DataHandler.getScreenOptions());
                         }
                     }
+                    //if(box.getValue().isEmpty() && !getCurrentScreen().isEmpty()) {
+                    //    box.setValue(getCurrentScreen(), true);
+                    //}
+                    //if(!box.getValue().isEmpty() && getCurrentScreen().isEmpty()) {
+                    //    setCurrentScreen(box.getValue());
+                    //}
+                    if(!Objects.equals(getCurrentScreen(), box.getValue()) && !box.expanded) {
+                        //System.out.println(getCurrentScreen() + " " + box.getValue());
+                        DataHandler.setCurrentScreen(box.getValue());
+                    }
                 }
                 if(box.identifier.equals("room.room_region_select")) {
                     if(!DataHandler.regionDropdown.getValue().isEmpty() || !DataHandler.regionDropdown.getValue().isEmpty()) {
                         if(!box.getValue().contains(Component.translatable("gui.rainworld.select_room").getString())) {
-                            List<String> allOptions = List.copyOf(exporter.getAllRoomNames(regionDropdown.getValue()));
+                            List<String> allOptions = getSortedStrings(List.copyOf(exporter.getAllRoomNames(regionDropdown.getValue())));
                             roomOptions = allOptions;
                             box.allOptions = allOptions;
                         }
@@ -510,23 +561,40 @@ public class MainGui extends Screen {
                             box.allOptions = List.copyOf(DataHandler.getRoomOptions());
                         }
                     }
+                    //if(box.getValue().isEmpty() && !getCurrentRoom().isEmpty()) {
+                    //    box.setValue(getCurrentRoom(), true);
+                    //}
+                    //if(!box.getValue().isEmpty() && getCurrentRoom().isEmpty()) {
+                    //    setCurrentRoom(box.getValue());
+                    //}
+                    if(!Objects.equals(getCurrentRoom(), box.getValue()) && !box.expanded) {
+                        //System.out.println(getCurrentRoom() + " " + box.getValue());
+                        DataHandler.setCurrentRoom(box.getValue());
+                    }
                 }
                 if(box.identifier.equals("region.room_region_select")) {
                     if(!box.getValue().contains(Component.translatable("gui.rainworld.select_region").getString())) {
-                        List<String> allOptions = List.copyOf(exporter.getAllRegionNames());
+                        List<String> allOptions = getSortedStrings(List.copyOf(exporter.getAllRegionNames()));
                         regionOptions = allOptions;
                         box.allOptions = allOptions;
                     }
                     else {
                         box.allOptions = List.copyOf(DataHandler.getRegionOptions());
                     }
+                    //if(box.getValue().isEmpty() && !getCurrentRegion().isEmpty()) {
+                    //    box.setValue(getCurrentRegion(), true);
+                    //}
+                    //if(!box.getValue().isEmpty() && getCurrentRegion().isEmpty()) {
+                    //    setCurrentRegion(box.getValue());
+                    //}
+                    if(!Objects.equals(getCurrentRegion(), box.getValue()) && !box.expanded) {
+                        //System.out.println(getCurrentRegion() + " " + box.getValue());
+                        DataHandler.setCurrentRegion(box.getValue());
+                    }
                 }
             }
             if(guiEventListener instanceof Checkbox checkbox) {
                 checkbox.setX(leftMargin + textMargin + regionLength * 6 + roomLength * 6 + screenLength * 6 + textMargin + scrollbarWidth * 6 + 12345);
-                if(biomeEdit != checkbox.selected() && checkbox.selected()) {
-                    //player.sendSystemMessage(Component.literal("This feature is currently not good. Minecraft would have to be rewritten at parts for it to work."));
-                }
                 biomeEdit = checkbox.selected();
             }
             if(guiEventListener instanceof IdButton button) {
@@ -578,6 +646,14 @@ public class MainGui extends Screen {
                         button.setX(-12345);
                     }
                 }
+                if(button.getIdentifier().equals("danger_type")) {
+                    if(!mainGui$dangerTypeDropdown.getValue().equals(dangerTypeContent)) {
+                        button.setX(leftMargin + WIDGET_WIDTH - RESET_BUTTON_WIDTH);
+                    }
+                    else {
+                        button.setX(-12345);
+                    }
+                }
                 if(button.getIdentifier().equals("cover")) {
                     if(biomeEdit) {
                         button.setX(-12345);
@@ -610,6 +686,19 @@ public class MainGui extends Screen {
                 else {
                     box.setX(-12345);
                 }
+            }
+        }
+        if(!validBiomeSelected && !mainGui$roomDropdown.getValue().isEmpty()) {
+            if(!mainGui$roomDropdown.getValue().equals(Component.translatable("gui.rainworld.select_room").getString())) {
+                mainGui$roomDropdown.setValue(Component.translatable("gui.rainworld.select_room").getString());
+                previousTickMalformedBiomeDetected = true;
+            }
+        }
+
+        if(!validBiomeSelected && !mainGui$screenDropdown.getValue().isEmpty()) {
+            if(!mainGui$screenDropdown.getValue().equals(Component.translatable("gui.rainworld.select_screen").getString())) {
+                mainGui$screenDropdown.setValue(Component.translatable("gui.rainworld.select_screen").getString());
+                previousTickMalformedBiomeDetected = true;
             }
         }
     }
@@ -661,6 +750,9 @@ public class MainGui extends Screen {
                 case "effect_color_b":
                     DataHandler.effectColorBBoxContent = string;
                     break;
+                case "danger_type":
+                    dangerTypeContent = string;
+                    break;
                 default:
                     break;
             }
@@ -677,6 +769,7 @@ public class MainGui extends Screen {
 
         @Override
         public boolean mouseClicked(double mouseX, double mouseY, int button) {
+            if(!biomeEdit) return false;
             boolean result = super.mouseClicked(mouseX, mouseY, button);
             if (isMouseOver(mouseX, mouseY)) {
                 setReplacingValue("");
@@ -733,6 +826,9 @@ public class MainGui extends Screen {
                     case "effect_color_b":
                         DataHandler.effectColorBBoxContent = string;
                         break;
+                    case "danger_type":
+                        dangerTypeContent = string;
+                        break;
                     default:
                         break;
                 }
@@ -745,18 +841,24 @@ public class MainGui extends Screen {
         public List<String> allOptions;
         private final Consumer<String> selectionCallback;
         private final int dropdownHeight;
-        private boolean expanded = false;
+        public boolean expanded = false;
         private List<String> filteredOptions;
         private int scrollOffset = 0;
         private final int maxVisibleOptions = 9;
         private final int xOffset = -12345;
         public String identifier;
+        private Predicate<String> filter = Objects::nonNull;
+        private int maxLength = 32;
 
         public SearchableDropdown(int x, int y, int width, int height,
                                   Component placeholder, List<String> options,
                                   Font font, Consumer<String> selectionCallback, String identifier) {
             super(font, x, y, width, height, Component.empty());
-            this.allOptions = identifier.equals("region.room_region_select") ? List.copyOf(exporter.getAllRegionNames()) : options;
+            List<String> regions = getSortedStrings(List.copyOf(exporter.getAllRegionNames()));
+            //DataHandler.sortStringsAlphabetically(regions);
+            //DataHandler.sortStringsAlphabetically(options);
+            //options = getSortedStrings(options);
+            this.allOptions = identifier.equals("region.room_region_select") ? regions : options;
             if(identifier.equals("room.room_region_select")) {
                 if(!DataHandler.roomOptions.isEmpty()) {
                     this.allOptions = List.copyOf(DataHandler.roomOptions);
@@ -772,6 +874,9 @@ public class MainGui extends Screen {
                     this.allOptions = List.of("Select a room first");
                 }
                 //this.allOptions = List.of("Select a room first");
+            }
+            if(identifier.equals("danger_type")) {
+                this.allOptions = List.of("None", "Rain", "Flood", "Rain and Flood");
             }
             this.filteredOptions = new ArrayList<>(allOptions);
             this.selectionCallback = selectionCallback;
@@ -795,8 +900,30 @@ public class MainGui extends Screen {
             this.identifier = identifier;
         }
 
+        public void setValue(String text, boolean silent) {
+            if(silent) {
+                setValueSilent(text);
+                this.moveCursorToEnd(false);
+                this.setHighlightPos(this.cursorPos);
+            }
+            else {
+                super.setValue(text);
+            }
+        }
+
+        public void setValueSilent(String text) {
+            if (this.filter.test(text)) {
+                if (text.length() > this.maxLength) {
+                    this.value = text.substring(0, this.maxLength);
+                } else {
+                    this.value = text;
+                }
+            }
+        }
+
         @Override
         public boolean mouseClicked(double mouseX, double mouseY, int button) {
+            if(Objects.equals(identifier, "danger_type")) return false;
             if (expanded) {
                 int optionHeight = BUTTON_HEIGHT;
                 int startY = this.getY() + BUTTON_HEIGHT;
@@ -848,10 +975,16 @@ public class MainGui extends Screen {
         private void expandDropdown() {
             if (expanded) {return;}
             if(!getValue().isEmpty()) {
-                setValue("");
+                //setValue("");
+                setValue("", true);
                 // Why does it work when I return here? If I don't it behaves as if it fired twice, which shouldn't be possible. So why?
+                // Me from a few weeks later: It's because setValue seems to trigger the expanding logic too. Why? I still don't know
+                // Me from a day later: I FUCKING HATE THIS SHIT!
                 return;
             }
+            //if(this.getValue().equals(Component.translatable("gui.rainworld.select_region").getString())
+            //        || this.getValue().equals(Component.translatable("gui.rainworld.select_room").getString())
+            //        || this.getValue().equals(Component.translatable("gui.rainworld.select_screen").getString())) {return;}
 
             List<Renderable> undesirables = new ArrayList<>(DataHandler.getActiveRenderables());
 
@@ -869,6 +1002,9 @@ public class MainGui extends Screen {
                 }
                 else if(guiEventListener instanceof Checkbox checkbox) {
                     checkbox.setX(checkbox.getX() + xOffset);
+                }
+                else if(guiEventListener instanceof StringWidget widget) {
+                    if(widget.getY() != mainGui$title$offsetY) widget.setX(widget.getX() + xOffset);
                 }
             }
 
@@ -892,11 +1028,17 @@ public class MainGui extends Screen {
                         box.setX(box.getX() - (xOffset));
                     }
                 }
-                else if(guiEventListener instanceof Button button2) {
+                else if(guiEventListener instanceof IdButton button2) {
                     button2.setX(button2.getX() - (xOffset));
+                }
+                else if(guiEventListener instanceof Button button3) {
+                    button3.setX(button3.getX() - xOffset);
                 }
                 else if(guiEventListener instanceof Checkbox checkbox) {
                     checkbox.setX(checkbox.getX() - (xOffset));
+                }
+                else if(guiEventListener instanceof StringWidget widget) {
+                    if(widget.getY() != mainGui$title$offsetY) widget.setX(widget.getX() - xOffset);
                 }
             }
 
@@ -1078,25 +1220,25 @@ public class MainGui extends Screen {
                 this.identifier = identifier;
             }
 
-            public IdButton.Builder pos(int i, int j) {
-                this.x = i;
-                this.y = j;
+            public IdButton.Builder pos(int x, int y) {
+                this.x = x;
+                this.y = y;
                 return this;
             }
 
-            public IdButton.Builder width(int i) {
-                this.width = i;
+            public IdButton.Builder width(int width) {
+                this.width = width;
                 return this;
             }
 
-            public IdButton.Builder size(int i, int j) {
-                this.width = i;
-                this.height = j;
+            public IdButton.Builder size(int width, int height) {
+                this.width = width;
+                this.height = height;
                 return this;
             }
 
-            public IdButton.Builder bounds(int i, int j, int k, int l) {
-                return this.pos(i, j).size(k, l);
+            public IdButton.Builder bounds(int x, int y, int width, int height) {
+                return this.pos(x, y).size(width, height);
             }
 
             public IdButton.Builder tooltip(@Nullable Tooltip tooltip) {
@@ -1127,7 +1269,44 @@ public class MainGui extends Screen {
         }
     }
 
+    public static class IdText extends StringWidget {
+        public String identifier;
+
+        public IdText(Component message, Font font) {
+            super(message, font);
+        }
+
+        public IdText(Component message, Font font, String identifier) {
+            super(message, font);
+            this.identifier = identifier;
+        }
+
+        public IdText(int width, int height, Component message, Font font) {
+            super(width, height, message, font);
+        }
+
+        public IdText(int width, int height, Component message, Font font, String identifier) {
+            super(width, height, message, font);
+            this.identifier = identifier;
+        }
+
+        public IdText(int x, int y, int width, int height, Component message, Font font) {
+            super(x, y, width, height, message, font);
+        }
+
+        public IdText(int x, int y, int width, int height, Component message, Font font, String identifier) {
+            super(x, y, width, height, message, font);
+            this.identifier = identifier;
+        }
+    }
+
     public void setUpGUIContents() {
+
+        RenderTarget renderTarget = minecraft.getMainRenderTarget();
+
+        int fbWidth = renderTarget.width;
+        int fbHeight = renderTarget.height;
+
         roomCreateGui$title = new StringWidget(leftMargin, roomCreateGui$title$offsetY, WIDGET_WIDTH * 4, BUTTON_HEIGHT, Component.translatable("gui.rainworld.create_title"), this.font).alignLeft();
         roomCreateGui$templateDropdown = new SearchableDropdown(leftMargin, roomCreateGui$templateDropdown$offsetY, WIDGET_WIDTH * 2, BUTTON_HEIGHT, Component.literal(DataHandler.getTemplateRoomCreateName()), DataHandler.getTemplateOptions(), this.font, this::onTemplateSelected, "template.room_create");
         roomCreateGui$paletteBox = new ClearingTextBox(this.font, leftMargin, roomCreateGui$paletteBox$offsetY, WIDGET_WIDTH - RESET_BUTTON_WIDTH, BUTTON_HEIGHT, Component.empty(), "palette");
@@ -1178,37 +1357,115 @@ public class MainGui extends Screen {
         roomEditGui$hideGuiButton = Button.builder(Component.translatable("gui.rainworld.hide"), button -> {/* Hide GUI logic */}).bounds(leftMargin, roomEditGui$hideGuiButton$offsetY, WIDGET_WIDTH, BUTTON_HEIGHT).tooltip(Tooltip.create(Component.translatable("gui.rainworld.hide_tooltip"))).build();
 
 
-        mainGui$title = new StringWidget(leftMargin, mainGui$title$offsetY, WIDGET_WIDTH + Component.translatable("gui.rainworld.main_title").getString().length() * 6, BUTTON_HEIGHT, Component.translatable("gui.rainworld.main_title"), this.font).alignLeft();
+        List<String> splashMessages = Arrays.asList(
+                "Idk what to call this",
+                "Guten Morgen by the way",
+                "Placeholder Title",
+                "Select... something?",
+                "TODO: Name this screen",
+                "Work in progress...",
+                "Not final!",
+                "Buttons go here",
+                "Insert title here",
+                "Still thinking of a name",
+                "This is temporary",
+                "Under heavy construction",
+                "UI not approved yet",
+                "Rough draft GUI",
+                "Untitled Selection Menu",
+                "Please ignore",
+                "Needs polish",
+                "Mockup Mode",
+                "Dev screen v0.1",
+                "Alpha UI – beware!",
+                "Might be broken",
+                "Design coming soon™",
+                "Just testing things",
+                "Not meant to be seen",
+                "¯\\_(ツ)_/¯",
+                "Function > Form (for now)",
+                "Some kind of selector",
+                "Prototype Phase",
+                "This shouldn't be live",
+                "Here be widgets",
+                "Something goes here...",
+                "Very beta",
+                "Name pending approval",
+                "Non-final interface",
+                "Probably broken",
+                "Layout not final",
+                "Draft menu thing",
+                "Ignore this screen",
+                "Needs designer input",
+                "To be redesigned",
+                "Dev slapped this together",
+                "Screen01_Final_FINAL_v3_new.java",
+                "First pass UI",
+                "Assets missing",
+                "Click stuff. Maybe it works.",
+                "Waiting on UX team",
+                "Barebones interface",
+                "Minimum viable GUI",
+                "UI in exile",
+                "Scaffolding only",
+                "Here until it's not"
+        );
+
+        Random random = new Random();
+        String title = splashMessages.get(random.nextInt(splashMessages.size()));
+
+
+        mainGui$title = new StringWidget(leftMargin, mainGui$title$offsetY, WIDGET_WIDTH + Component.literal(title).getString().length() * 6, BUTTON_HEIGHT, Component.literal(title), this.font).alignLeft();
+
         mainGui$regionDropdown = new SearchableDropdown(leftMargin, mainGui$regionDropdown$offsetY, WIDGET_WIDTH, BUTTON_HEIGHT, Component.literal(DataHandler.getCurrentRegion()), DataHandler.getRegionOptions(), this.font, this::onRegionSelected, "region.room_region_select");
         mainGui$roomDropdown = new SearchableDropdown(leftMargin * 2, mainGui$roomDropdown$offsetY, WIDGET_WIDTH, BUTTON_HEIGHT, Component.literal(DataHandler.getCurrentRoom()), DataHandler.getRoomOptions(), this.font, this::onRoomSelected, "room.room_region_select");
         mainGui$screenDropdown = new SearchableDropdown(leftMargin * 3, mainGui$screenDropdown$offsetY, WIDGET_WIDTH, BUTTON_HEIGHT, Component.literal(DataHandler.getCurrentScreen() != null ? DataHandler.getCurrentScreen() : ""), DataHandler.getScreenOptions(), this.font, this::onScreenSelected, "screen.room_region_select");
-        mainGui$toggleBiomeEditMode = Checkbox.builder(Component.translatable("gui.rainworld.edit_biome"), this.font).pos(leftMargin * 4, mainGui$toggleBiomeEditMode$offsetY).selected(false).tooltip(Tooltip.create(Component.translatable("gui.rainworld.edit_biome"))).build();
+
+        mainGui$toggleBiomeEditMode = Checkbox.builder(Component.translatable("gui.rainworld.edit_biome"), this.font).pos(leftMargin * 4, mainGui$toggleBiomeEditMode$offsetY - 12345).selected(false).tooltip(Tooltip.create(Component.translatable("gui.rainworld.edit_biome"))).build();
+
+        mainGui$paletteTitle = new StringWidget(leftMargin, mainGui$paletteTitle$offsetY, WIDGET_WIDTH + Component.translatable("gui.rainworld.palette_title").getString().length() * 6, BUTTON_HEIGHT, Component.translatable("gui.rainworld.palette_title"), this.font).alignLeft();
         mainGui$paletteBox = new ClearingTextBox(this.font, leftMargin, mainGui$paletteBox$offsetY, WIDGET_WIDTH - RESET_BUTTON_WIDTH, BUTTON_HEIGHT, Component.empty(), "palette");
         mainGui$paletteResetButton = IdButton.builder(Component.literal("↺"), button -> mainGui$paletteBox.setValue(DataHandler.paletteBoxContent), "palette").bounds(leftMargin + WIDGET_WIDTH - RESET_BUTTON_WIDTH, mainGui$paletteBox$offsetY, RESET_BUTTON_WIDTH, BUTTON_HEIGHT).tooltip(Tooltip.create(Component.translatable("gui.rainworld.reset_button"))).build();
-        mainGui$paletteCoverButton = IdButton.builder(Component.literal(""), button -> {}, "cover").bounds(leftMargin, mainGui$paletteBox$offsetY, WIDGET_WIDTH - RESET_BUTTON_WIDTH, BUTTON_HEIGHT).build();
+        mainGui$paletteCoverButton = IdButton.builder(Component.literal(""), button -> {}, "cover").bounds(leftMargin, mainGui$paletteBox$offsetY - 12345, WIDGET_WIDTH - RESET_BUTTON_WIDTH, BUTTON_HEIGHT).build();
+
+        mainGui$fadePaletteTitle = new StringWidget(leftMargin, mainGui$fadePaletteTitle$offsetY, WIDGET_WIDTH + Component.translatable("gui.rainworld.fade_palette_title").getString().length() * 6, BUTTON_HEIGHT, Component.translatable("gui.rainworld.fade_palette_title"), this.font).alignLeft();
         mainGui$fadePaletteBox = new ClearingTextBox(this.font, leftMargin, mainGui$fadePaletteBox$offsetY, WIDGET_WIDTH - RESET_BUTTON_WIDTH, BUTTON_HEIGHT, Component.empty(), "fade_palette");
         mainGui$fadePaletteResetButton = IdButton.builder(Component.literal("↺"), button -> mainGui$fadePaletteBox.setValue(DataHandler.fadePaletteBoxContent), "fade_palette").bounds(leftMargin + WIDGET_WIDTH - RESET_BUTTON_WIDTH, mainGui$fadePaletteBox$offsetY, RESET_BUTTON_WIDTH, BUTTON_HEIGHT).tooltip(Tooltip.create(Component.translatable("gui.rainworld.reset_button"))).build();
-        mainGui$fadePaletteCoverButton = IdButton.builder(Component.literal(""), button -> {}, "cover").bounds(leftMargin, mainGui$fadePaletteBox$offsetY, WIDGET_WIDTH - RESET_BUTTON_WIDTH, BUTTON_HEIGHT).build();
+        mainGui$fadePaletteCoverButton = IdButton.builder(Component.literal(""), button -> {}, "cover").bounds(leftMargin, mainGui$fadePaletteBox$offsetY - 12345, WIDGET_WIDTH - RESET_BUTTON_WIDTH, BUTTON_HEIGHT).build();
+
+        mainGui$fadeStrengthTitle = new StringWidget(leftMargin, mainGui$fadeStrengthTitle$offsetY, WIDGET_WIDTH + Component.translatable("gui.rainworld.fade_strength_title").getString().length() * 6, BUTTON_HEIGHT, Component.translatable("gui.rainworld.fade_strength_title"), this.font).alignLeft();
         mainGui$fadeStrengthBox = new ClearingTextBox(this.font, leftMargin, mainGui$fadeStrengthBox$offsetY, WIDGET_WIDTH - RESET_BUTTON_WIDTH, BUTTON_HEIGHT, Component.empty(), "fade_strength");
         mainGui$fadeStrengthResetButton = IdButton.builder(Component.literal("↺"), button -> mainGui$fadeStrengthBox.setValue(DataHandler.fadeStrengthBoxContent), "fade_strength").bounds(leftMargin + WIDGET_WIDTH - RESET_BUTTON_WIDTH, mainGui$fadeStrengthBox$offsetY, RESET_BUTTON_WIDTH, BUTTON_HEIGHT).tooltip(Tooltip.create(Component.translatable("gui.rainworld.reset_button"))).build();
-        mainGui$fadeStrengthCoverButton = IdButton.builder(Component.literal(""), button -> {}, "cover").bounds(leftMargin, mainGui$fadeStrengthBox$offsetY, WIDGET_WIDTH - RESET_BUTTON_WIDTH, BUTTON_HEIGHT).build();
+        mainGui$fadeStrengthCoverButton = IdButton.builder(Component.literal(""), button -> {}, "cover").bounds(leftMargin, mainGui$fadeStrengthBox$offsetY - 12345, WIDGET_WIDTH - RESET_BUTTON_WIDTH, BUTTON_HEIGHT).build();
+
+        mainGui$grimeTitle = new StringWidget(leftMargin, mainGui$grimeTitle$offsetY, WIDGET_WIDTH + Component.translatable("gui.rainworld.grime_title").getString().length() * 6, BUTTON_HEIGHT, Component.translatable("gui.rainworld.grime_title"), this.font).alignLeft();
         mainGui$grimeBox = new ClearingTextBox(this.font, leftMargin, mainGui$grimeBox$offsetY, WIDGET_WIDTH - RESET_BUTTON_WIDTH, BUTTON_HEIGHT, Component.empty(), "grime");
         mainGui$grimeResetButton = IdButton.builder(Component.literal("↺"), button -> mainGui$grimeBox.setValue(DataHandler.grimeBoxContent), "grime").bounds(leftMargin + WIDGET_WIDTH - RESET_BUTTON_WIDTH, mainGui$grimeBox$offsetY, RESET_BUTTON_WIDTH, BUTTON_HEIGHT).tooltip(Tooltip.create(Component.translatable("gui.rainworld.reset_button"))).build();
-        mainGui$grimeCoverButton = IdButton.builder(Component.literal(""), button -> {}, "cover").bounds(leftMargin, mainGui$grimeBox$offsetY, WIDGET_WIDTH - RESET_BUTTON_WIDTH, BUTTON_HEIGHT).build();
+        mainGui$grimeCoverButton = IdButton.builder(Component.literal(""), button -> {}, "cover").bounds(leftMargin, mainGui$grimeBox$offsetY - 12345, WIDGET_WIDTH - RESET_BUTTON_WIDTH, BUTTON_HEIGHT).build();
+
+        mainGui$effectColorATitle = new StringWidget(leftMargin, mainGui$effectColorATitle$offsetY, WIDGET_WIDTH + Component.translatable("gui.rainworld.effect_color_a_title").getString().length() * 6, BUTTON_HEIGHT, Component.translatable("gui.rainworld.effect_color_a_title"), this.font).alignLeft();
         mainGui$effectColorABox = new ClearingTextBox(this.font, leftMargin, mainGui$effectColorABox$offsetY, WIDGET_WIDTH - RESET_BUTTON_WIDTH, BUTTON_HEIGHT, Component.empty(), "effect_color_a");
         mainGui$effectColorAResetButton = IdButton.builder(Component.literal("↺"), button -> mainGui$effectColorABox.setValue(DataHandler.effectColorABoxContent), "effect_color_a").bounds(leftMargin + WIDGET_WIDTH - RESET_BUTTON_WIDTH, mainGui$effectColorABox$offsetY, RESET_BUTTON_WIDTH, BUTTON_HEIGHT).tooltip(Tooltip.create(Component.translatable("gui.rainworld.reset_button"))).build();
-        mainGui$effectColorACoverButton = IdButton.builder(Component.literal(""), button -> {}, "cover").bounds(leftMargin, mainGui$effectColorABox$offsetY, WIDGET_WIDTH - RESET_BUTTON_WIDTH, BUTTON_HEIGHT).build();
+        mainGui$effectColorACoverButton = IdButton.builder(Component.literal(""), button -> {}, "cover").bounds(leftMargin, mainGui$effectColorABox$offsetY - 12345, WIDGET_WIDTH - RESET_BUTTON_WIDTH, BUTTON_HEIGHT).build();
+
+        mainGui$effectColorBTitle = new StringWidget(leftMargin, mainGui$effectColorBTitle$offsetY, WIDGET_WIDTH + Component.translatable("gui.rainworld.effect_color_b_title").getString().length() * 6, BUTTON_HEIGHT, Component.translatable("gui.rainworld.effect_color_b_title"), this.font).alignLeft();
         mainGui$effectColorBBox = new ClearingTextBox(this.font, leftMargin, mainGui$effectColorBBox$offsetY, WIDGET_WIDTH - RESET_BUTTON_WIDTH, BUTTON_HEIGHT, Component.empty(), "effect_color_b");
         mainGui$effectColorBResetButton = IdButton.builder(Component.literal("↺"), button -> mainGui$effectColorBBox.setValue(DataHandler.effectColorBBoxContent), "effect_color_b").bounds(leftMargin + WIDGET_WIDTH - RESET_BUTTON_WIDTH, mainGui$effectColorBBox$offsetY, RESET_BUTTON_WIDTH, BUTTON_HEIGHT).tooltip(Tooltip.create(Component.translatable("gui.rainworld.reset_button"))).build();
-        mainGui$effectColorBCoverButton = IdButton.builder(Component.literal(""), button -> {}, "cover").bounds(leftMargin, mainGui$effectColorBBox$offsetY, WIDGET_WIDTH - RESET_BUTTON_WIDTH, BUTTON_HEIGHT).build();
-        mainGui$dangerTypeDropdown = new SearchableDropdown(leftMargin, mainGui$dangerTypeDropdown$offsetY, WIDGET_WIDTH, BUTTON_HEIGHT, Component.literal(DataHandler.getCurrentDangerType()), DataHandler.getDangerTypeOptions(), this.font, this::onDangerTypeSelect, "danger_type");
-        mainGui$dangerTypeResetButton = IdButton.builder(Component.literal("↺"), button -> mainGui$dangerTypeDropdown.setValue(dangerTypeContent), "danger_type").bounds(leftMargin + WIDGET_WIDTH - RESET_BUTTON_WIDTH, mainGui$dangerTypeDropdown$offsetY, RESET_BUTTON_WIDTH, BUTTON_HEIGHT).tooltip(Tooltip.create(Component.translatable("gui.rainworld.reset_button"))).build();
-        mainGui$dangerTypeCoverButton = IdButton.builder(Component.literal(""), button -> {}, "cover").bounds(leftMargin, mainGui$dangerTypeDropdown$offsetY, WIDGET_WIDTH - RESET_BUTTON_WIDTH, BUTTON_HEIGHT).build();
-        mainGui$placeButton = IdButton.builder(Component.translatable("gui.rainworld.place"), button -> onPlaceSelected(button.toString()), "place").bounds(leftMargin, mainGui$placeButton$offsetY, WIDGET_WIDTH + Component.translatable("gui.rainworld.place").getString().length() * 6, BUTTON_HEIGHT).tooltip(Tooltip.create(Component.translatable("gui.rainworld.place_tooltip"))).build();
-        mainGui$cancelButton = Button.builder(Component.translatable("gui.rainworld.cancel"), button -> onCancelSelected(button.toString())).bounds(leftMargin + WIDGET_WIDTH + Component.translatable("gui.rainworld.place").getString().length() * 6, mainGui$cancelButton$offsetY, WIDGET_WIDTH + Component.translatable("gui.rainworld.cancel").getString().length() * 6, BUTTON_HEIGHT).tooltip(Tooltip.create(Component.translatable("gui.rainworld.cancel_tooltip"))).build();
-        mainGui$nameBox = new EditBox(this.font, leftMargin + WIDGET_WIDTH + Component.translatable("gui.rainworld.save").getString().length() * 6, mainGui$nameBox$offsetY, WIDGET_WIDTH + Component.translatable("gui.rainworld.name").getString().length() * 6, BUTTON_HEIGHT, Component.translatable("gui.rainworld.name"));
-        mainGui$saveButton = IdButton.builder(Component.translatable("gui.rainworld.save"), button -> onSaveSelected(button.toString()), "save").bounds(leftMargin, mainGui$saveButton$offsetY, WIDGET_WIDTH + Component.translatable("gui.rainworld.save").getString().length() * 6, BUTTON_HEIGHT).tooltip(Tooltip.create(Component.translatable("gui.rainworld.save_tooltip"))).build();
+        mainGui$effectColorBCoverButton = IdButton.builder(Component.literal(""), button -> {}, "cover").bounds(leftMargin, mainGui$effectColorBBox$offsetY - 12345, WIDGET_WIDTH - RESET_BUTTON_WIDTH, BUTTON_HEIGHT).build();
 
+        mainGui$dangerTypeTitle = new StringWidget(leftMargin, mainGui$dangerTypeTitle$offsetY, WIDGET_WIDTH + Component.translatable("gui.rainworld.danger_type_title").getString().length() * 6, BUTTON_HEIGHT, Component.translatable("gui.rainworld.danger_type_title"), this.font).alignLeft();
+        mainGui$dangerTypeDropdown = new ClearingTextBox(this.font, leftMargin, mainGui$dangerTypeDropdown$offsetY, "Flood and Rain".length() * 6, BUTTON_HEIGHT, Component.empty(), "danger_type");
+        //SearchableDropdown(leftMargin, mainGui$dangerTypeDropdown$offsetY, WIDGET_WIDTH, BUTTON_HEIGHT, Component.literal(DataHandler.getCurrentDangerType()), DataHandler.getDangerTypeOptions(), this.font, this::onDangerTypeSelect, "danger_type");
+        mainGui$dangerTypeResetButton = IdButton.builder(Component.literal("↺"), button -> mainGui$dangerTypeDropdown.setValue(dangerTypeContent), "danger_type").bounds(leftMargin + WIDGET_WIDTH - RESET_BUTTON_WIDTH + "Flood and Rain".length() * 6, mainGui$dangerTypeDropdown$offsetY, RESET_BUTTON_WIDTH, BUTTON_HEIGHT).tooltip(Tooltip.create(Component.translatable("gui.rainworld.reset_button"))).build();
+        mainGui$dangerTypeCoverButton = IdButton.builder(Component.literal(""), button -> {}, "cover").bounds(leftMargin, mainGui$dangerTypeDropdown$offsetY - 12345, "Flood and Rain".length() * 6, BUTTON_HEIGHT).build();
+
+        mainGui$placeButton = IdButton.builder(Component.translatable("gui.rainworld.place"), button -> onPlaceSelected(button.toString()), "place").bounds(leftMargin, mainGui$placeButton$offsetY, WIDGET_WIDTH + Component.translatable("gui.rainworld.place").getString().length() * 6, BUTTON_HEIGHT).tooltip(Tooltip.create(Component.translatable("gui.rainworld.place_tooltip"))).build();
+        mainGui$cancelButton = IdButton.builder(Component.translatable("gui.rainworld.cancel"), button -> onCancelSelected(button.toString()), "cancel").bounds(leftMargin + WIDGET_WIDTH + Component.translatable("gui.rainworld.place").getString().length() * 6, mainGui$cancelButton$offsetY, WIDGET_WIDTH + Component.translatable("gui.rainworld.cancel").getString().length() * 6, BUTTON_HEIGHT).tooltip(Tooltip.create(Component.translatable("gui.rainworld.cancel_tooltip"))).build();
+        mainGui$nameBox = new EditBox(this.font, leftMargin + WIDGET_WIDTH + Component.translatable("gui.rainworld.save").getString().length() * 6, mainGui$nameBox$offsetY - 12345, WIDGET_WIDTH + Component.translatable("gui.rainworld.name").getString().length() * 6, BUTTON_HEIGHT, Component.translatable("gui.rainworld.name"));
+        mainGui$saveButton = IdButton.builder(Component.translatable("gui.rainworld.save"), button -> onSaveSelected(button.toString()), "save").bounds(leftMargin, mainGui$saveButton$offsetY - 12345, WIDGET_WIDTH + Component.translatable("gui.rainworld.save").getString().length() * 6, BUTTON_HEIGHT).tooltip(Tooltip.create(Component.translatable("gui.rainworld.save_tooltip"))).build();
+
+
+        mainGui$dangerTypeResetButton.setY(-12345);
 
 
         blockView = new BlockViewWidget(
@@ -1236,7 +1493,7 @@ public class MainGui extends Screen {
                 {0, 1, 2, 3, 3, 4, 4, 5}
         };
 
-        Random random = new Random();
+        //Random random = new Random();
         String[] topTextures = {
                 "textures/block/rainstone_worn_1.png",
                 "textures/block/rainstone_worn_2.png",
@@ -1363,6 +1620,11 @@ public class MainGui extends Screen {
         mainGui$effectColorBBox.setMaxLength(3);
         mainGui$effectColorBBox.setValue(DataHandler.effectColorBBoxContent);
         mainGui$effectColorBBox.setTooltip(Tooltip.create(Component.translatable("gui.rainworld.effect_color_b")));
+        mainGui$dangerTypeDropdown.setTooltip(Tooltip.create(Component.translatable("gui.rainworld.dangerType_tooltip")));
+
+        mainGui$regionDropdown.setTooltip(Tooltip.create(Component.translatable("gui.rainworld.select_a_region")));
+        mainGui$roomDropdown.setTooltip(Tooltip.create(Component.translatable("gui.rainworld.select_a_room")));
+        mainGui$screenDropdown.setTooltip(Tooltip.create(Component.translatable("gui.rainworld.select_a_screen")));
 
     }
 }

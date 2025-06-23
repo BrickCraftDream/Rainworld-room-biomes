@@ -13,7 +13,10 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin(BiomeManager.class)
+@Mixin(
+        value = {BiomeManager.class},
+        priority = 900
+)
 public class BiomeManagerMixin {
 
     @Shadow @Final private BiomeManager.NoiseBiomeSource noiseBiomeSource;
@@ -92,22 +95,29 @@ public class BiomeManagerMixin {
     }
      */
 
-    //@Inject(method = "getFiddledDistance(JIIIDDD)D", at = @At("HEAD"), cancellable = true)
-    //private static void getFiddledDistance(long seed, int x, int y, int z, double xOffset, double yOffset, double zOffset, CallbackInfoReturnable<Double> cir) {
-    //    cir.setReturnValue(zOffset + yOffset + zOffset);
-    //}
-
-    //@Inject(method = "getFiddle(J)D", at = @At("HEAD"), cancellable = true)
-    //private static void getFiddle(long l, CallbackInfoReturnable<Double> cir) {
-    //    cir.setReturnValue(0.25D);
-    //}
-
-    @Inject(method = "getBiome(Lnet/minecraft/core/BlockPos;)Lnet/minecraft/core/Holder;", at = @At("RETURN"), cancellable = true)
-    private void getBiome(BlockPos blockPos, CallbackInfoReturnable<Holder<Biome>> cir) {
-        int x = QuartPos.fromBlock(blockPos.getX());
-        int y = QuartPos.fromBlock(blockPos.getY());
-        int z = QuartPos.fromBlock(blockPos.getZ());
-
-        cir.setReturnValue(this.noiseBiomeSource.getNoiseBiome(x, y, z));
+    @Inject(method = "getFiddledDistance(JIIIDDD)D", at = @At("HEAD"), cancellable = true)
+    private static void getFiddledDistance(long seed, int x, int y, int z, double xOffset, double yOffset, double zOffset, CallbackInfoReturnable<Double> cir) {
+        cir.setReturnValue(zOffset + yOffset + zOffset);
     }
+
+    @Inject(method = "getFiddle(J)D", at = @At("HEAD"), cancellable = true)
+    private static void getFiddle(long l, CallbackInfoReturnable<Double> cir) {
+        cir.setReturnValue(0.25D);
+    }
+
+    //@Inject(method = "getBiome(Lnet/minecraft/core/BlockPos;)Lnet/minecraft/core/Holder;", at = @At("RETURN"), cancellable = true)
+    //private void getBiome(BlockPos blockPos, CallbackInfoReturnable<Holder<Biome>> cir) {
+    //    int x = QuartPos.fromBlock(blockPos.getX());
+    //    int y = QuartPos.fromBlock(blockPos.getY());
+    //    int z = QuartPos.fromBlock(blockPos.getZ());
+//
+    //    cir.setReturnValue(this.noiseBiomeSource.getNoiseBiome(x, y, z));
+    //}
+
+    //private void getBiome(BlockPos blockPos, CallbackInfoReturnable<Holder<Biome>> cir) {
+    //    int x = QuartPos.fromBlock(blockPos.getX());
+    //    int y = QuartPos.fromBlock(blockPos.getY());
+    //    int z = QuartPos.fromBlock(blockPos.getZ());
+    //    cir.setReturnValue(this.noiseBiomeSource.getNoiseBiome(x, y, z));
+    //}
 }

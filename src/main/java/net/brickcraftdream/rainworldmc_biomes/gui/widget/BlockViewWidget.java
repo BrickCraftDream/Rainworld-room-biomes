@@ -1,20 +1,25 @@
 package net.brickcraftdream.rainworldmc_biomes.gui.widget;
 
+import com.google.gson.JsonSyntaxException;
 import com.mojang.blaze3d.pipeline.RenderTarget;
+import com.mojang.blaze3d.shaders.Uniform;
 import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.blaze3d.vertex.VertexSorting;
+import com.mojang.logging.LogUtils;
 import com.mojang.math.Axis;
+import net.brickcraftdream.rainworldmc_biomes.ColorPicker;
 import net.brickcraftdream.rainworldmc_biomes.client.BoxRenderer;
+import net.brickcraftdream.rainworldmc_biomes.gui.DataHandler;
+import net.brickcraftdream.rainworldmc_biomes.networking.BiomeImageProcessorClient;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.color.block.BlockColors;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
-import net.minecraft.client.renderer.LightTexture;
-import net.minecraft.client.renderer.MultiBufferSource;
-import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.block.BlockRenderDispatcher;
 import net.minecraft.client.renderer.block.ModelBlockRenderer;
 import net.minecraft.client.renderer.block.model.BakedQuad;
@@ -23,6 +28,7 @@ import net.minecraft.client.resources.model.AtlasSet;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.particles.ColorParticleOption;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
@@ -45,15 +51,17 @@ import org.joml.Matrix3f;
 import org.joml.Matrix4f;
 import org.joml.Quaternionf;
 import org.joml.Vector3f;
+import org.slf4j.Logger;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.util.*;
 
 import static net.brickcraftdream.rainworldmc_biomes.Rainworld_MC_Biomes.MOD_ID;
+import static net.brickcraftdream.rainworldmc_biomes.gui.DataHandler.*;
 
 public class BlockViewWidget extends AbstractWidget {
+    static final Logger LOGGER = LogUtils.getLogger();
     public static int viewSize = 0; // Size of the view in blocks (square)
     public static final Map<BlockPos, BlockState> blocks = new HashMap<>();
     public static final Map<BlockPos, ResourceLocation> customTextures = new HashMap<>();
@@ -71,6 +79,58 @@ public class BlockViewWidget extends AbstractWidget {
 
     // For biome tinting
     public static @Nullable Biome biome;
+
+    private static ShaderInstance customShader;
+    private static Uniform targetColorUniform;
+    private static Uniform replacementColorUniform;
+
+    public static PostChain renderEffectChain;
+    public static boolean shouldHaveActiveEffectChain = false;
+
+    public static void loadChain() {
+        if(shouldHaveActiveEffectChain) {
+            Minecraft.getInstance().gameRenderer.loadEffect(ResourceLocation.withDefaultNamespace("shaders/post/creeper.json"));
+            renderEffectChain = Minecraft.getInstance().gameRenderer.postEffect;
+        }
+    }
+
+    public static void loadShader() {
+        try {
+            // Load the shader from the assets directory
+            customShader = new ShaderInstance(
+                    Minecraft.getInstance().getResourceManager(),
+                    "color_replace",
+                    DefaultVertexFormat.BLOCK
+            );
+            customShader.apply();
+            customShader.attachToProgram();
+            targetColorUniform = customShader.getUniform("FogColor");
+            replacementColorUniform = customShader.getUniform("ColorModulator");
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to load custom shader", e);
+        }
+    }
+
+    public static void updateShaderUniforms(Vec3 targetColor, Vec3 replacementColor, float tolerance) {
+        //RenderSystem.setShader(() -> customShader);
+        //System.out.println(customShader.uniformMap.keySet());
+        //System.out.println(customShader.uniformMap.size());
+        //if(customShader.uniformMap.size() < 3) {
+        //    customShader.close();
+        //    loadShader();
+        //}
+        ////customShader.getUniform("tolerance").set(tolerance);
+        //targetColorUniform.set((float) targetColor.x, (float) targetColor.y, (float) targetColor.z);
+        //replacementColorUniform.set((float) replacementColor.x, (float) replacementColor.y, (float) replacementColor.z);
+        //customShader.apply();
+        if(renderEffectChain == null) {
+            loadChain();
+        }
+        for (PostPass postPass : renderEffectChain.passes) {
+            postPass.getEffect().safeGetUniform("RedMatrix").set((float) targetColor.x, (float) targetColor.y, (float) targetColor.z);
+            postPass.getEffect().safeGetUniform("GreenMatrix").set((float) replacementColor.x, (float) replacementColor.y, (float) replacementColor.z);
+        }
+    }
 
     /**
      * Creates a new block view widget
@@ -156,13 +216,22 @@ public class BlockViewWidget extends AbstractWidget {
     public void renderWidget(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
         if (blocks.isEmpty()) return;
         shouldRender = true;
+        shouldHaveActiveEffectChain = true;
     }
 
     public static void render(PoseStack poseStack, Vec3 camerapos, Vector3f lookVector) {
-        //PoseStack poseStack = guiGraphics.pose();
-
         // Save original pose state
         poseStack.pushPose();
+
+
+        //if (customShader == null || customShader.uniformMap.size() < 3) {
+        //    loadShader();
+        //}
+        float[] color = BoxRenderer.getColor(0, 0.25f);
+        updateShaderUniforms(new Vec3(0.357, 0, 0), new Vec3(color[0], color[1], color[2]), 1f);
+        //ShaderInstance previousShader = RenderSystem.getShader();
+        //RenderSystem.setShader(() -> customShader);
+        //PoseStack poseStack = guiGraphics.pose();
 
         Minecraft minecraft = Minecraft.getInstance();
         RenderTarget renderTarget = minecraft.getMainRenderTarget();
@@ -316,6 +385,11 @@ public class BlockViewWidget extends AbstractWidget {
         // Finish rendering
         bufferSource.endBatch();
         RenderSystem.disableDepthTest();
+        //RenderSystem.setShader(() -> previousShader);
+        //if(renderEffectChain != null) {
+        //    renderEffectChain.close();
+        //    renderEffectChain = null;
+        //}
 
         poseStack.popPose();
         shouldRender = false;
@@ -341,9 +415,9 @@ public class BlockViewWidget extends AbstractWidget {
         int blockColor = blockColors.getColor(state, level, pos, 0);
 
         // Extract RGB components (1.0 = 255, 0.0 = 0)
-        float r = ((blockColor >> 16) & 0xFF) / 255.0F;
-        float g = ((blockColor >> 8) & 0xFF) / 255.0F;
-        float b = (blockColor & 0xFF) / 255.0F;
+        float r = 1.0f;//((blockColor >> 16) & 0xFF) / 255.0F;
+        float g = 1.0f;//((blockColor >> 8) & 0xFF) / 255.0F;
+        float b = 1.0f;//(blockColor & 0xFF) / 255.0F;
 
         // Get the texture atlas for blocks
         TextureAtlas atlas = minecraft.getModelManager().getAtlas(TextureAtlas.LOCATION_BLOCKS);
@@ -449,30 +523,39 @@ public class BlockViewWidget extends AbstractWidget {
                                    float r, float g, float b, float a,
                                    int light, int overlay,
                                    float normalX, float normalY, float normalZ) {
+        normalX = 0 + normalX / 100f;
+        normalY = 0.99f + normalY / 100f;
+        normalZ = 0 + normalZ / 100f;
 
-        // Calculate shading based on face normal relative to light direction
-        // Using a light direction of (0.2, 1.0, -0.7) normalized
-        float lightDirX = 0.2f;
-        float lightDirY = 1.0f;
-        float lightDirZ = -0.7f;
+        //// Calculate shading based on face normal relative to light direction
+        //// Using a light direction of (0.2, 1.0, -0.7) normalized
+        //float lightDirX = 0.2f;
+        //float lightDirY = 1.0f;
+        //float lightDirZ = -0.7f;
+//
+        //// Normalize light direction
+        //float lightLength = (float) Math.sqrt(lightDirX * lightDirX + lightDirY * lightDirY + lightDirZ * lightDirZ);
+        //lightDirX /= lightLength;
+        //lightDirY /= lightLength;
+        //lightDirZ /= lightLength;
+//
+        //// Calculate dot product between face normal and light direction (ranges from -1 to 1)
+        //float dotProduct = normalX * lightDirX + normalY * lightDirY + normalZ * lightDirZ;
+//
+        //// Calculate shading factor (ranges from 0.7 to 1.0 for subtle shading)
+        //float shadingFactor = 0.7f + 0.3f * Math.max(0, dotProduct);
+//
+        //// Apply shading using HSV transformation to preserve color hue and saturation
+        //float[] shadedRgb = shadeColorHsv(r, g, b, shadingFactor);
+        //float shadedR = shadedRgb[0];
+        //float shadedG = shadedRgb[1];
+        //float shadedB = shadedRgb[2];
 
-        // Normalize light direction
-        float lightLength = (float) Math.sqrt(lightDirX * lightDirX + lightDirY * lightDirY + lightDirZ * lightDirZ);
-        lightDirX /= lightLength;
-        lightDirY /= lightLength;
-        lightDirZ /= lightLength;
 
-        // Calculate dot product between face normal and light direction (ranges from -1 to 1)
-        float dotProduct = normalX * lightDirX + normalY * lightDirY + normalZ * lightDirZ;
-
-        // Calculate shading factor (ranges from 0.7 to 1.0 for subtle shading)
-        float shadingFactor = 0.7f + 0.3f * Math.max(0, dotProduct);
-
-        // Apply shading using HSV transformation to preserve color hue and saturation
-        float[] shadedRgb = shadeColorHsv(r, g, b, shadingFactor);
-        float shadedR = shadedRgb[0];
-        float shadedG = shadedRgb[1];
-        float shadedB = shadedRgb[2];
+        // Directly use the original RGB values without applying shading
+        float shadedR = r;
+        float shadedG = g;
+        float shadedB = b;
 
         // Add each vertex with all its attributes
         vertexConsumer.addVertex(pose, x1, y1, z1)
@@ -617,23 +700,6 @@ public class BlockViewWidget extends AbstractWidget {
 
         // Get the custom texture sprite
         Minecraft minecraft = Minecraft.getInstance();
-        //TextureAtlasSprite customSprite = minecraft.getTextureAtlas(TextureAtlas.LOCATION_BLOCKS)
-        //        .apply(textureLocation);
-
-        //TextureAtlasSprite sprite1 = minecraft.getGuiSprites().getSprite(textureLocation);
-
-        // If custom sprite couldn't be loaded, fall back to default rendering
-        //System.out.println("Custom sprite: " + sprite1);
-        //if (customSprite == null) {
-        //    renderCubeManually(poseStack, bufferSource, state, pos, level, light, overlay, renderType);
-        //    return;
-        //}
-
-        // Set up our level with the custom sprite info
-        //TextureAtlas atlas = minecraft.getModelManager().getAtlas(TextureAtlas.LOCATION_BLOCKS);
-        //TextureAtlasSprite missingSprite = atlas.getSprite(ResourceLocation.fromNamespaceAndPath("rainworld", "textures/dynamic/shader_data.png"));
-        //level.setCurrentPos(pos);
-        //level.setCurrentSprite(missingSprite);
 
         // Get appropriate buffer for this render type
         bufferSource = Minecraft.getInstance().renderBuffers().bufferSource();
@@ -648,10 +714,13 @@ public class BlockViewWidget extends AbstractWidget {
         BlockColors blockColors = minecraft.getBlockColors();
         int blockColor = blockColors.getColor(state, level, pos, 0);
 
+        //int blockColor = ColorPicker.combineColorsBufferedImage(palette1, "28", "5", palette2, "28", "5", opacity);
+
         // Extract RGB components (1.0 = 255, 0.0 = 0)
-        float r = ((blockColor >> 16) & 0xFF) / 255.0F;
-        float g = ((blockColor >> 8) & 0xFF) / 255.0F;
-        float b = (blockColor & 0xFF) / 255.0F;
+        float r = 1.0f;//((blockColor >> 16) & 0xFF) / 255.0F;
+        float g = 1.0f;//((blockColor >> 8) & 0xFF) / 255.0F;
+        float b = 1.0f;//(blockColor & 0xFF) / 255.0F;
+        float a = 0.9f;
 
         // Use the custom sprite
 
@@ -667,7 +736,7 @@ public class BlockViewWidget extends AbstractWidget {
                 1, 1,//missingSprite.getU1(), missingSprite.getV1(),
                 1, 0,//missingSprite.getU1(), missingSprite.getV0(),
                 0, 0,//missingSprite.getU0(), missingSprite.getV0(),
-                r, g, b, 1.0F, light, overlay, 0, 0, -1); // Normal facing negative Z
+                r, g, b, a, light, overlay, 0, 0, -1); // Normal facing negative Z
 
         // The remaining 5 faces follow the same pattern as in renderCubeManually
         // Back face (facing towards positive Z)
@@ -681,7 +750,7 @@ public class BlockViewWidget extends AbstractWidget {
                 1, 1,//missingSprite.getU1(), missingSprite.getV1(),
                 1, 0,//missingSprite.getU1(), missingSprite.getV0(),
                 0, 0,//missingSprite.getU0(), missingSprite.getV0(),
-                r, g, b, 1.0F, light, overlay, 0, 0, 1); // Normal facing positive Z
+                r, g, b, a, light, overlay, 0, 0, 1); // Normal facing positive Z
 
         // Top face (facing towards positive Y)
         renderFace(vertexConsumer, pose, normalMatrix,
@@ -694,7 +763,7 @@ public class BlockViewWidget extends AbstractWidget {
                 1, 1,//missingSprite.getU1(), missingSprite.getV1(),
                 1, 0,//missingSprite.getU1(), missingSprite.getV0(),
                 0, 0,//missingSprite.getU0(), missingSprite.getV0(),
-                r, g, b, 1.0F, light, overlay, 0, 1, 0); // Normal facing positive Y
+                r, g, b, a, light, overlay, 0, 1, 0); // Normal facing positive Y
 
         // Bottom face (facing towards negative Y)
         renderFace(vertexConsumer, pose, normalMatrix,
@@ -707,7 +776,7 @@ public class BlockViewWidget extends AbstractWidget {
                 1, 1,//missingSprite.getU1(), missingSprite.getV1(),
                 1, 0,//missingSprite.getU1(), missingSprite.getV0(),
                 0, 0,//missingSprite.getU0(), missingSprite.getV0(),
-                r, g, b, 1.0F, light, overlay, 0, -1, 0); // Normal facing negative Y
+                r, g, b, a, light, overlay, 0, -1, 0); // Normal facing negative Y
 
         // Left face (facing towards negative X)
         renderFace(vertexConsumer, pose, normalMatrix,
@@ -720,7 +789,7 @@ public class BlockViewWidget extends AbstractWidget {
                 1, 1,//missingSprite.getU1(), missingSprite.getV1(),
                 1, 0,//missingSprite.getU1(), missingSprite.getV0(),
                 0, 0,//missingSprite.getU0(), missingSprite.getV0(),
-                r, g, b, 1.0F, light, overlay, -1, 0, 0); // Normal facing negative X
+                r, g, b, a, light, overlay, -1, 0, 0); // Normal facing negative X
 
         // Right face (facing towards positive X)
         renderFace(vertexConsumer, pose, normalMatrix,
@@ -733,7 +802,7 @@ public class BlockViewWidget extends AbstractWidget {
                 1, 1,//missingSprite.getU1(), missingSprite.getV1(),
                 1, 0,//missingSprite.getU1(), missingSprite.getV0(),
                 0, 0,//missingSprite.getU0(), missingSprite.getV0(),
-                r, g, b, 1.0F, light, overlay, 1, 0, 0); // Normal facing positive X
+                r, g, b, a, light, overlay, 1, 0, 0); // Normal facing positive X
     }
 
 

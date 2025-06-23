@@ -1,0 +1,787 @@
+﻿Guide to vanilla shaders
+Last updated 2021-03-10 for Minecraft 21w10a (WIP)
+Intro
+Vanilla Minecraft has a number of GLSL shaders that can be modified using a resource pack, allowing them to be included in a world or automatically applied when you join a server.
+
+
+Shaders are written in OpenGL Shading Language (GLSL), a C-like language with support for floats, vectors, matrices, along with functions, conditions, loops, and many other features you would expect from a programming language.
+
+
+"Post-processing" shaders were first introduced in 1.7 and are applied after the game has been rendered. They take as input a full screen of pixels, and produce their output pixel-by-pixel. With some exceptions, the only data from the game that the shader has access to is what's shown on the screen. Examples of post-processing shaders included in the vanilla jar:
+  
+
+	  
+
+	  
+
+	Post-processing shaders are used:
+* When spectating certain entities (creeper, spider, enderman)
+* When a glowing entity is on-screen
+* When in "fabulous" graphics mode
+
+
+"Core" shaders were introduced in 1.17 - anything you can see on screen was rendered by one of the core shaders. Examples of what can be achieved by modifying core shaders:
+  
+
+(Onnowhere)
+	  
+
+(Aeldrion)
+	  
+
+(Onnowhere)
+	A list of what each core shader is responsible for can be found here.
+
+
+Overview: what makes up a shader
+Post-processing shaders use "post" files in assets/minecraft/shaders/post to define a pipeline made up of applying a sequence of "programs". The diagram below shows the pipeline defined by creeper.json
+Each program (e.g: color_convolve) is then defined by another JSON file, this time in shaders/program. This file most importantly includes:  
+* The path of a "vertex shader" to use (a .vsh file written in GLSL)
+* The path of a "fragment shader" to use (a .fsh file written in GLSL)
+shaders/core contains programs directly used by the game, rather than by any post-processing pipeline.
+
+
+The vertex shader is applied to each vertex, taking its position as input and producing a new transformed position as output. An example vertex shader that skews the screen is shown below:
+  
+
+
+
+The fragment shader is applied to produce each pixel of the output buffer. A fragment shader that does nothing could just grab the corresponding pixel in the input buffer. An example fragment shader which swaps the red and blue channels is shown below:
+  
+
+Getting started
+1. Set up a resource-pack
+2. Create inside it the following folders: 
+* assets/minecraft/shaders/post
+* assets/minecraft/shaders/program
+
+
+If at any time you want to reference the vanilla shaders, you can extract them from the game jar:
+%appdata%/.minecraft/versions/1.16.5/1.16.5.jar/assets/minecraft/shaders/
+
+
+You may also wish to download a GLSL highlighter/linter for your editor of choice.
+
+
+Open up the game log - any errors for shader files will show up in here.
+    
+
+
+
+
+
+(recommended to turn off print layout, since I stopped bothering fitting stuff around page breaks)
+  
+
+
+
+
+
+
+
+
+
+Creating a "post" JSON
+Post JSON files should be created in assets/minecraft/shaders/post and named:
+* creeper.json to be applied when spectating a creeper
+* invert.json to be applied when spectating an enderman
+* spider.json to be applied when spectating a spider
+* entity_outline.json to be applied when a glowing entity is on screen
+* transparency.json to be applied when using fabulous graphics mode
+We can only use post-processing shaders by replacing one of the four above existing post-processing shaders.
+
+
+The structure of this file is made up of two lists:
+{
+   "targets": [ … ],
+   "passes": [ … ]
+}
+	
+Targets
+The "targets" list declares frame buffers - think of these as canvases we can read/write pixels onto. Each entry in the list can be either:
+* An object with "name" (string), "width" (integer) and "height" (integer) of the buffer
+* A string name, for which width/height will default to game window's width/height
+You are free to mix both ways of declaring buffers, like so:
+"targets": [
+   "foo",
+   "bar",
+   {"name":"baz", "width":73, "height":10},
+   "qux"
+]
+	
+
+Along with these declared buffers, some special pre-defined buffers are accessible without being declared, with contents already in them. These are:
+
+
+* Special pre-filled buffers available to glowing shader:
+	  
+
+minecraft:main
+Missing water, tile-entities, some other stuff
+	  
+
+final
+Solid block-colour entities in their team colour
+	* Special pre-filled buffer available to entity-spectate shaders:
+	  
+
+minecraft:main
+Everything already rendered
+	
+
+	
+Passes
+Name
+Intarget
+Outtarget
+The "passes" list defines a sequence of steps, performed in order, each of which accepts an
+input buffer ("in_target") and runs a program ("name") to write to an output buffer ("out_target"). A program cannot output to the same buffer that it is reading.
+"passes": [
+   {
+       "name": "prog1",
+       "intarget": "minecraft:main",
+       "outtarget": "foo"
+   },
+   {
+       "name": "prog2",
+       "intarget": "foo",
+       "auxtargets": [ … ],
+       "outtarget": "bar"
+   },
+   {
+       "name": "blit",
+       "uniforms": { … },
+       "intarget": "bar",
+       "outtarget": "minecraft:main"
+   }
+]
+	
+
+"blit" is a program that does nothing, simply copying from one buffer to another (note that it has some issues copying between buffers of different sizes).
+
+
+The contents you want to display should end up in minecraft:main (glowing shader can additionally modify final which is later overlayed on top of everything).
+Passes.Auxtargets
+Optional "auxtargets" provides a list of additional buffers or images that the program can read from. Objects in the auxtargets list contain:
+* "id" - specifies the name of an existing buffer (as specified in "targets") or the filename of an image within resource-pack minecraft/textures/effect folder
+* "name" - lets you assign an arbitrary name to access this buffer/image by in the program's GLSL code
+* If accessing an image, the following must also be specified:
+   * "width" of image in pixels (appears to have no actual effect?)
+   * "height" of image in pixels (appears to have no actual effect?)
+   * "bilinear" determines scaling algorithm used when the image is sampled
+An example auxtargets list allowing the program to access the qux buffer and an image called abc.png is shown below:
+"auxtargets": [
+   {"id":"qux", "name":"QuxSampler"},
+   {"id":"abc", "name":"ImageSampler", "width":64, "height":64, "bilinear":false}
+]
+	
+
+Passes.Uniforms
+Optional "uniforms" provides values to pass into the program as a list of floats. The example below uses uniforms to specify a radius and direction for the blur program.
+{
+   "name": "blur",
+   "intarget": "swap",
+   "outtarget": "minecraft:main",
+   "uniforms": [
+       {
+           "name": "BlurDir",
+           "values": [ 0.0, 1.0 ]
+       },
+       {
+           "name": "Radius",
+           "values": [ 10.0 ]
+       }
+   ]
+},
+	
+
+Uniforms and their default values are declared in a program JSON file. The name of the uniforms and number of floats passed in should match how they are defined in the program JSON.
+Working example
+A full working post JSON file is shown below. This adds a "notch" dithering effect then decreases colour saturation.
+assets/minecraft/shaders/post/spider.json
+{
+   "targets": [
+       "swap"
+   ],
+   "passes": [
+       {
+           "name": "notch",
+           "intarget": "minecraft:main",
+           "outtarget": "swap",
+           "auxtargets": [
+               {
+                   "name": "DitherSampler",
+                   "id": "dither",
+                   "width": 4,
+                   "height": 4,
+                   "bilinear": false
+               }
+           ]
+       },
+       {
+           "name": "color_convolve",
+           "intarget": "swap",
+           "outtarget": "minecraft:main",
+           "uniforms": [
+               { "name": "Saturation", "values": [ 0.3 ] }
+           ]
+       }
+   ]
+}
+	
+
+Creating a "program" JSON
+Program JSON files should be created in assets/minecraft/shaders/program
+Any name (subject to normal resource-pack restrictions like no capitals) can be used.
+
+
+{
+   "blend": { … },
+   "vertex": "foo",
+   "fragment": "foo",
+   "attributes": [ … ],
+   "samplers": [ … ],
+   "uniforms": [ … ]
+}
+	Vertex
+Fragment
+"vertex" specifies the name of a vertex shader .vsh file to use.
+
+
+"fragment" specifies the name of a fragment shader .fsh file to use.
+
+
+Attributes
+"attributes" is a list of strings, corresponding to attributes of a vertex that the vertex shader will be able to access. Only "Position" is currently available.
+"attributes": [ "Position" ],
+	
+
+Samplers
+"samplers" are variables through which the fragment shader can access buffers. "DiffuseSampler" is the name automatically given to the "intarget" buffer. Any others should match up with the "name"s you give in  "auxtargets" of the post file.
+"samplers": [
+   { "name": "DiffuseSampler" },
+   { "name": "DitherSampler" }
+]
+	
+
+Uniforms
+"uniforms" provides the name, type and default values of uniforms (values that remain the same for each vertex/pixel).
+"uniforms": [
+   { "name": "ProjMat", "type": "matrix4x4", "count": 16, "values": [ 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0 ] },
+   { "name": "InSize",  "type": "float", "count": 2,  "values": [ 1.0, 1.0 ] },
+   { "name": "OutSize", "type": "float", "count": 2,  "values": [ 1.0, 1.0 ] },
+   { "name": "BlurDir", "type": "float", "count": 2,  "values": [ 1.0, 1.0 ] },
+   { "name": "Radius",  "type": "float", "count": 1,  "values": [ 5.0 ] }
+]
+	"name" string determines the name given to this uniform in GLSL code or when passing in values to the program for this uniform. Some special uniform names are automatically given values by the game:
+* "Time"        - A value from 0 to 1, representing time in seconds, resetting every second
+* "InSize"    - Width and height of input buffer in pixels
+* "OutSize" - Width and height of output buffer in pixels
+* "ProjMat" - Projection matrix used by vertex shaders
+* Many more for core shaders - check the vanilla jar for examples
+"values" should always be a list of floats, but "type" determines the datatype that they will be interpreted as in GLSL code:
+* "float"          - A float or vec2/vec3/vec4 depending on number of values given
+* "matrix4x4" - A mat4 from 16 given values
+"matrix2x2" and "matrix3x3" appear to be valid types, but still expect 16 values
+
+
+Blend
+"blend" theoretically determines how a program's result is combined with what's already in the destination buffer, but currently appears to have no effect.
+"blend": {
+   "func": "add",
+   "srcrgb": "one",
+   "dstrgb": "zero"
+}
+	More information about how the modes are supposed to work: khronos.org/opengl/wiki/Blending
+Working example
+A full working program JSON file is shown below. This is vanilla's "wobble" shader, unedited.
+assets/minecraft/shaders/program/wobble.json
+{
+    "blend": {
+        "func": "add",
+        "srcrgb": "one",
+        "dstrgb": "zero"
+    },
+    "vertex": "sobel",
+    "fragment": "wobble",
+    "attributes": [ "Position" ],
+    "samplers": [
+        { "name": "DiffuseSampler" }
+    ],
+    "uniforms": [
+        { "name": "ProjMat", "type": "matrix4x4", "count": 16, 
+          "values": [ 1.0, 0.0, 0.0, 0.0, 
+                      0.0, 1.0, 0.0, 0.0, 
+                      0.0, 0.0, 1.0, 0.0, 
+                      0.0, 0.0, 0.0, 1.0 ] },
+        { "name": "InSize", "type": "float", "count": 2, 
+          "values": [ 1.0, 1.0 ] },
+        { "name": "OutSize", "type": "float", "count": 2, 
+          "values": [ 1.0, 1.0 ] },
+        { "name": "Time", "type": "float", "count": 1, 
+          "values": [ 0.0 ] },
+        { "name": "Frequency", "type": "float", "count": 2, 
+          "values": [ 512.0, 288.0 ] },
+        { "name": "WobbleAmount", "type": "float", "count": 2, 
+          "values": [ 0.002, 0.002 ] }
+    ]
+}
+	
+
+
+
+
+
+
+
+
+
+GLSL basics
+This section assumes familiarity with basic programming concepts (variables, functions, loops, etc.) and mostly focuses on GLSL-specific features. If you have never programmed before, I would not recommend this as a starting point.
+
+
+For more information on the core language: khronos.org/opengl/wiki/Core_Language_(GLSL)
+For in-depth documentation of all the available functions, see: docs.gl/sl4/all
+
+
+Note: Shaders included in the vanilla jar use GLSL version 110, so this guide will too for consistency. However, as Minecraft requires OpenGL 4.4, you can safely use up to GLSL version 440. The version is declared at the top of the GLSL code (see examples)
+	Data types
+Scalars
+bool
+Boolean true/false
+
+
+int
+uint
+Signed and unsigned 32-bit integers
+
+
+float
+double
+Single and double-precision floating point numbers
+	Vectors
+bvecn, ivecn, uvecn, vecn, dvecn
+Vectors of n bools, ints, uints, floats or doubles respectively
+
+
+n must be 2, 3 or 4
+
+
+
+
+	Matrices
+matn
+Matrix of floats, shape n x n
+
+
+matnxm
+Matrix of floats, shape n x m
+
+
+For both, n and m  must be 2, 3 or 4
+
+
+Matrices are column-major 
+(3x2 = 3 columns, 2 rows)
+	
+
+It is most common to work with floats in GLSL. 
+
+
+You can construct vectors and matrices from any combination of other scalars/vectors:
+ vec2 v2 = vec2(0.4, 0.5);
+ vec3 v3 = vec3(v2, 0.6);
+ mat3 m3 = mat3(0.1, 0.2, 0.3,
+                v3,
+                v2, 0.7);
+
+
+Bear in mind the column-major matrices can be slightly counterintuitive:
+ mat2(a, b,   // first column (not first row!)
+      c, d);  // second column
+
+
+In addition to normal[indexing], swizzling with xyzw or rgba is a convenient way to specific one or more elements of a vector:
+ vec3 v3 = vec3(0.1, 0.2, 0.3);
+ v3.x;     // == 0.1
+ v3.yzyz;  // == vec4(0.2, 0.3, 0.2, 0.3)
+
+
+Program flow
+Vertex and fragment shaders both have a void main() function, which acts as the entry point to the code. This function has no parameters and does not return anything, but is expected to update a special existing variable (gl_Position or gl_FragColor, explained below).
+
+
+Because GLSL code is run on hardware with no ability to write arbitrarily to memory, GLSL does not support recursion. Loops however are possible:
+ for (int i = 0; i < 10; i++) { ... }
+ while (x < 20) { ... }
+Attributes, uniforms, varyings
+If opting for a more recent version of GLSL, this has changed in GLSL version 140 and above. See: khronos.org/opengl/wiki/Type_Qualifier_(GLSL)#Shader_stage_inputs_and_outputs
+	
+
+Global variables can be declared as attribute, uniform or varying.
+
+
+attribute variables are only available for the vertex shader to read, and automatically contain information about the current vertex. For minecraft shaders, this is only the vertex's Position.
+
+
+uniform variables can be read by both the vertex and fragment shader, and remain constant for all vertices/pixels. Their value can be passed in from the post JSON file, otherwise they use default values defined in the program JSON file.
+
+
+varying variables are declared and set in the vertex shader, and can then be read in the fragment shader. These values are interpolated between vertices. For example:
+ varying vec2 texCoord;
+  
+
+
+
+Edit: as of 21w10a, vanilla shaders use GLSL version 150 instead of 120. This means that instead of "varying" and "attribute", there's "in" and "out".
+ For the vertex shader, "attribute"s are "in" and "varying"s are "out"
+ For the fragment shader, "varying"s are "in" and special-variable fragColor is "out"
+ Uniforms are still the same
+See the vanilla shaders in the jar for examples
+I'll update the guide properly some time after 1.17 releases 
+Writing a vertex shader
+The vertex shader is run on each vertex in to transform it. Typically this would be all vertices in the world geometry - but for Minecraft it's just the 4 vertices representing the corners of the buffer. This makes current vertex shaders limited. It's common to leave the vertex shader unchanged (most vanilla programs reuse  sobel.vsh).
+
+
+You can do this
+	But not this
+	  
+
+	  
+
+	
+
+Edit: as of 21w10a, core shaders were introduced with proper vertex shaders. The latter image is now possible. Section needs updating. 
+
+
+The main work a vertex shader does is multiplying coordinates by a "projection matrix". Normally this transforms vertices inside the viewing frustum so that they instead lie inside a 2x2x2 cube which can more easily be flattened onto the screen:
+  
+
+
+
+For Minecraft the vertex shader already starts with a plane in 3D space, and just transforms the 4 corner vertices rather than any actual geometry. ProjMat is a special uniform that Minecraft calculates for this purpose, but could equally be replaced by 4 hardcoded cases (since the vertices are meant to always end up at the same spots) *.
+  
+
+
+
+The vertex's initial position can be retrieved from the Position attribute, and the result should be written to the special gl_Position variable (both are vec4).
+
+
+The vertex shader also defines and sets useful varyings for the fragment shader to use:
+* texCoord        Coordinates ranging from 0,0 at bottom left to 1,1 at top right        
+* oneTexel         The size of a pixel in texCoord coordinates. E.G: for a 4x2 pixel input
+                         buffer, one pixel is 0.25x0.5 (1/4th of height, 1/2th of width)
+Working example
+The sobel.vsh vertex shader, used by most of vanilla's programs. It has nothing in particular to do with sobel - is likely named as such from being the first shader program Mojang used it for.
+ #version 110
+ 
+ attribute vec4 Position;
+ 
+ uniform mat4 ProjMat;
+ uniform vec2 InSize;
+ uniform vec2 OutSize;
+ 
+ varying vec2 texCoord;
+ varying vec2 oneTexel;
+ 
+ void main(){
+     vec4 outPos = ProjMat * vec4(Position.xy, 0.0, 1.0);
+     gl_Position = vec4(outPos.xy, 0.2, 1.0);
+ 
+     oneTexel = 1.0 / InSize;
+ 
+     texCoord = Position.xy / OutSize;
+ }
+
+
+Writing a fragment shader
+A fragment shader is run once for every output pixel, and can read from any pixel in its input buffer(s).
+
+
+Each pixel is calculated asynchronously, so cannot read from other pixels in the output buffer, as those pixels may not yet have been calculated *. 
+
+
+Samplers
+The texture2D function lets you use a sampler to access pixels in a buffer. For example:
+ vec4 centerPixel = texture2D(DiffuseSampler, vec2(0.5, 0.5));
+
+
+When sampling a buffer, 0.0, 0.0 is the bottom-left and 1.0, 1.0 is the top-right.
+
+
+Conveniently this matches how the texCoord varying is set by vertex shaders. 
+
+
+So for the current output pixel, you can access a corresponding pixel in an input buffer with:
+ texture2D(DiffuseSampler, texCoord)
+
+
+	  
+
+	This returns a vec4 of red, green, blue, opacity - all of which represented as a float from 0 to 1.
+
+
+oneTexel represents the size of a pixel (in the input buffer), so can be used for offsets of a certain number of pixels. E.G: grabbing colour from 3 pixels above:  
+ texture2D(DiffuseSampler, texCoord + vec2(0.0, 3 * oneTexel.y));
+
+
+To get coordinates in pixels rather than as a 0-1 value, multiply by OutSize. E.G:
+ OutSize; // == vec2(1920, 1080)
+ texCoord; // == vec2(0.5, 0.5)
+ OutSize * texCoord; // == vec2(960, 540)
+
+
+
+
+The fragment shader should write its output pixel to gl_FragColor - another vec4 of red, green, blue, opacity.
+Working example
+The following shader:
+* Makes a pixel orange if it's between 0.38 and 0.4 from the center
+* Reads from a zoomed in (closer to center) pixel when closer than 0.38 to center
+* Reads from normal corresponding input pixel when further from 0.4 from center
+ #version 110
+ 
+ uniform sampler2D DiffuseSampler;
+ 
+ varying vec2 texCoord;
+ varying vec2 oneTexel;
+ 
+ void main(){
+     float distFromCenter = distance(texCoord, vec2(0.5, 0.5));
+ 
+     if (distFromCenter < 0.38) {
+         // Inside circle
+         vec2 zoomedCoord = ((texCoord - vec2(0.5, 0.5)) * 0.2) + vec2(0.5, 0.5);
+         gl_FragColor = texture2D(DiffuseSampler, zoomedCoord);
+     } else if (distFromCenter >= 0.38 && distFromCenter < 0.4) {
+         // Orange border
+         gl_FragColor = vec4(0.7, 0.4, 0.1, 1.0); 
+     } else {
+         // Outside, normal pixels
+         gl_FragColor = texture2D(DiffuseSampler, texCoord);
+     }
+ }
+  
+
+Tricks and gotchas
+Glow colours
+Glowing entities are an unobtrusive way to transfer data to the entity_outline shader, as the shader can read the final buffer and doesn't need to render the visible glow outline effect.
+
+
+The colour of a glowing entity's silhouette is affected by its team colour. The transparency of the entity is maintained. This allows 16 different colours and 256 different transparency values, which can be read and used by a fragment shader.
+  
+
+(checkerboard background added to represent transparency)
+Shading
+As fragment shaders can read pixels, it's useful to transfer information through pixel colour values. But be wary, as multiple factors can darken your textures:
+
+
+  
+
+	Light level
+Blocks/entities away from light source and not in sunlight appear darker
+
+
+Disable with night vision effect, or light sources
+	  
+
+	Face shading
+Top face is lightest, then north/south faces, then east/west faces, then bottom face is darkest. Affects blocks and entities
+
+
+Disable for blocks by setting "shade":false for elements in the model
+Cannot be disabled for entities!
+	  
+
+	Ambient occlusion ("smooth lighting")
+Corners appear darker, only affects blocks
+
+
+Disable for blocks by setting "ambientocclusion":false in the model
+	Even after disabling all of that, block/entity colours are multiplied by an unavoidable 252/255. 
+For example, the brightest white possible is 252, 252, 252 rather than 255, 255, 255.
+
+
+Compiler optimisation problems
+The GLSL compiler will optimise away code and variables that it doesn't think can have an effect on the shader's output (output being gl_FragColor, gl_Position or any varyings).
+
+
+This causes a problem when the GLSL compiler recognises that a sampler is unused and optimises it out, but Minecraft still passes in the same buffers. This means all samplers are reading from an earlier buffer than they're meant to be.
+
+
+  
+
+  
+
+
+
+You can prevent the compiler optimising out variables by making it think that the variable could potentially affect the shader's result. For example, texCoord.x will never be 731031, but the compiler doesn't know that:
+if (texCoord.x == 731031) { gl_FragColor = texture2D(DiffuseSampler, texCoord); }
+	
+
+
+
+
+
+Storing information across frames
+Buffers are not automatically cleared, which allows shaders to carry over information between frames. 
+
+In the case of accessing data stored in the previous frame, this simply requires:
+1. Writing to the buffer in one frame
+2. Reading from it before it is written to again in the next frame 
+
+
+To have buffer contents persist across more frames, the program that writes to the buffer must also be able to leave the data in the buffer unchanged. This is tricky as a program must write to each pixel, and cannot read from the same buffer it is writing to when doing so.
+
+
+A solution is to first copy the contents to another buffer. The update program can then read from this copy as it is writing new values to the original buffer, giving it a way to write the previous value of each pixel.
+
+
+  
+
+"passes": [
+   {
+       "name": "blit",
+       "intarget": "foo",
+       "outtarget": "foo_copy"
+   },
+   {
+       "name": "maybe_update",
+       "intarget": "minecraft:main",
+       "auxtargets": [ { "name": "BackupSampler", "id": "foo_copy" } ],
+       "outtarget": "foo"
+   }
+]
+	
+
+Shader application order
+1. Minecraft renders normal blocks/entities onto minecraft:main
+2. Minecraft renders solid-colour glowing entities onto final
+3. Glowing shader (entity_outline.json) runs with access to minecraft:main and final
+4. Minecraft renders extra stuff (hand, water, block-entities) onto minecraft:main
+5. Minecraft overlays final onto minecraft:main
+6. Entity spectator shaders run with access to minecraft:main
+
+
+Writing to minecraft:main with glowing shader (step 3) seems to destroy depth information, making extra stuff (step 4) render on top of everything else in minecraft:main:
+  
+
+Not writing to minecraft:main in glowing shader
+
+
+	  
+
+Writing to minecraft:main in glowing shader. Chest and outline render on top, despite being partially behind stone bricks
+	Blit sizing weirdness
+Vanilla's default blit program works fine for copying between buffers of the same size, but causes problems when the buffers are of different sizes.
+
+
+This comes down to the vertex shader blit.vsh not mapping to the entirety of the output buffer. For example, if the output buffer is half the width of the input buffer, only half of the output buffer appears to get written to:
+  
+
+
+
+Linked below is a "Clone" shader which instead always stretches or squishes the input to fit the entirety of the output buffer:
+  
+
+Clone download: Program JSON file, .vsh GLSL file
+Reading player input
+A player's Motion normally doesn't update server-side, but does if a player tries to move when riding a pig or minecart despite the fact that this does not cause the player to actually move. By having a player ride a pig/minecart, commands can read the player's motion, and (combined with looking direction) determine the button(s) that the player is holding.
+TODO: Example commands
+	
+
+Left/right click can be detected through normal means (punching a mob, right clicking with carrot on stick or talking to a villager).
+
+
+Any information read with commands (such as the button that the player is pressing) can be communicated to shaders through a glowing entity's team colour.
+
+
+TODO: Rotation
+
+
+Spectating death trick
+If you die while spectating an entity (e.g: with /kill @s), the entity spectate shader will still be applied when you respawn - even if you switch from spectator to another gamemode.
+
+
+In 1.15 snapshots, the /spectate command and doImmediateRespawn gamerule make this an almost seamless way to apply any of the entity spectate shaders.
+
+
+The function below will apply the creeper shader to the player:
+TODO: Example commands
+	
+
+Note however that:
+* This is a bug, and may be fixed without warning at any point
+* Certain actions, like going into F5 mode, will cause the shader to be unapplied
+
+
+
+
+New stuff that hasn't yet been added this this guide
+20w22a added shader access to the depth buffer. Check out shaders/post/transparency.json in the jar.
+	  
+
+	Importing from source, and from file:
+  
+
+Utilities and references
+GLSL
+Docs:
+http://docs.gl/sl4/all
+
+
+Tutorials:
+https://www.shadertoy.com/view/Md23DV
+https://thebookofshaders.com/
+
+
+Non-minecraft examples:
+https://www.shadertoy.com/
+
+
+SpiderEye
+  
+
+Small tool using GLIntercept to allow you to capture and view the contents of all buffers.
+Edit: currently broken
+Download: https://drive.google.com/open?id=1p_FOalR0LzKmQu9negjtaVzobO9YSeiu
+v0.1: Initial release
+	The nature of what this program is doing, messing with the game's OpenGL32.dll, may trigger your antivirus.
+Downloadable shader examples
+  
+
+	  
+
+	  
+
+	See-through portals
+Post-processing shader
+Captures from one perspective and display in a portal
+Full complex usage of shaders
+	Debug text
+Post-processing shader
+Writes text/numbers from shaders onto the screen
+Utility for debugging shaders
+	Screen blocks
+Post-processing shader
+Simple shader that displays minecraft:main buffer on a block
+Easy shader to understand 
+
+
+	  
+
+	  
+
+	  
+
+	Water blur/refraction
+Post-processing shader
+Adds blur and refraction to water
+	Blustery day
+Core shader
+Makes leaves and water wobble
+Credit: Felix Jones (Mojang)
+	MipInf
+Core shader
+Solid-colour textures
+Credit: Felix Jones (Mojang)

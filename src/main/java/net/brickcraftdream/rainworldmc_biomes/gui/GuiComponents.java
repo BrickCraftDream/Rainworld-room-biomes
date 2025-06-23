@@ -108,55 +108,76 @@ public class GuiComponents {
 
     public static MainGui.SearchableDropdown mainGui$regionDropdown;
         public static int mainGui$regionDropdown$offsetY = mainGui$title$offsetY + SPACING;
+        public static MainGui.IdText mainGui$regionDropdown$text;
 
     public static MainGui.SearchableDropdown mainGui$roomDropdown;
         public static int mainGui$roomDropdown$offsetY = mainGui$regionDropdown$offsetY;
+        public MainGui.IdText mainGui$roomDropdown$text;
 
     public static MainGui.SearchableDropdown mainGui$screenDropdown;
         public static int mainGui$screenDropdown$offsetY = mainGui$roomDropdown$offsetY;
+        public MainGui.IdText mainGui$screenDropdown$text;
 
     public static Checkbox mainGui$toggleBiomeEditMode;
         public static int mainGui$toggleBiomeEditMode$offsetY = mainGui$screenDropdown$offsetY;
 
+
+    public static StringWidget mainGui$paletteTitle;
+        public static int mainGui$paletteTitle$offsetY = mainGui$toggleBiomeEditMode$offsetY + SPACING / 2 + SPACING / 4 + SPACING / 6 + SPACING / 6;
     public static MainGui.ClearingTextBox mainGui$paletteBox;
-        public static int mainGui$paletteBox$offsetY = mainGui$screenDropdown$offsetY + SPACING;
+        public static int mainGui$paletteBox$offsetY = mainGui$paletteTitle$offsetY + SPACING / 2 + SPACING / 6;
         public static MainGui.IdButton mainGui$paletteResetButton;
         public static MainGui.IdButton mainGui$paletteCoverButton;
 
+    public static StringWidget mainGui$fadePaletteTitle;
+        public static int mainGui$fadePaletteTitle$offsetY = mainGui$paletteBox$offsetY + SPACING / 2 + SPACING / 4 + SPACING / 6 + SPACING / 6;
     public static MainGui.ClearingTextBox mainGui$fadePaletteBox;
-        public static int mainGui$fadePaletteBox$offsetY = mainGui$paletteBox$offsetY + SPACING;
+        public static int mainGui$fadePaletteBox$offsetY = mainGui$fadePaletteTitle$offsetY + SPACING / 2 + SPACING / 6;
         public static MainGui.IdButton mainGui$fadePaletteResetButton;
         public static MainGui.IdButton mainGui$fadePaletteCoverButton;
 
+
+    public static StringWidget mainGui$fadeStrengthTitle;
+        public static int mainGui$fadeStrengthTitle$offsetY = mainGui$fadePaletteBox$offsetY + SPACING / 2 + SPACING / 4 + SPACING / 6 + SPACING / 6;
     public static MainGui.ClearingTextBox mainGui$fadeStrengthBox;
-        public static int mainGui$fadeStrengthBox$offsetY = mainGui$fadePaletteBox$offsetY + SPACING;
+        public static int mainGui$fadeStrengthBox$offsetY = mainGui$fadeStrengthTitle$offsetY + SPACING / 2 + SPACING / 6;
         public static MainGui.IdButton mainGui$fadeStrengthResetButton;
         public static MainGui.IdButton mainGui$fadeStrengthCoverButton;
 
+
+    public static StringWidget mainGui$grimeTitle;
+        public static int mainGui$grimeTitle$offsetY = mainGui$fadeStrengthBox$offsetY + SPACING / 2 + SPACING / 4 + SPACING / 6 + SPACING / 6;
     public static MainGui.ClearingTextBox mainGui$grimeBox;
-        public static int mainGui$grimeBox$offsetY = mainGui$fadeStrengthBox$offsetY + SPACING;
+        public static int mainGui$grimeBox$offsetY = mainGui$grimeTitle$offsetY + SPACING / 2 + SPACING / 6;
         public static MainGui.IdButton mainGui$grimeResetButton;
         public static MainGui.IdButton mainGui$grimeCoverButton;
 
+
+    public static StringWidget mainGui$effectColorATitle;
+        public static int mainGui$effectColorATitle$offsetY = mainGui$grimeBox$offsetY + SPACING / 2 + SPACING / 4 + SPACING / 6 + SPACING / 6;
     public static MainGui.ClearingTextBox mainGui$effectColorABox;
-        public static int mainGui$effectColorABox$offsetY = mainGui$grimeBox$offsetY + SPACING;
+        public static int mainGui$effectColorABox$offsetY = mainGui$effectColorATitle$offsetY + SPACING / 2 + SPACING / 6;
         public static MainGui.IdButton mainGui$effectColorAResetButton;
         public static MainGui.IdButton mainGui$effectColorACoverButton;
 
+    public static StringWidget mainGui$effectColorBTitle;
+        public static int mainGui$effectColorBTitle$offsetY = mainGui$effectColorABox$offsetY + SPACING / 2 + SPACING / 4 + SPACING / 6 + SPACING / 6;
     public static MainGui.ClearingTextBox mainGui$effectColorBBox;
-        public static int mainGui$effectColorBBox$offsetY = mainGui$effectColorABox$offsetY + SPACING;
+        public static int mainGui$effectColorBBox$offsetY = mainGui$effectColorBTitle$offsetY + SPACING / 2 + SPACING / 6;
         public static MainGui.IdButton mainGui$effectColorBResetButton;
         public static MainGui.IdButton mainGui$effectColorBCoverButton;
 
-    public static MainGui.SearchableDropdown mainGui$dangerTypeDropdown;
-        public static int mainGui$dangerTypeDropdown$offsetY = mainGui$effectColorBBox$offsetY + SPACING;
+    public static StringWidget mainGui$dangerTypeTitle;
+        public static int mainGui$dangerTypeTitle$offsetY = mainGui$effectColorBBox$offsetY + SPACING / 2 + SPACING / 4 + SPACING / 6 + SPACING / 6;
+    public static MainGui.ClearingTextBox mainGui$dangerTypeDropdown;
+        public static int mainGui$dangerTypeDropdown$offsetY = mainGui$dangerTypeTitle$offsetY + SPACING / 2 + SPACING / 6;
         public static MainGui.IdButton mainGui$dangerTypeCoverButton;
         public static MainGui.IdButton mainGui$dangerTypeResetButton;
 
     public static MainGui.IdButton mainGui$placeButton;
         public static int mainGui$placeButton$offsetY = mainGui$dangerTypeDropdown$offsetY + SPACING + 5;
 
-    public static Button mainGui$cancelButton;
+    public static MainGui.IdButton mainGui$cancelButton;
         public static int mainGui$cancelButton$offsetY = mainGui$placeButton$offsetY;
 
     public static EditBox mainGui$nameBox;

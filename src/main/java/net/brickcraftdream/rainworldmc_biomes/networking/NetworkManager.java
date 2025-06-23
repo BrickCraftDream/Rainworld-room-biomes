@@ -1,10 +1,6 @@
 package net.brickcraftdream.rainworldmc_biomes.networking;
 
 import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.mojang.serialization.DataResult;
-import com.mojang.serialization.DynamicOps;
-import com.mojang.serialization.JsonOps;
 import net.minecraft.core.GlobalPos;
 import net.minecraft.core.UUIDUtil;
 import net.minecraft.core.registries.Registries;
@@ -17,7 +13,6 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.level.biome.Biome;
-import org.apache.commons.lang3.ArrayUtils;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -25,7 +20,6 @@ import java.util.List;
 import java.util.UUID;
 
 import static net.brickcraftdream.rainworldmc_biomes.Rainworld_MC_Biomes.MOD_ID;
-import static net.brickcraftdream.rainworldmc_biomes.Rainworld_MC_Biomes.getFogColorFromPalette;
 
 public class NetworkManager {
     public static final ResourceLocation MAIN_PACKET_ID = ResourceLocation.fromNamespaceAndPath(MOD_ID, "main_packet");
@@ -44,6 +38,12 @@ public class NetworkManager {
     public static final ResourceLocation BIOME_SYNC_PACKET_ID = ResourceLocation.fromNamespaceAndPath(MOD_ID, "biome_sync_packet");
 
     public static final ResourceLocation BIOME_CACHE_UPDATE_PACKET_ID = ResourceLocation.fromNamespaceAndPath(MOD_ID, "biome_cache_update_packet");
+
+    public static final ResourceLocation BIOME_SYNC_FROM_CLIENT_PACKET_ID = ResourceLocation.fromNamespaceAndPath(MOD_ID, "biome_sync_from_client_packet");
+
+    public static final ResourceLocation I_ASK_FOR_THE_SHADER_DATA_CUS_I_DONT_HAVE_IT_PACKET_ID = ResourceLocation.fromNamespaceAndPath(MOD_ID, "i_ask_for_the_shader_data_cus_i_dont_have_it_packet");
+
+    public static final ResourceLocation A_PACKET_ID = ResourceLocation.fromNamespaceAndPath(MOD_ID, "a_packet_id");
 
     //Client saves a new biome under a custom name
     //Client triggers an update packet
@@ -81,6 +81,57 @@ public class NetworkManager {
                         ByteBufCodecs.INT.decode(buf),
                         ByteBufCodecs.INT.decode(buf)
                 )
+        );
+
+        @Override
+        public @NotNull Type<? extends CustomPacketPayload> type() {
+            return ID;
+        }
+    }
+
+    public record HeyTheBiomeIsPlacedYouCanDiscardYourSelectionPacket(String handshake) implements CustomPacketPayload {
+        public static final CustomPacketPayload.Type<HeyTheBiomeIsPlacedYouCanDiscardYourSelectionPacket> ID = new CustomPacketPayload.Type<>(A_PACKET_ID);
+        public static final StreamCodec<RegistryFriendlyByteBuf, HeyTheBiomeIsPlacedYouCanDiscardYourSelectionPacket> CODEC = StreamCodec.of(
+                (buf, packet) -> ByteBufCodecs.STRING_UTF8.encode(buf, packet.handshake),
+                buf -> new HeyTheBiomeIsPlacedYouCanDiscardYourSelectionPacket(ByteBufCodecs.STRING_UTF8.decode(buf))
+        );
+
+        @Override
+        public @NotNull Type<? extends CustomPacketPayload> type() {
+            return ID;
+        }
+    }
+
+    public record BiomeSyncFromClientInitializationFromServerPacket(String handshake) implements CustomPacketPayload {
+        public static final CustomPacketPayload.Type<BiomeSyncFromClientInitializationFromServerPacket> ID = new CustomPacketPayload.Type<>(I_ASK_FOR_THE_SHADER_DATA_CUS_I_DONT_HAVE_IT_PACKET_ID);
+        public static final StreamCodec<RegistryFriendlyByteBuf, BiomeSyncFromClientInitializationFromServerPacket> CODEC = StreamCodec.of(
+                (buf, packet) -> ByteBufCodecs.STRING_UTF8.encode(buf, packet.handshake),
+                buf -> new BiomeSyncFromClientInitializationFromServerPacket(ByteBufCodecs.STRING_UTF8.decode(buf))
+        );
+
+        @Override
+        public @NotNull Type<? extends CustomPacketPayload> type() {
+            return ID;
+        }
+    }
+
+    public record BiomeSyncFromClientPacket(byte[] imageData) implements CustomPacketPayload {
+        public static final CustomPacketPayload.Type<BiomeSyncFromClientPacket> ID = new CustomPacketPayload.Type<>(BIOME_SYNC_FROM_CLIENT_PACKET_ID);
+        public static final StreamCodec<RegistryFriendlyByteBuf, BiomeSyncFromClientPacket> CODEC = StreamCodec.of(
+                (buf, packet) -> {
+                    byte[] imageData = packet.imageData;
+                    if(imageData == null) {
+                        imageData = new byte[0];
+                    }
+                    buf.writeInt(imageData.length);
+                    buf.writeBytes(imageData);
+                },
+                buf -> {
+                    int imageLength = ByteBufCodecs.INT.decode(buf);
+                    byte[] imageData = new byte[imageLength];
+                    buf.readBytes(imageData);
+                    return new BiomeSyncFromClientPacket(imageData);
+                }
         );
 
         @Override

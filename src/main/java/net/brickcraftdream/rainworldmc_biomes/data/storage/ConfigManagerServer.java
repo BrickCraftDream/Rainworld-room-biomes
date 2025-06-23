@@ -10,12 +10,76 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 
 import static net.brickcraftdream.rainworldmc_biomes.Rainworld_MC_Biomes.MOD_ID;
 
 public class ConfigManagerServer {
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 
+    public static class WarpData {
+        public int x;
+        public int y;
+        public int z;
+        public boolean markAsUnfinished;
+
+        public WarpData(int x, int y, int z, boolean markAsUnfinished) {
+            this.x = x;
+            this.y = y;
+            this.z = z;
+            this.markAsUnfinished = markAsUnfinished;
+        }
+
+        public JsonObject toJson() {
+            JsonObject json = new JsonObject();
+            json.addProperty("x", x);
+            json.addProperty("y", y);
+            json.addProperty("z", z);
+            json.addProperty("markAsUnfinished", markAsUnfinished);
+            return json;
+        }
+
+        public static WarpData fromJson(JsonObject json) {
+            int x = ConfigManagerServer.getInt(json, "x", 0);
+            int y = ConfigManagerServer.getInt(json, "y", 0);
+            int z = ConfigManagerServer.getInt(json, "z", 0);
+            boolean mark = ConfigManagerServer.getBoolean(json, "markAsUnfinished", false);
+            return new WarpData(x, y, z, mark);
+        }
+    }
+
+    public static boolean addOrUpdateWarp(String fileName, String warpName, WarpData data) {
+        JsonObject config = readConfig(fileName);
+        if (config == null) config = new JsonObject();
+
+        config.add(warpName, data.toJson());
+        return writeConfig(fileName, config);
+    }
+
+    public static List<String> getAllWarpNames(String fileName) {
+        JsonObject config = readConfig(fileName);
+        if (config == null) return Collections.emptyList();
+
+        List<String> names = new ArrayList<>();
+        for (Map.Entry<String, JsonElement> entry : config.entrySet()) {
+            if (entry.getValue().isJsonObject()) {
+                names.add(entry.getKey());
+            }
+        }
+        return names;
+    }
+
+    public static WarpData getWarpData(String fileName, String warpName) {
+        JsonObject config = readConfig(fileName);
+        if (config != null && config.has(warpName)) {
+            JsonObject warpJson = config.getAsJsonObject(warpName);
+            return WarpData.fromJson(warpJson);
+        }
+        return null;
+    }
 
     // For mod configuration data
     public static void saveDataToConfigFolder(String fileName, byte[] data) {
@@ -64,7 +128,9 @@ public class ConfigManagerServer {
             Path filePath = configDir.resolve(fileName);
 
             // Write the BufferedImage to the file
-            ImageGenerator.saveImageToFile(bufferedImage, "png", filePath.toString());
+            if(bufferedImage != null) {
+                ImageGenerator.saveImageToFile(bufferedImage, "png", filePath.toString());
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }

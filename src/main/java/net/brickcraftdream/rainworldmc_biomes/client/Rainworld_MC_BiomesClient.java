@@ -22,6 +22,7 @@ import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientLifecycleEvents;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderEvents;
+import net.fabricmc.fabric.api.client.screen.v1.ScreenEvents;
 import net.fabricmc.fabric.api.event.player.AttackBlockCallback;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.fabricmc.loader.api.FabricLoader;
@@ -72,7 +73,7 @@ public class Rainworld_MC_BiomesClient implements ClientModInitializer {
     private static long ctrlPressTime = 0;
     private static final long CTRL_TIMEOUT_MS = 500; // 1 second timeout
 
-
+    private static MainGui mainGui = null;
 
 
     // Mode handling
@@ -134,9 +135,38 @@ public class Rainworld_MC_BiomesClient implements ClientModInitializer {
 
     private static byte[] array;
 
+    private static void initializeConfigFolder() {
+        try {
+            ConfigManagerServer.saveBufferedImageToConfigFolder(BiomeImageProcessorClient.resourceLocationToBufferedImage(ResourceLocation.fromNamespaceAndPath("rainworld", "textures/dynamic/shader_data.png")), "shader_data.png");
+        }
+        catch (Exception e) {
+            System.out.println("Failed to initialize config folder (you can safely ignore this): " + e.getMessage());
+        }
+    }
+
     @Override
     public void onInitializeClient() {
+        //initializeConfigFolder();
 
+        ClientPlayNetworking.registerGlobalReceiver(BiomeSyncFromClientInitializationFromServerPacket.ID, (payload, context) -> {
+            context.client().execute(() -> {
+                byte[] data = ConfigManagerServer.readDataFromConfigFolder("shader_data.png");
+                if(data == null) {
+                    ConfigManagerServer.saveBufferedImageToConfigFolder(BiomeImageProcessorClient.resourceLocationToBufferedImage(ResourceLocation.fromNamespaceAndPath("rainworld", "textures/dynamic/shader_data.png")), "shader_data.png");
+                    data = ConfigManagerServer.readDataFromConfigFolder("shader_data.png");
+                    if(data != null) {
+                        ClientPlayNetworking.send(new BiomeSyncFromClientPacket(data));
+                    }
+                }
+                else {
+                    ClientPlayNetworking.send(new BiomeSyncFromClientPacket(data));
+                }
+            });
+        });
+
+        ClientPlayNetworking.registerGlobalReceiver(HeyTheBiomeIsPlacedYouCanDiscardYourSelectionPacket.ID, (payload, context) -> {
+            context.client().execute(BoxRenderer::clearBoxes);
+        });
 
         ClientPlayNetworking.registerGlobalReceiver(BiomeSyncPacket.ID, (payload, context) -> {
             context.client().execute(() -> {
@@ -246,7 +276,7 @@ public class Rainworld_MC_BiomesClient implements ClientModInitializer {
                 //        ),
                 //        VertexSorting.ORTHOGRAPHIC_Z
                 //);
-                //BlockViewWidget.render(matrixStack, cameraPos, context.camera().getLookVector());
+                BlockViewWidget.render(matrixStack, cameraPos, context.camera().getLookVector());
             }
          });
 
@@ -408,7 +438,7 @@ public class Rainworld_MC_BiomesClient implements ClientModInitializer {
         // Otherwise use player's feet position
         else if (client.player != null) {
             pos = BlockPos.containing(client.player.position());
-            client.player.displayClientMessage(Component.literal("No block in range, using player position"), true);
+            //client.player.displayClientMessage(Component.literal("No block in range, using player position"), true);
         }
 
         if (pos != null) {
@@ -429,9 +459,9 @@ public class Rainworld_MC_BiomesClient implements ClientModInitializer {
                     int zSize = Math.abs(secondCorner.getZ() - firstCorner.getZ()) + 1;
                     int volume = xSize * ySize * zSize;
 
-                    client.player.displayClientMessage(Component.literal(
-                            String.format("Room dimensions: %d x %d x %d = %d blocks",
-                                    xSize, ySize, zSize, volume)), false);
+                    //client.player.displayClientMessage(Component.literal(
+                    //        String.format("Room dimensions: %d x %d x %d = %d blocks",
+                    //                xSize, ySize, zSize, volume)), false);
                 }
             }
         }
@@ -448,28 +478,44 @@ public class Rainworld_MC_BiomesClient implements ClientModInitializer {
     }
 
     private void openRoomSelectionGUI(Minecraft client) {
-        client.player.displayClientMessage(Component.literal(
-                "Opening room selection GUI for all selected areas"), true);
-        client.setScreen(new MainGui(client.player, MainGui.GuiType.ROOM_EDIT));
+        //client.player.displayClientMessage(Component.literal(
+        //        "Opening room selection GUI for all selected areas"), true);
+        if(mainGui == null) {
+            mainGui = new MainGui(client.player, MainGui.GuiType.ROOM_EDIT);
+        }
+        client.setScreen(mainGui);
+        //client.setScreen(new MainGui(client.player, MainGui.GuiType.ROOM_EDIT));
         // Reset selections after GUI processing
     }
 
     private void openModeGUI(Minecraft client) {
         switch (currentMode) {
             case ROOM_SELECT:
-                client.player.displayClientMessage(Component.literal(
-                        "Opening room selection GUI"), true);
-                client.setScreen(new MainGui(client.player, MainGui.GuiType.ROOM_REGION_SELECT));
+                //client.player.displayClientMessage(Component.literal(
+                //        "Opening room selection GUI"), true);
+                if(mainGui == null) {
+                    mainGui = new MainGui(client.player, MainGui.GuiType.ROOM_EDIT);
+                }
+                client.setScreen(mainGui);
+                //client.setScreen(new MainGui(client.player, MainGui.GuiType.ROOM_REGION_SELECT));
                 break;
             case REGION_SELECT:
-                client.player.displayClientMessage(Component.literal(
-                        "Opening region selection GUI"), true);
-                client.setScreen(new MainGui(client.player, MainGui.GuiType.ROOM_REGION_SELECT));
+                //client.player.displayClientMessage(Component.literal(
+                //        "Opening region selection GUI"), true);
+                if(mainGui == null) {
+                    mainGui = new MainGui(client.player, MainGui.GuiType.ROOM_EDIT);
+                }
+                client.setScreen(mainGui);
+                //client.setScreen(new MainGui(client.player, MainGui.GuiType.ROOM_REGION_SELECT));
                 break;
             case ROOM_MODIFY:
-                client.player.displayClientMessage(Component.literal(
-                        "Opening room add/modify GUI"), true);
-                client.setScreen(new MainGui(client.player, MainGui.GuiType.ROOM_CREATE));
+                //client.player.displayClientMessage(Component.literal(
+                //        "Opening room add/modify GUI"), true);
+                if(mainGui == null) {
+                    mainGui = new MainGui(client.player, MainGui.GuiType.ROOM_EDIT);
+                }
+                client.setScreen(mainGui);
+                //client.setScreen(new MainGui(client.player, MainGui.GuiType.ROOM_CREATE));
                 break;
             default:
                 break;

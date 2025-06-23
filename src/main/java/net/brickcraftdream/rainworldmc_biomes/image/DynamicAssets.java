@@ -37,7 +37,7 @@ public class DynamicAssets {
             textureManager.register(DYNAMIC_TEXTURE_ID, texture);
             System.out.println("Registered dynamic texture at " + DYNAMIC_TEXTURE_ID);
 
-        } catch (IOException e) {
+        } catch (Exception e) {
             System.err.println("Failed to load texture: " + e.getMessage());
         }
     }

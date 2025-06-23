@@ -151,6 +151,8 @@ public class BoxRenderer {
     // Clear all boxes
     public static void clearBoxes() {
         connectedBoxes.clear();
+        locations.clear();
+        firstAndSecondLocations.clear();
     }
 
     public static List<GlobalPos> getLocations() {
@@ -209,7 +211,6 @@ public class BoxRenderer {
 
         return groups;
     }
-
 
     public static void renderOtherPeoplesConnectedBoxes(PoseStack poseStack, Vec3 cameraPos) {
         if (otherPeoplesConnectedBoxes.isEmpty()) return;
@@ -644,7 +645,7 @@ public class BoxRenderer {
         int packedLight = LightTexture.pack(15, 15);
 
         // Create a translucent filled box
-        ResourceLocation texture = ResourceLocation.fromNamespaceAndPath(MOD_ID, "textures/block/stone_head.png");
+        ResourceLocation texture = ResourceLocation.fromNamespaceAndPath(MOD_ID, "textures/block/outline.png");
         RenderType renderType = RenderType.entityTranslucent(texture);
         VertexConsumer vertexConsumer = bufferSource.getBuffer(renderType);
 
@@ -1011,6 +1012,34 @@ public class BoxRenderer {
         );
 
         Minecraft.getInstance().renderBuffers().bufferSource().endBatch(RenderType.lines());
+    }
+
+    public static GlobalPos getCenterOfAllBoxes() {
+        if (locations.isEmpty()) {
+            return null;
+        }
+
+        // Initialize sums for each coordinate
+        double sumX = 0;
+        double sumY = 0;
+        double sumZ = 0;
+        ResourceKey<Level> dimension = null;
+
+        // Sum up all coordinates
+        for (GlobalPos pos : locations) {
+            sumX += pos.pos().getX();
+            sumY += pos.pos().getY();
+            sumZ += pos.pos().getZ();
+            dimension = pos.dimension(); // Store dimension from last position
+        }
+
+        // Calculate average (center) position
+        int centerX = (int) Math.round(sumX / locations.size());
+        int centerY = (int) Math.round(sumY / locations.size());
+        int centerZ = (int) Math.round(sumZ / locations.size());
+
+        // Return new GlobalPos with the center coordinates
+        return GlobalPos.of(dimension, new BlockPos(centerX, centerY, centerZ));
     }
 
 }

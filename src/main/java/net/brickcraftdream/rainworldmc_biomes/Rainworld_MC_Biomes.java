@@ -1,10 +1,13 @@
 package net.brickcraftdream.rainworldmc_biomes;
 
 import com.google.gson.JsonObject;
+import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import net.brickcraftdream.rainworldmc_biomes.biome.BiomeModify;
 import net.brickcraftdream.rainworldmc_biomes.biome.ExtendedBiome;
 import net.brickcraftdream.rainworldmc_biomes.command.RoomCommand;
+import net.brickcraftdream.rainworldmc_biomes.data.storage.ConfigManagerClient;
 import net.brickcraftdream.rainworldmc_biomes.data.storage.ConfigManagerServer;
+import net.brickcraftdream.rainworldmc_biomes.image.DynamicAssets;
 import net.brickcraftdream.rainworldmc_biomes.image.ImageGenerator;
 import net.brickcraftdream.rainworldmc_biomes.networking.BiomeImageProcessorClient;
 import net.brickcraftdream.rainworldmc_biomes.networking.BiomeImageProcessorServer;
@@ -45,9 +48,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Objects;
-import java.util.ResourceBundle;
-import java.util.UUID;
+import java.util.*;
 
 import static net.brickcraftdream.rainworldmc_biomes.ColorPicker.combineColors;
 import static net.brickcraftdream.rainworldmc_biomes.ColorPicker.combineColorsBufferedImage;
@@ -72,6 +73,10 @@ public class Rainworld_MC_Biomes implements ModInitializer {
         //PayloadTypeRegistry.playS2C().register(BiomeSyncPacket_image_part3.ID, BiomeSyncPacket_image_part3.CODEC);
         //PayloadTypeRegistry.playS2C().register(BiomeSyncPacket_image_part4.ID, BiomeSyncPacket_image_part4.CODEC);
         PayloadTypeRegistry.playS2C().register(BiomeCacheUpdatePacket.ID, BiomeCacheUpdatePacket.CODEC);
+        PayloadTypeRegistry.playC2S().register(BiomeSyncFromClientPacket.ID, BiomeSyncFromClientPacket.CODEC);
+        PayloadTypeRegistry.playS2C().register(BiomeSyncFromClientPacket.ID, BiomeSyncFromClientPacket.CODEC);
+        PayloadTypeRegistry.playS2C().register(BiomeSyncFromClientInitializationFromServerPacket.ID, BiomeSyncFromClientInitializationFromServerPacket.CODEC);
+        PayloadTypeRegistry.playS2C().register(HeyTheBiomeIsPlacedYouCanDiscardYourSelectionPacket.ID, HeyTheBiomeIsPlacedYouCanDiscardYourSelectionPacket.CODEC);
 
 
         ServerPlayConnectionEvents.JOIN.register((handler, sender, server) -> {
@@ -80,8 +85,22 @@ public class Rainworld_MC_Biomes implements ModInitializer {
             //sender.sendPacket(new BiomeSyncPacket_image_part2(ConfigManagerServer.readDataFromConfigFolder("shader_data.png")));
             //sender.sendPacket(new BiomeSyncPacket_image_part3(ConfigManagerServer.readDataFromConfigFolder("shader_data.png")));
             //sender.sendPacket(new BiomeSyncPacket_image_part4(ConfigManagerServer.readDataFromConfigFolder("shader_data.png")));
-            sender.sendPacket(new BiomeSyncPacket(ConfigManagerServer.readConfig("biome_settings.json"), ConfigManagerServer.readDataFromConfigFolder("shader_data.png")));
+            if(ConfigManagerServer.readDataFromConfigFolder("shader_data.png") != null) {
+                sender.sendPacket(new BiomeSyncPacket(ConfigManagerServer.readConfig("biome_settings.json"), ConfigManagerServer.readDataFromConfigFolder("shader_data.png")));
+            }
+            else {
+                sender.sendPacket(new BiomeSyncFromClientInitializationFromServerPacket("yes please gimme"));
+            }
         });
+
+        ServerPlayNetworking.registerGlobalReceiver(BiomeSyncFromClientPacket.ID, ((payload, context) -> {
+            context.server().execute(() -> {
+                if(ConfigManagerServer.readDataFromConfigFolder("shader_data.png") == null) {
+                    ConfigManagerServer.saveBufferedImageToConfigFolder(BiomeImageProcessorClient.byteArrayToBufferedImage(payload.imageData()), "shader_data.png");
+                    PlayerLookup.all(context.server()).forEach(p -> ServerPlayNetworking.send(p, new BiomeSyncPacket(ConfigManagerServer.readConfig("biome_settings.json"), ConfigManagerServer.readDataFromConfigFolder("shader_data.png"))));
+                }
+            });
+        }));
 
 
         ServerPlayNetworking.registerGlobalReceiver(BiomeUpdatePacket.ID, ((payload, context) -> {
@@ -154,35 +173,80 @@ public class Rainworld_MC_Biomes implements ModInitializer {
                 Registry<Biome> biomeRegistry = level.registryAccess().registryOrThrow(Registries.BIOME);
                 Holder<Biome> biomeEntry = biomeRegistry.getHolderOrThrow(biomeKey);
 
+
+
+                double sumX = 0;
+                double sumY = 0;
+                double sumZ = 0;
+
+                // Sum up all coordinates
                 for (GlobalPos pos : payload.pos()) {
-                    ResourceKey<Level> dimension = pos.dimension();
-                    if (level.dimension().equals(dimension)) {
-                        LevelChunk levelChunk = level.getChunkAt(pos.pos());
-                        LevelChunkSection section = levelChunk.getSection(levelChunk.getSectionIndex(pos.pos().getY()));
-                        PalettedContainerRO<Holder<Biome>> biomeContainer = section.getBiomes();
-                        BlockPos blockPos = pos.pos();
-
-
-                        if (biomeContainer instanceof PalettedContainer<Holder<Biome>> palettedContainer) {
-                            for (int sx = 0; sx < 4; sx++) {
-                                for (int sy = 0; sy < 4; sy++) {
-                                    for (int sz = 0; sz < 4; sz++) {
-                                        int biomeX = (blockPos.getX() & 15) >> 2;
-                                        int biomeY = (blockPos.getY() & 15) >> 2;
-                                        int biomeZ = (blockPos.getZ() & 15) >> 2;
-
-                                        // Set only the specific biome position
-                                        palettedContainer.set(biomeX, biomeY, biomeZ, biomeEntry);
-
-                                    }
-                                }
-                            }
-                        }
-                        levelChunk.setUnsaved(true);
-                        level.getChunkSource().blockChanged(pos.pos());
-                        PlayerLookup.all(context.server()).forEach(player1 -> player1.connection.send(new ClientboundLevelChunkWithLightPacket(levelChunk, level.getLightEngine(), null, null)));
-                    }
+                    sumX += pos.pos().getX();
+                    sumY += pos.pos().getY();
+                    sumZ += pos.pos().getZ();
                 }
+
+                // Calculate average (center) position
+                int centerX = (int) Math.round(sumX / payload.pos().size());
+                int centerY = (int) Math.round(sumY / payload.pos().size());
+                int centerZ = (int) Math.round(sumZ / payload.pos().size());
+                ConfigManagerServer.addOrUpdateWarp("warps.json", payload.biomePath(), new ConfigManagerServer.WarpData(centerX, centerY, centerZ, false));
+
+                Set<LevelChunk> chunks = new HashSet<>();
+                //for (GlobalPos pos : payload.pos()) {
+                //    ResourceKey<Level> dimension = pos.dimension();
+                //    if (level.dimension().equals(dimension)) {
+                //        LevelChunk levelChunk = level.getChunkAt(pos.pos());
+                //        LevelChunkSection section = levelChunk.getSection(levelChunk.getSectionIndex(pos.pos().getY()));
+                //        PalettedContainerRO<Holder<Biome>> biomeContainer = section.getBiomes();
+                //        BlockPos blockPos = pos.pos();
+//
+//
+                //        if (biomeContainer instanceof PalettedContainer<Holder<Biome>> palettedContainer) {
+                //            for (int sx = 0; sx < 4; sx++) {
+                //                for (int sy = 0; sy < 4; sy++) {
+                //                    for (int sz = 0; sz < 4; sz++) {
+                //                        int biomeX = (blockPos.getX() & 15) >> 2;
+                //                        int biomeY = (blockPos.getY() & 15) >> 2;
+                //                        int biomeZ = (blockPos.getZ() & 15) >> 2;
+//
+                //                        // Set only the specific biome position
+                //                        palettedContainer.set(biomeX, biomeY, biomeZ, biomeEntry);
+//
+                //                    }
+                //                }
+                //            }
+                //        }
+                //        chunks.add(levelChunk);
+                //        level.getChunkSource().blockChanged(pos.pos());
+                //    }
+                //}
+
+                for (GlobalPos pos : payload.pos()) {
+                    if (!level.dimension().equals(pos.dimension())) continue;
+
+                    BlockPos blockPos = pos.pos();
+                    LevelChunk chunk = level.getChunkAt(blockPos);
+                    LevelChunkSection section = chunk.getSection(chunk.getSectionIndex(blockPos.getY()));
+                    PalettedContainerRO<Holder<Biome>> biomeContainer = section.getBiomes();
+
+                    if (biomeContainer instanceof PalettedContainer<Holder<Biome>> palettedContainer) {
+                        int biomeX = (blockPos.getX() & 15) >> 2;
+                        int biomeY = (blockPos.getY() & 15) >> 2;
+                        int biomeZ = (blockPos.getZ() & 15) >> 2;
+
+                        palettedContainer.set(biomeX, biomeY, biomeZ, biomeEntry);
+                    }
+
+                    chunks.add(chunk);
+                    level.getChunkSource().blockChanged(blockPos);
+                }
+
+                for(LevelChunk chunk : chunks) {
+                    chunk.setUnsaved(true);
+                    PlayerLookup.all(context.server()).forEach(player1 -> player1.connection.send(new ClientboundLevelChunkWithLightPacket(chunk, level.getLightEngine(), null, null)));
+                }
+                ServerPlayNetworking.send(context.player(), new HeyTheBiomeIsPlacedYouCanDiscardYourSelectionPacket("a"));
             });
         });
 
@@ -224,6 +288,7 @@ public class Rainworld_MC_Biomes implements ModInitializer {
     public void setupDefaultConfig() {
         JsonObject defaultConfig = new JsonObject();
         ConfigManagerServer.createDefaultConfigIfNotExists("biome_settings.json", defaultConfig);
+        ConfigManagerServer.createDefaultConfigIfNotExists("warps.json", defaultConfig);
     }
 
     private static int getColorFromPalette(int palette, int fadePalette, float fadeStrength, String x, String y) {

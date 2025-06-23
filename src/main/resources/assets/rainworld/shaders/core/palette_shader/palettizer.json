@@ -1,0 +1,30 @@
+{
+  "vertex": "color_replace.vsh",
+  "fragment": "color_replace.fsh",
+  "samplers": [
+    {
+      "name": "textureSampler",
+      "file": true
+    }
+  ],
+  "uniforms": [
+    {
+      "name": "targetColor",
+      "type": "vec3",
+      "count": 1,
+      "values": [1.0, 0.0, 0.0] // Example: Red color
+    },
+    {
+      "name": "replacementColor",
+      "type": "vec3",
+      "count": 1,
+      "values": [0.0, 1.0, 0.0] // Example: Green color
+    },
+    {
+      "name": "tolerance",
+      "type": "float",
+      "count": 1,
+      "values": [0.1] // Example: Tolerance for color matching
+    }
+  ]
+}

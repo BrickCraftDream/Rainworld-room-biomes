@@ -3,6 +3,17 @@ accessible  class   net/minecraft/world/level/biome/Biome$ClimateSettings
 accessible field net/minecraft/world/level/biome/Biome climateSettings Lnet/minecraft/world/level/biome/Biome$ClimateSettings;
 accessible method net/minecraft/client/MouseHandler onScroll (JDD)V
 accessible method net/minecraft/world/level/biome/BiomeManager getFiddle (J)D
+accessible field net/minecraft/client/renderer/ShaderInstance uniforms Ljava/util/List;
+accessible field net/minecraft/client/renderer/ShaderInstance uniformMap Ljava/util/Map;
+accessible field com/mojang/blaze3d/shaders/Uniform type I
+accessible field net/minecraft/client/gui/components/EditBox value Ljava/lang/String;
+accessible field net/minecraft/client/gui/components/EditBox cursorPos I
+accessible method net/minecraft/client/renderer/GameRenderer loadEffect (Lnet/minecraft/resources/ResourceLocation;)V
+accessible field net/minecraft/client/renderer/GameRenderer postEffect Lnet/minecraft/client/renderer/PostChain;
+accessible field net/minecraft/client/renderer/GameRenderer effectActive Z
+accessible field net/minecraft/client/renderer/GameRenderer minecraft Lnet/minecraft/client/Minecraft;
+accessible field net/minecraft/client/renderer/GameRenderer resourceManager Lnet/minecraft/server/packs/resources/ResourceManager;
+accessible field net/minecraft/client/renderer/PostChain passes Ljava/util/List;
 #accessible class net/minecraft/world/level/biome/Biome$ClimateSettings
 #accessible field net/minecraft/world/level/biome/Biome climateSettings Lnet/minecraft/world/level/biome/Biome$ClimateSettings;
 #accessible field net/minecraft/world/level/biome/Biome specialEffects Lnet/minecraft/world/level/biome/BiomeSpecialEffects;
