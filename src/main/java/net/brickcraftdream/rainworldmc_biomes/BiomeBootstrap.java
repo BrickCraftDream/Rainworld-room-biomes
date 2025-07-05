@@ -63,9 +63,9 @@ public class BiomeBootstrap {
 
         // Process regular rooms with minimal logging
         BufferedImage image = new BufferedImage(256, 256, BufferedImage.TYPE_INT_ARGB);
-        int indexTemp = 2;
+        int indexTemp = 0;
         for (String currentRoom : keys) {
-            registerBiome(biomeRegisterable, currentRoom, indexTemp);
+            registerBiome(biomeRegisterable, currentRoom, indexTemp + 2);
             int currentPalette = getPalette(currentRoom);
             int currentFadePalette = getFadePalette(currentRoom);
             if(currentPalette < 0) {
@@ -137,7 +137,7 @@ public class BiomeBootstrap {
         }
         for(int i = 0; i < 366; i++) {
             String biomeName = String.valueOf(i);
-            registerTempBiome(biomeRegisterable, biomeName, indexTemp);
+            registerTempBiome(biomeRegisterable, biomeName, indexTemp + 2);
             indexTemp = roomToImage(image,
                     0,
                     0,

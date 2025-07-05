@@ -1,0 +1,5 @@
+{
+  "variants": {
+    "": { "model": "rainworld:block/debug_block" }
+  }
+}

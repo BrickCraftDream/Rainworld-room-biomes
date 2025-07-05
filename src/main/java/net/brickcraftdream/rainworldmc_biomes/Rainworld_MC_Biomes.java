@@ -4,6 +4,7 @@ import com.google.gson.JsonObject;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import net.brickcraftdream.rainworldmc_biomes.biome.BiomeModify;
 import net.brickcraftdream.rainworldmc_biomes.biome.ExtendedBiome;
+import net.brickcraftdream.rainworldmc_biomes.blocks.ModBlocks;
 import net.brickcraftdream.rainworldmc_biomes.command.RoomCommand;
 import net.brickcraftdream.rainworldmc_biomes.data.storage.ConfigManagerClient;
 import net.brickcraftdream.rainworldmc_biomes.data.storage.ConfigManagerServer;
@@ -62,6 +63,7 @@ public class Rainworld_MC_Biomes implements ModInitializer {
     @Override
     public void onInitialize() {
         setupDefaultConfig();
+        ModBlocks.initialize();
 
         PayloadTypeRegistry.playC2S().register(BiomeUpdatePacket.ID, BiomeUpdatePacket.CODEC);
         PayloadTypeRegistry.playS2C().register(BiomeUpdatePacket.ID, BiomeUpdatePacket.CODEC);
@@ -128,8 +130,8 @@ public class Rainworld_MC_Biomes implements ModInitializer {
                             getWaterFogColorFromPalette(payload.palette(), payload.fadePalette(), payload.fadeStrength()),
                             context.server()
                     );
-                    System.out.println("Biome ID: " + String.valueOf(biomeId).substring(0, String.valueOf(biomeId).indexOf(".")));
-                    System.out.println("Biome Resource Location: " + biomeResourceLocation);
+                    //System.out.println("Biome ID: " + String.valueOf(biomeId).substring(0, String.valueOf(biomeId).indexOf(".")));
+                    //System.out.println("Biome Resource Location: " + biomeResourceLocation);
                     ImageGenerator.roomToImage(imageData, payload.palette(), payload.fadePalette(), payload.fadeStrength(), payload.grime(), payload.effectColorA(), payload.effectColorB(), payload.dangerType(), Integer.parseInt(String.valueOf(biomeId).substring(0, String.valueOf(biomeId).indexOf("."))), "agjhhjd");
                     ConfigManagerServer.saveBufferedImageToConfigFolder(imageData, "shader_data.png");
                     JsonObject biomeSettings = ConfigManagerServer.readConfig("biome_settings.json");

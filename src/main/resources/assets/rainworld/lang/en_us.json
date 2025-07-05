@@ -37,8 +37,10 @@
   "gui.rainworld.main_title": "Idk what to call this",
   "gui.rainworld.edit_biome": "Edit the biome",
   "gui.rainworld.place": "Place",
+  "gui.rainworld.deselect": "Deselect",
   "gui.rainworld.place_tooltip": "Places the selected biome in the world",
   "gui.rainworld.cancel_tooltip": "Cancels the changes made here and closes the GUI",
+  "gui.rainworld.deselect_tooltip": "Deselects the selected area",
   "gui.rainworld.cancel": "Cancel",
   "gui.rainworld.name": "Custom biome name",
   "gui.rainworld.palette_title": "Palette",
@@ -47,6 +49,14 @@
   "gui.rainworld.grime_title": "Grime",
   "gui.rainworld.effect_color_a_title": "Effect Color A",
   "gui.rainworld.effect_color_b_title": "Effect Color B",
-    "gui.rainworld.danger_type_title": "Danger Type"
+    "gui.rainworld.danger_type_title": "Danger Type",
+  "itemTooltip.rainworld.room_selector_item.first_line.use": "Use",
+  "itemTooltip.rainworld.room_selector_item.first_line.left_click": "Left click",
+  "itemTooltip.rainworld.room_selector_item.first_line.and": "and",
+  "itemTooltip.rainworld.room_selector_item.first_line.right_click": "Right click",
+  "itemTooltip.rainworld.room_selector_item.first_line.rest": "to select an area.",
+  "itemTooltip.rainworld.room_selector_item.second_line.press": "Then press",
+  "itemTooltip.rainworld.room_selector_item.second_line.ctrl": "Control",
+  "itemTooltip.rainworld.room_selector_item.second_line.confirm": "to confirm the selection."
 
 }

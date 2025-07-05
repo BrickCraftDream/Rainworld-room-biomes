@@ -180,6 +180,9 @@ public class GuiComponents {
     public static MainGui.IdButton mainGui$cancelButton;
         public static int mainGui$cancelButton$offsetY = mainGui$placeButton$offsetY;
 
+    public static MainGui.IdButton mainGui$deselectButton;
+        public static int mainGui$deselectButton$offsetY = mainGui$cancelButton$offsetY;
+
     public static EditBox mainGui$nameBox;
         public static int mainGui$nameBox$offsetY = mainGui$cancelButton$offsetY + SPACING;
 

@@ -1,5 +1,6 @@
 package net.brickcraftdream.rainworldmc_biomes.gui;
 
+import net.brickcraftdream.rainworldmc_biomes.gui.widget.BlockViewWidget;
 import net.brickcraftdream.rainworldmc_biomes.networking.BiomeImageProcessorClient;
 import net.minecraft.client.gui.components.Renderable;
 import net.minecraft.client.gui.components.events.GuiEventListener;
@@ -196,11 +197,22 @@ public class DataHandler {
     }
 
     public static void setCurrentRegion(String currentRegion) {
-        System.out.println("Region before update: " + DataHandler.currentRegion);
+        //System.out.println("Region before update: " + DataHandler.currentRegion);
         //if(!GuiComponents.mainGui$regionDropdown.getValue().equals(currentRegion)) currentRegion = GuiComponents.mainGui$regionDropdown.getValue();
         DataHandler.currentRegion = currentRegion;
-        System.out.println("Region after update: " + DataHandler.currentRegion);
+        //System.out.println("Region after update: " + DataHandler.currentRegion);
         addRegion(currentRegion);
+        GuiComponents.mainGui$roomDropdown.setValue(Component.translatable("gui.rainworld.select_room").getString());
+        GuiComponents.mainGui$roomDropdown.allOptions = getSortedStrings(List.copyOf(exporter.getAllRoomNames(currentRegion)));
+        roomOptions = GuiComponents.mainGui$roomDropdown.allOptions;
+        GuiComponents.mainGui$screenDropdown.setValue(Component.translatable("gui.rainworld.select_screen").getString());
+        currentRoom = Component.translatable("gui.rainworld.select_room").getString();
+        currentScreen = Component.translatable("gui.rainworld.select_screen").getString();
+
+        //System.out.println("Size of TemplateOptions: " + templateOptions.size());
+        //System.out.println("Current selected biome: " + currentRegion + "." + currentRoom + "." + currentScreen);
+        //System.out.println("Does TemplateOptions contain the current selected biome: " + templateOptions.contains(currentRegion + "." + currentRoom + "." + currentScreen));
+        //System.out.println("Does TemplateOptions contain the current selected biome without the screen: " + templateOptions.contains(currentRegion + "." + currentRoom));
     }
 
     public static String getCurrentRoom() {
@@ -214,16 +226,33 @@ public class DataHandler {
     }
 
     public static void setCurrentRoom(String currentRoom) {
-        System.out.println("Room before update: " + DataHandler.currentRoom);
+        //System.out.println("Room before update: " + DataHandler.currentRoom);
         //if(!GuiComponents.mainGui$roomDropdown.getValue().equals(currentRoom)) currentRoom = GuiComponents.mainGui$roomDropdown.getValue();
         DataHandler.currentRoom = currentRoom;
-        System.out.println("Room after update: " + DataHandler.currentRoom);
+        //System.out.println("Room after update: " + DataHandler.currentRoom);
         addRoom(currentRoom);
+        GuiComponents.mainGui$screenDropdown.setValue(Component.translatable("gui.rainworld.select_screen").getString());
+        GuiComponents.mainGui$screenDropdown.allOptions = getSortedStrings(List.copyOf(exporter.getAllScreenNames(currentRegion, currentRoom)));
+        screenOptions = GuiComponents.mainGui$screenDropdown.allOptions;
+        currentScreen = Component.translatable("gui.rainworld.select_screen").getString();
+
+        //System.out.println("Size of TemplateOptions: " + templateOptions.size());
+        //System.out.println("Current selected biome: " + currentRegion + "." + currentRoom + "." + currentScreen);
+        //System.out.println("Does TemplateOptions contain the current selected biome: " + templateOptions.contains(currentRegion + "." + currentRoom + "." + currentScreen));
+        //System.out.println("Does TemplateOptions contain the current selected biome without the screen: " + templateOptions.contains(currentRegion + "." + currentRoom));
+
         //System.out.println(templateOptions.size());
-        if(templateOptions.contains(currentRegion + "." + currentRoom) && !lastRooms.toArray()[0].toString().equals(currentRoom)) {
+        if(templateOptions.contains(currentRegion + "." + currentRoom)) {
             setTemplateRoomCreateName(currentRegion + "." + currentRoom);
             setTemplateRoomEditName(currentRegion + "." + currentRoom);
             updateTextBoxes();
+            //System.out.println(paletteBoxContent + " " + fadePaletteBoxContent + " " + fadeStrengthBoxContent);
+            try {
+                BlockViewWidget.updateTextureValues(Integer.parseInt(paletteBoxContent), Integer.parseInt(fadePaletteBoxContent), Float.parseFloat(fadeStrengthBoxContent));
+            }
+            catch (Exception e) {
+                System.err.println("Error updating texture values: " + e.getMessage());
+            }
         }
         else if(templateOptions.isEmpty()) {
             init();
@@ -241,19 +270,28 @@ public class DataHandler {
     }
 
     public static void setCurrentScreen(String currentScreen) {
-        System.out.println("Screen before update: " + DataHandler.currentScreen);
+        //System.out.println("Screen before update: " + DataHandler.currentScreen);
         //if(!GuiComponents.mainGui$screenDropdown.getValue().equals(currentScreen)) currentScreen = GuiComponents.mainGui$screenDropdown.getValue();
         DataHandler.currentScreen = currentScreen;
-        System.out.println("Screen after update: " + DataHandler.currentScreen);
+        //System.out.println("Screen after update: " + DataHandler.currentScreen);
         addScreen(currentScreen);
-        //System.out.println(templateOptions.size());
-        //System.out.println(currentRegion + "." + currentRoom + "." + currentScreen);
-        //System.out.println(templateOptions.contains(currentRegion + "." + currentRoom + "." + currentScreen));
-        //System.out.println(templateOptions.contains(currentRegion + "." + currentRoom));
-        if(templateOptions.contains(currentRegion + "." + currentRoom + "." + currentScreen) && !lastScreens.toArray()[0].toString().equals(currentScreen)) {
+
+        //System.out.println("Size of TemplateOptions: " + templateOptions.size());
+        //System.out.println("Current selected biome: " + currentRegion + "." + currentRoom + "." + currentScreen);
+        //System.out.println("Does TemplateOptions contain the current selected biome: " + templateOptions.contains(currentRegion + "." + currentRoom + "." + currentScreen));
+        //System.out.println("Does TemplateOptions contain the current selected biome without the screen: " + templateOptions.contains(currentRegion + "." + currentRoom));
+
+        if(templateOptions.contains(currentRegion + "." + currentRoom + "." + currentScreen)) {
             setTemplateRoomCreateName(currentRegion + "." + currentRoom + "." + currentScreen);
             setTemplateRoomEditName(currentRegion + "." + currentRoom + "." + currentScreen);
             updateTextBoxes();
+            //System.out.println(paletteBoxContent + " " + fadePaletteBoxContent + " " + fadeStrengthBoxContent);
+            try {
+                BlockViewWidget.updateTextureValues(Integer.parseInt(paletteBoxContent), Integer.parseInt(fadePaletteBoxContent), Float.parseFloat(fadeStrengthBoxContent));
+            }
+            catch (Exception e) {
+                System.err.println("Error updating texture values: " + e.getMessage());
+            }
         }
         else if(templateOptions.isEmpty()) {
             init();

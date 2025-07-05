@@ -80,6 +80,58 @@ public class ImageGenerator {
         return index;
     }
 
+    public static Object[] imageToRoom(BufferedImage image, int index) {
+        int[] coordsA = getCoordsFromLinear(index++);
+        int xA = coordsA[0];
+        int yA = coordsA[1];
+        //System.out.println("X: " + xA + " Y: " + yA);
+
+        int[] coordsB = getCoordsFromLinear(index++);
+        int xB = coordsB[0];
+        int yB = coordsB[1];
+
+        int[] coordsC = getCoordsFromLinear(index++);
+        int xC = coordsC[0];
+        int yC = coordsC[1];
+
+        // Extract color data from the image
+        Color colorPalettes = new Color(image.getRGB(xA, yA));
+        Color fx = new Color(image.getRGB(xB, yB));
+        Color roomFlags = new Color(image.getRGB(xC, yC));
+
+        // Extract palette and fade palette from colorPalettes
+        int[] colors = extractARGB(image.getRGB(xA, yA));
+        int palette = (colors[1] << 8) | (colors[2]);
+        //System.out.println("Palette: " + palette + " raw data: " + colorPalettes.getRed() + " " + colorPalettes.getGreen() + " " + colors[1] + " " + colors[2] + "  " + image.getRGB(xA, yA));
+        int fadePalette = (colors[3] << 8) | (colors[0]);
+        //System.out.println("Fade Palette: " + fadePalette + " raw data: " + ((image.getRGB(xA, yA) >> 0) & 0xFF) + " " + ((image.getRGB(xA, yA) >> 24) & 0xFF) + " " + colors[3] + " " + colors[0] + "  " + image.getRGB(xA, yA));
+
+        // Extract effect colors and other data from fx
+        int effectColorA = fx.getRed() & 0xFF;
+        //System.out.println("Effect Color A: " + effectColorA);
+        int effectColorB = fx.getGreen() & 0xFF;
+        //System.out.println("Effect Color B: " + effectColorB);
+        float fadeStrength = (fx.getBlue() & 0xFF) / 255.0f;
+        //System.out.println("Fade Strength: " + fadeStrength);
+        float grime = (fx.getAlpha() & 0xFF) / 255.0f;
+        //System.out.println("Grime: " + grime);
+
+        // Extract danger type from roomFlags
+        int dangerType = roomFlags.getRed() & 0x03;
+        //System.out.println("Danger Type: " + dangerType);
+
+        // Return all extracted data
+        return new Object[]{palette, fadePalette, fadeStrength, grime, effectColorA, effectColorB, dangerType, index};
+    }
+
+    public static int[] extractARGB(int argb) {
+        int alpha = (argb >> 24) & 0xFF; // Extract alpha
+        int red = (argb >> 16) & 0xFF;   // Extract red
+        int green = (argb >> 8) & 0xFF;  // Extract green
+        int blue = argb & 0xFF;          // Extract blue
+        return new int[]{alpha, red, green, blue};
+    }
+
     public static void saveImageToFile(BufferedImage image, String format, String outputPath) throws IOException {
         File outputFile = new File(outputPath);
 

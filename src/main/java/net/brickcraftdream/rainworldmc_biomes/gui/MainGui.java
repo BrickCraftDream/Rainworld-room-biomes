@@ -32,6 +32,7 @@ import net.minecraft.world.level.block.Blocks;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import javax.xml.crypto.Data;
 import java.util.*;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
@@ -72,6 +73,11 @@ public class MainGui extends Screen {
 
     public static boolean biomeEdit = false;
     public static boolean validBiomeSelected = false;
+    public static boolean isAnyDropdownExpanded = false;
+    public static boolean[] expandedDropdowns = new boolean[3];
+
+    public static int guiScale = 0;
+    public static boolean isClosing = false;
 
     public enum GuiType {
         ROOM_CREATE,
@@ -87,6 +93,13 @@ public class MainGui extends Screen {
 
     @Override
     protected void init() {
+        if(minecraft.options.guiScale().get() != 2) {
+            guiScale = minecraft.options.guiScale().get();
+            //System.out.println(minecraft.options.guiScale().get());
+        }
+        if(!isClosing) {
+            minecraft.options.guiScale().set(2);
+        }
         super.init();
         DataHandler.init();
         setUpGUIContents();
@@ -102,14 +115,31 @@ public class MainGui extends Screen {
         //    case ROOM_EDIT -> initRoomEditGui();
         //}
 
-
+        // Reset everything for a fresh start
+        try {
+            List<GuiEventListener> list = DataHandler.getGuiContent();
+            for (GuiEventListener guiEventListener : list) {
+                this.removeWidget(guiEventListener);
+                guiEventListener = null;
+            }
+            DataHandler.setGuiContent(new ArrayList<>());
+            DataHandler.setActiveRenderables(new ArrayList<>());
+            DataHandler.setInactiveRenderables(new ArrayList<>());
+        }
+        catch (Exception e) {
+            System.err.println("Error during GUI reset: " + e.getMessage());
+            e.printStackTrace();
+        }
 
         initMainGui();
+
+
+        //updateTextBoxes();
     }
 
     @Override
     public void onClose() {
-        super.onClose();
+        isClosing = true;
         if(BlockViewWidget.renderEffectChain != null) {
             BlockViewWidget.renderEffectChain.close();
             BlockViewWidget.renderEffectChain = null;
@@ -117,6 +147,9 @@ public class MainGui extends Screen {
             BlockViewWidget.shouldRender = false;
             BlockViewWidget.shouldHaveActiveEffectChain = false;
         }
+        //System.out.println("Close: " + guiScale);
+        minecraft.options.guiScale().set(guiScale);
+        super.onClose();
     }
 
     @Override
@@ -135,7 +168,7 @@ public class MainGui extends Screen {
             } else if (value instanceof Number) {
                 result.put(entry.getKey(), ((Number) value).doubleValue());
             } else {
-                System.out.println("Skipping non-numeric value for key: " + entry.getKey());
+                //System.out.println("Skipping non-numeric value for key: " + entry.getKey());
             }
         }
         return result;
@@ -182,6 +215,7 @@ public class MainGui extends Screen {
 
         this.addRenderableWidget(mainGui$placeButton);
         this.addRenderableWidget(mainGui$cancelButton);
+        this.addRenderableWidget(mainGui$deselectButton);
         this.addRenderableWidget(mainGui$nameBox);
         this.addRenderableWidget(mainGui$saveButton);
 
@@ -272,12 +306,32 @@ public class MainGui extends Screen {
         DataHandler.setDangerType(s);
     }
 
+    private void onDeselectSelected(String string) {
+        resetSelections(player);
+        BoxRenderer.clearBoxes();
+        DataHandler.setCurrentRegion(Component.translatable("gui.rainworld.select_region").getString());
+        DataHandler.setCurrentRoom(Component.translatable("gui.rainworld.select_room").getString());
+        DataHandler.setCurrentScreen(Component.translatable("gui.rainworld.select_screen").getString());
+        if(BlockViewWidget.renderEffectChain != null) {
+            BlockViewWidget.renderEffectChain.close();
+            BlockViewWidget.renderEffectChain = null;
+            Minecraft.getInstance().gameRenderer.shutdownEffect();
+            BlockViewWidget.shouldRender = false;
+            BlockViewWidget.shouldHaveActiveEffectChain = false;
+        }
+        //assert minecraft != null;
+        //minecraft.setScreen(null);
+        minecraft.options.guiScale().set(guiScale);
+        onClose();
+    }
+
     private void onRoomSelected(String room) {
         if(mainGui$roomDropdown.expanded) return;
         DataHandler.setCurrentRoom(room);
         validBiomeSelected = false;
         try {
             String biomePath = DataHandler.getCurrentRegion() + "." + DataHandler.getCurrentRoom() + (DataHandler.getCurrentScreen().equals(Component.translatable("gui.rainworld.select_screen").getString()) ? "" : (DataHandler.getCurrentScreen().isEmpty() ? "" : "_" + DataHandler.getCurrentScreen()));
+            //System.out.println("AAAAAAAAAAAAAAAAAAAAAAA  " + biomePath);
             ResourceKey<Biome> biomeKey = ResourceKey.create(Registries.BIOME, ResourceLocation.fromNamespaceAndPath("rainworld", biomePath));
             Registry<Biome> biomeRegistry = minecraft.level.registryAccess().registryOrThrow(Registries.BIOME);
             Holder<Biome> biomeEntry = biomeRegistry.getHolderOrThrow(biomeKey);
@@ -296,6 +350,7 @@ public class MainGui extends Screen {
         validBiomeSelected = false;
         try {
             String biomePath = DataHandler.getCurrentRegion() + "." + DataHandler.getCurrentRoom() + (DataHandler.getCurrentScreen().equals(Component.translatable("gui.rainworld.select_screen").getString()) ? "" : (DataHandler.getCurrentScreen().isEmpty() ? "" : "_" + DataHandler.getCurrentScreen()));
+            //System.out.println("AAAAAAAAAAAAAAAAAAAAAAA  " + biomePath);
             ResourceKey<Biome> biomeKey = ResourceKey.create(Registries.BIOME, ResourceLocation.fromNamespaceAndPath("rainworld", biomePath));
             Registry<Biome> biomeRegistry = minecraft.level.registryAccess().registryOrThrow(Registries.BIOME);
             Holder<Biome> biomeEntry = biomeRegistry.getHolderOrThrow(biomeKey);
@@ -314,6 +369,7 @@ public class MainGui extends Screen {
         validBiomeSelected = false;
         try {
             String biomePath = DataHandler.getCurrentRegion() + "." + DataHandler.getCurrentRoom() + (DataHandler.getCurrentScreen().equals(Component.translatable("gui.rainworld.select_screen").getString()) ? "" : (DataHandler.getCurrentScreen().isEmpty() ? "" : "_" + DataHandler.getCurrentScreen()));
+            //System.out.println("AAAAAAAAAAAAAAAAAAAAAAA  " + biomePath);
             ResourceKey<Biome> biomeKey = ResourceKey.create(Registries.BIOME, ResourceLocation.fromNamespaceAndPath("rainworld", biomePath));
             Registry<Biome> biomeRegistry = minecraft.level.registryAccess().registryOrThrow(Registries.BIOME);
             Holder<Biome> biomeEntry = biomeRegistry.getHolderOrThrow(biomeKey);
@@ -418,14 +474,25 @@ public class MainGui extends Screen {
             DataHandler.setLastPlacedRegion(DataHandler.getCurrentRegion());
             DataHandler.setLastPlacedRoom(DataHandler.getCurrentRoom());
             DataHandler.setLastPlacedScreen(DataHandler.getCurrentScreen());
-            assert minecraft != null;
-            minecraft.setScreen(null);
+            if(BlockViewWidget.renderEffectChain != null) {
+                BlockViewWidget.renderEffectChain.close();
+                BlockViewWidget.renderEffectChain = null;
+                Minecraft.getInstance().gameRenderer.shutdownEffect();
+                BlockViewWidget.shouldRender = false;
+                BlockViewWidget.shouldHaveActiveEffectChain = false;
+            }
+            //assert minecraft != null;
+            //minecraft.setScreen(null);
+            minecraft.options.guiScale().set(guiScale);
+            onClose();
         }
     }
 
     private void onCancelSelected(String string) {
-        assert minecraft != null;
-        minecraft.setScreen(null);
+        //assert minecraft != null;
+        //minecraft.setScreen(null);
+        minecraft.options.guiScale().set(guiScale);
+        onClose();
     }
 
     @Override
@@ -450,9 +517,9 @@ public class MainGui extends Screen {
         }
 
         if(previousTickMalformedBiomeDetected) {
-            regionDropdown.collapseDropdown();
-            roomDropdown.collapseDropdown();
-            screenDropdown.collapseDropdown();
+            //regionDropdown.collapseDropdown();
+            //roomDropdown.collapseDropdown();
+            //screenDropdown.collapseDropdown();
             previousTickMalformedBiomeDetected = false;
         }
 
@@ -532,11 +599,11 @@ public class MainGui extends Screen {
                     if(((!DataHandler.regionDropdown.getValue().isEmpty() && !DataHandler.roomDropdown.getValue().isEmpty()) || (!DataHandler.regionDropdown.getValue().isEmpty() && !DataHandler.roomDropdown.getValue().isEmpty()))) {
                         if(!box.getValue().contains(Component.translatable("gui.rainworld.select_screen").getString())) {
                             List<String> allOptions = getSortedStrings(List.copyOf(exporter.getAllScreenNames(regionDropdown.getValue(), roomDropdown.getValue())));
-                            screenOptions = allOptions;
-                            box.allOptions = allOptions;
+                            //screenOptions = allOptions;
+                            //box.allOptions = allOptions;
                         }
                         else {
-                            box.allOptions = List.copyOf(DataHandler.getScreenOptions());
+                            //box.allOptions = List.copyOf(DataHandler.getScreenOptions());
                         }
                     }
                     //if(box.getValue().isEmpty() && !getCurrentScreen().isEmpty()) {
@@ -545,20 +612,20 @@ public class MainGui extends Screen {
                     //if(!box.getValue().isEmpty() && getCurrentScreen().isEmpty()) {
                     //    setCurrentScreen(box.getValue());
                     //}
-                    if(!Objects.equals(getCurrentScreen(), box.getValue()) && !box.expanded) {
-                        //System.out.println(getCurrentScreen() + " " + box.getValue());
-                        DataHandler.setCurrentScreen(box.getValue());
-                    }
+                    //if(!Objects.equals(getCurrentScreen(), box.getValue()) && !box.expanded) {
+                    //    //System.out.println(getCurrentScreen() + " " + box.getValue());
+                    //    DataHandler.setCurrentScreen(box.getValue());
+                    //}
                 }
                 if(box.identifier.equals("room.room_region_select")) {
                     if(!DataHandler.regionDropdown.getValue().isEmpty() || !DataHandler.regionDropdown.getValue().isEmpty()) {
                         if(!box.getValue().contains(Component.translatable("gui.rainworld.select_room").getString())) {
                             List<String> allOptions = getSortedStrings(List.copyOf(exporter.getAllRoomNames(regionDropdown.getValue())));
-                            roomOptions = allOptions;
-                            box.allOptions = allOptions;
+                            //roomOptions = allOptions;
+                            //box.allOptions = allOptions;
                         }
                         else {
-                            box.allOptions = List.copyOf(DataHandler.getRoomOptions());
+                            //box.allOptions = List.copyOf(DataHandler.getRoomOptions());
                         }
                     }
                     //if(box.getValue().isEmpty() && !getCurrentRoom().isEmpty()) {
@@ -567,19 +634,19 @@ public class MainGui extends Screen {
                     //if(!box.getValue().isEmpty() && getCurrentRoom().isEmpty()) {
                     //    setCurrentRoom(box.getValue());
                     //}
-                    if(!Objects.equals(getCurrentRoom(), box.getValue()) && !box.expanded) {
-                        //System.out.println(getCurrentRoom() + " " + box.getValue());
-                        DataHandler.setCurrentRoom(box.getValue());
-                    }
+                    //if(!Objects.equals(getCurrentRoom(), box.getValue()) && !box.expanded) {
+                    //    //System.out.println(getCurrentRoom() + " " + box.getValue());
+                    //    DataHandler.setCurrentRoom(box.getValue());
+                    //}
                 }
                 if(box.identifier.equals("region.room_region_select")) {
                     if(!box.getValue().contains(Component.translatable("gui.rainworld.select_region").getString())) {
                         List<String> allOptions = getSortedStrings(List.copyOf(exporter.getAllRegionNames()));
-                        regionOptions = allOptions;
-                        box.allOptions = allOptions;
+                        //regionOptions = allOptions;
+                        //box.allOptions = allOptions;
                     }
                     else {
-                        box.allOptions = List.copyOf(DataHandler.getRegionOptions());
+                        //box.allOptions = List.copyOf(DataHandler.getRegionOptions());
                     }
                     //if(box.getValue().isEmpty() && !getCurrentRegion().isEmpty()) {
                     //    box.setValue(getCurrentRegion(), true);
@@ -587,10 +654,10 @@ public class MainGui extends Screen {
                     //if(!box.getValue().isEmpty() && getCurrentRegion().isEmpty()) {
                     //    setCurrentRegion(box.getValue());
                     //}
-                    if(!Objects.equals(getCurrentRegion(), box.getValue()) && !box.expanded) {
-                        //System.out.println(getCurrentRegion() + " " + box.getValue());
-                        DataHandler.setCurrentRegion(box.getValue());
-                    }
+                    //if(!Objects.equals(getCurrentRegion(), box.getValue()) && !box.expanded) {
+                    //    //System.out.println(getCurrentRegion() + " " + box.getValue());
+                    //    DataHandler.setCurrentRegion(box.getValue());
+                    //}
                 }
             }
             if(guiEventListener instanceof Checkbox checkbox) {
@@ -671,7 +738,7 @@ public class MainGui extends Screen {
                     }
                 }
                 if(button.getIdentifier().equals("place")) {
-                    if(validBiomeSelected) {
+                    if(validBiomeSelected && !expandedDropdowns[0] && !expandedDropdowns[1] && !expandedDropdowns[2]) {
                         button.setX(leftMargin);
                     }
                     else {
@@ -690,14 +757,14 @@ public class MainGui extends Screen {
         }
         if(!validBiomeSelected && !mainGui$roomDropdown.getValue().isEmpty()) {
             if(!mainGui$roomDropdown.getValue().equals(Component.translatable("gui.rainworld.select_room").getString())) {
-                mainGui$roomDropdown.setValue(Component.translatable("gui.rainworld.select_room").getString());
+                //mainGui$roomDropdown.setValue(Component.translatable("gui.rainworld.select_room").getString());
                 previousTickMalformedBiomeDetected = true;
             }
         }
 
         if(!validBiomeSelected && !mainGui$screenDropdown.getValue().isEmpty()) {
             if(!mainGui$screenDropdown.getValue().equals(Component.translatable("gui.rainworld.select_screen").getString())) {
-                mainGui$screenDropdown.setValue(Component.translatable("gui.rainworld.select_screen").getString());
+                //mainGui$screenDropdown.setValue(Component.translatable("gui.rainworld.select_screen").getString());
                 previousTickMalformedBiomeDetected = true;
             }
         }
@@ -895,7 +962,7 @@ public class MainGui extends Screen {
                             .collect(Collectors.toList());
                 }
                 this.scrollOffset = 0;
-                expandDropdown();
+                //expandDropdown();
             });
             this.identifier = identifier;
         }
@@ -922,65 +989,169 @@ public class MainGui extends Screen {
         }
 
         @Override
+        public void setValue(String text) {
+            //if(identifier.equals("region.room_region_select")) {
+            //    for(GuiEventListener listener : DataHandler.getGuiContent()) {
+            //        if(listener instanceof SearchableDropdown box) {
+            //            if (box.identifier.equals("room.room_region_select")) {
+            //                box.setValue("");
+            //            }
+            //        }
+            //    }
+            //}
+            //if(identifier.equals("room.room_region_select")) {
+            //    for(GuiEventListener listener : DataHandler.getGuiContent()) {
+            //        if(listener instanceof SearchableDropdown box) {
+            //            if (box.identifier.equals("screen.room_region_select")) {
+            //                box.setValue("");
+            //            }
+            //        }
+            //    }
+            //}
+            //if(identifier.equals("screen.room_region_select")) {
+//
+            //}
+            if(this.getWidth() < text.length() * 6 + textMargin + scrollbarWidth) {
+                this.setWidth(text.length() * 6 + textMargin + scrollbarWidth);
+            }
+            super.setValue(text);
+        }
+
+        @Override
+        public void insertText(String textToWrite) {
+            if(expanded) {
+                super.insertText(textToWrite);
+            }
+        }
+
+        @Override
         public boolean mouseClicked(double mouseX, double mouseY, int button) {
-            if(Objects.equals(identifier, "danger_type")) return false;
+            //System.out.println("mouseClicked called with mouseX: " + mouseX + ", mouseY: " + mouseY + ", button: " + button);
+
+            if (Objects.equals(identifier, "danger_type")) {
+                //System.out.println("Identifier is 'danger_type', returning false.");
+                return false;
+            }
+
+
+
             if (expanded) {
+                //System.out.println("Dropdown is expanded.");
                 int optionHeight = BUTTON_HEIGHT;
                 int startY = this.getY() + BUTTON_HEIGHT;
+                //System.out.println("Start Y position: " + startY);
 
                 if (filteredOptions.size() > maxVisibleOptions &&
                         mouseX >= this.getX() + this.width - 6 &&
                         mouseX <= this.getX() + this.width &&
                         mouseY >= startY && mouseY < startY + dropdownHeight) {
 
+                    //System.out.println("Mouse is over the scrollbar.");
                     int maxScrollOffset = filteredOptions.size() - maxVisibleOptions;
+                    //System.out.println("Max scroll offset: " + maxScrollOffset);
 
-                    double clickPositionRatio = (mouseY - startY) / (double)dropdownHeight;
-                    scrollOffset = (int)(clickPositionRatio * maxScrollOffset);
+                    double clickPositionRatio = (mouseY - startY) / (double) dropdownHeight;
+                    //System.out.println("Click position ratio: " + clickPositionRatio);
+
+                    scrollOffset = (int) (clickPositionRatio * maxScrollOffset);
                     scrollOffset = Math.max(0, Math.min(maxScrollOffset, scrollOffset));
+                    //System.out.println("Updated scroll offset: " + scrollOffset);
 
                     return true;
                 }
 
                 if (mouseX >= this.getX() && mouseX <= this.getX() + this.width) {
+                    //System.out.println("Mouse is over the dropdown options.");
                     for (int i = 0; i < Math.min(maxVisibleOptions, filteredOptions.size()); i++) {
                         int optionIndex = i + scrollOffset;
+                        //System.out.println("Checking option at index: " + optionIndex);
+
                         if (optionIndex >= 0 && optionIndex < filteredOptions.size()) {
                             int optionY = startY + (i * optionHeight);
+                            //System.out.println("Option Y position: " + optionY);
+
                             if (mouseY >= optionY && mouseY < optionY + optionHeight) {
                                 String selectedOption = filteredOptions.get(optionIndex);
+                                //System.out.println("Selected option: " + selectedOption);
                                 setValue(selectedOption);
-                                selectionCallback.accept(selectedOption);
                                 collapseDropdown();
+                                //expanded = false;
+                                if(identifier.equals("region.room_region_select")) {
+                                    DataHandler.setCurrentRegion(selectedOption);
+                                    //System.out.println("Dropdown collapsed after selection. " + DataHandler.getCurrentRegion());
+                                    //for(GuiEventListener listener : DataHandler.getGuiContent()) {
+                                    //    if(listener instanceof SearchableDropdown box) {
+                                    //        if (box.identifier.equals("room.room_region_select")) {
+                                    //            //System.out.println("Before: " + box.getValue());
+                                    //            box.setValue("");
+                                    //            //System.out.println("After: " + box.getValue());
+                                    //        }
+                                    //    }
+                                    //}
+                                }
+                                else if(identifier.equals("room.room_region_select")) {
+                                    DataHandler.setCurrentRoom(selectedOption);
+                                    //System.out.println("Dropdown collapsed after selection. " + DataHandler.getCurrentRoom());
+                                    //for(GuiEventListener listener : DataHandler.getGuiContent()) {
+                                    //    if(listener instanceof SearchableDropdown box) {
+                                    //        if (box.identifier.equals("screen.room_region_select")) {
+                                    //            System.out.println("Before: " + box.getValue());
+                                    //            box.setValue("");
+                                    //            System.out.println("After: " + box.getValue());
+                                    //        }
+                                    //    }
+                                    //}
+                                }
+                                else if(identifier.equals("screen.room_region_select")) {
+                                    DataHandler.setCurrentScreen(selectedOption);
+                                    //System.out.println("Dropdown collapsed after selection. " + DataHandler.getCurrentScreen());
+                                }
+                                selectionCallback.accept(selectedOption);
+
+                                //System.out.println("Dropdown collapsed after selection.");
                                 return true;
                             }
                         }
                     }
                     if (mouseY >= startY && mouseY < startY + dropdownHeight) {
+                        //System.out.println("Mouse is within dropdown height but no option selected.");
                         return true;
                     }
                 }
                 collapseDropdown();
+                //expanded = false;
+                //System.out.println("Dropdown collapsed without selection.");
                 return true;
-            }
-            else {
+            } else {
+                //System.out.println("Dropdown is not expanded.");
                 boolean result = super.mouseClicked(mouseX, mouseY, button);
+                //System.out.println("Result of super.mouseClicked: " + result);
+
                 if (isMouseOver(mouseX, mouseY)) {
+                    //System.out.println("Mouse is over the dropdown, expanding it.");
                     expandDropdown();
+                    //expanded = true;
                 }
                 return result;
             }
         }
 
         private void expandDropdown() {
+            //System.out.println("Called expandDropdown()");
             if (expanded) {return;}
+            //System.out.println("Dropdown needs expanding");
             if(!getValue().isEmpty()) {
-                //setValue("");
-                setValue("", true);
-                // Why does it work when I return here? If I don't it behaves as if it fired twice, which shouldn't be possible. So why?
-                // Me from a few weeks later: It's because setValue seems to trigger the expanding logic too. Why? I still don't know
+                setValue("");
+                //setValue("", true);
+                // Why does it work when I return here? If I don't it behaves as if it fired twice, which shouldn't be possible. So why? (edit from future: because it fired twice duh)
+                // Me from a few weeks later: It's because setValue seems to trigger the expanding logic too. Why? I still don't know (edit from future: I'm not so sure about that) (edit from the future after the awkawrd comment: I'm 99% sure that it was [awkward comment])
                 // Me from a day later: I FUCKING HATE THIS SHIT!
-                return;
+                // Me from some time late: yeah, I know
+                // Me again after an hour: I think I know where the issue is. I only have to find where it's at
+                // Hello, this is me from the future. It was a bug. Idk where, but it was a bug. Haven't tested it yet though...
+                // FUCK YEAH, IT'S FIXED!!!!! Ok to be fair it's not working with the room and screen dropdowns, so that's sad
+                // Well this is awkward. I accidentally? added a call to expandDropdown() in the method that updates the callback. This means that it essentially opened it _again_ after updating the value
+                //return;
             }
             //if(this.getValue().equals(Component.translatable("gui.rainworld.select_region").getString())
             //        || this.getValue().equals(Component.translatable("gui.rainworld.select_room").getString())
@@ -1013,10 +1184,21 @@ public class MainGui extends Screen {
             }
             addRenderable(this);
             expanded = true;
+            if(identifier.equals("region.room_region_select")) {
+                expandedDropdowns[0] = true;
+            }
+            else if(identifier.equals("room.room_region_select")) {
+                expandedDropdowns[1] = true;
+            }
+            else if(identifier.equals("screen.room_region_select")) {
+                expandedDropdowns[2] = true;
+            }
         }
 
         private void collapseDropdown() {
+            //System.out.println("Called collapseDropdown()");
             if (!expanded) {return;}
+            //System.out.println("Dropdown needs collapsing");
 
             List<Renderable> undesirables = new ArrayList<>(getInactiveRenderables());
             for(Renderable renderable : undesirables) {
@@ -1044,6 +1226,15 @@ public class MainGui extends Screen {
 
             expanded = false;
             this.setHeight(BUTTON_HEIGHT);
+            if(identifier.equals("region.room_region_select")) {
+                expandedDropdowns[0] = false;
+            }
+            else if(identifier.equals("room.room_region_select")) {
+                expandedDropdowns[1] = false;
+            }
+            else if(identifier.equals("screen.room_region_select")) {
+                expandedDropdowns[2] = false;
+            }
         }
 
         @Override
@@ -1330,7 +1521,7 @@ public class MainGui extends Screen {
         roomRegionSelect$screenDropdown = new SearchableDropdown(leftMargin * 3, roomRegionSelect$screenDropdown$offsetY, WIDGET_WIDTH, BUTTON_HEIGHT, Component.literal(DataHandler.getCurrentScreen() != null ? DataHandler.getCurrentScreen() : ""), DataHandler.getScreenOptions(), this.font, this::onScreenSelected, "screen.room_region_select");
         roomRegionSelect$editButton = Button.builder(Component.translatable("gui.rainworld.edit"), button -> {
             assert minecraft != null;
-            minecraft.setScreen(new MainGui(player, GuiType.ROOM_EDIT));
+            //minecraft.setScreen(new MainGui(player, GuiType.ROOM_EDIT));
         }).bounds(leftMargin, roomRegionSelect$editButton$offsetY, WIDGET_WIDTH, BUTTON_HEIGHT).tooltip(Tooltip.create(Component.translatable("gui.rainworld.edit_tooltip"))).build();
 
 
@@ -1352,7 +1543,7 @@ public class MainGui extends Screen {
         roomEditGui$saveButton = Button.builder(Component.translatable("gui.rainworld.save"), button -> onSaveSelected(button.toString())).bounds(leftMargin, roomEditGui$saveButton$offsetY, WIDGET_WIDTH / 2 - 5, BUTTON_HEIGHT).tooltip(Tooltip.create(Component.translatable("gui.rainworld.save_tooltip"))).build();
         roomEditGui$backButton = Button.builder(Component.translatable("gui.rainworld.back"), button -> {
             assert minecraft != null;
-            minecraft.setScreen(new MainGui(player, GuiType.ROOM_REGION_SELECT));
+            //minecraft.setScreen(new MainGui(player, GuiType.ROOM_REGION_SELECT));
         }).bounds(leftMargin + WIDGET_WIDTH / 2 + 5, roomEditGui$backButton$offsetY, WIDGET_WIDTH / 2 - 5, BUTTON_HEIGHT).tooltip(Tooltip.create(Component.translatable("gui.rainworld.back_tooltip"))).build();
         roomEditGui$hideGuiButton = Button.builder(Component.translatable("gui.rainworld.hide"), button -> {/* Hide GUI logic */}).bounds(leftMargin, roomEditGui$hideGuiButton$offsetY, WIDGET_WIDTH, BUTTON_HEIGHT).tooltip(Tooltip.create(Component.translatable("gui.rainworld.hide_tooltip"))).build();
 
@@ -1461,6 +1652,7 @@ public class MainGui extends Screen {
 
         mainGui$placeButton = IdButton.builder(Component.translatable("gui.rainworld.place"), button -> onPlaceSelected(button.toString()), "place").bounds(leftMargin, mainGui$placeButton$offsetY, WIDGET_WIDTH + Component.translatable("gui.rainworld.place").getString().length() * 6, BUTTON_HEIGHT).tooltip(Tooltip.create(Component.translatable("gui.rainworld.place_tooltip"))).build();
         mainGui$cancelButton = IdButton.builder(Component.translatable("gui.rainworld.cancel"), button -> onCancelSelected(button.toString()), "cancel").bounds(leftMargin + WIDGET_WIDTH + Component.translatable("gui.rainworld.place").getString().length() * 6, mainGui$cancelButton$offsetY, WIDGET_WIDTH + Component.translatable("gui.rainworld.cancel").getString().length() * 6, BUTTON_HEIGHT).tooltip(Tooltip.create(Component.translatable("gui.rainworld.cancel_tooltip"))).build();
+        mainGui$deselectButton = IdButton.builder(Component.translatable("gui.rainworld.deselect"), button -> onDeselectSelected(button.toString()), "deselect").bounds(leftMargin + WIDGET_WIDTH + Component.translatable("gui.rainworld.place").getString().length() * 6 + Component.translatable("gui.rainworld.cancel").getString().length() * 6 + Component.translatable("gui.rainworld.deselect").getString().length() * 6 + 2, mainGui$deselectButton$offsetY, WIDGET_WIDTH + Component.translatable("gui.rainworld.deselect").getString().length() * 6, BUTTON_HEIGHT).tooltip(Tooltip.create(Component.translatable("gui.rainworld.deselect_tooltip"))).build();
         mainGui$nameBox = new EditBox(this.font, leftMargin + WIDGET_WIDTH + Component.translatable("gui.rainworld.save").getString().length() * 6, mainGui$nameBox$offsetY - 12345, WIDGET_WIDTH + Component.translatable("gui.rainworld.name").getString().length() * 6, BUTTON_HEIGHT, Component.translatable("gui.rainworld.name"));
         mainGui$saveButton = IdButton.builder(Component.translatable("gui.rainworld.save"), button -> onSaveSelected(button.toString()), "save").bounds(leftMargin, mainGui$saveButton$offsetY - 12345, WIDGET_WIDTH + Component.translatable("gui.rainworld.save").getString().length() * 6, BUTTON_HEIGHT).tooltip(Tooltip.create(Component.translatable("gui.rainworld.save_tooltip"))).build();
 
@@ -1495,28 +1687,28 @@ public class MainGui extends Screen {
 
         //Random random = new Random();
         String[] topTextures = {
-                "textures/block/rainstone_worn_1.png",
-                "textures/block/rainstone_worn_2.png",
-                "textures/block/rainstone_worn_3.png",
-                "textures/block/rainstone_worn_4.png",
-                "textures/block/rainstone_worn_5.png",
-                "textures/block/rainstone_worn_6.png"
+                "textures/block/bricks_worn_1.png",
+                "textures/block/bricks_worn_2.png",
+                "textures/block/bricks_worn_3.png",
+                "textures/block/bricks_worn_4.png",
+                "textures/block/bricks_worn_5.png",
+                "textures/block/bricks_worn_6.png"
         };
         String[] nearTopTextures = {
-                "textures/block/rainstone_clean_1.png",
-                "textures/block/rainstone_clean_2.png",
-                "textures/block/rainstone_clean_3.png",
-                "textures/block/rainstone_clean_4.png",
-                "textures/block/rainstone_clean_5.png",
-                "textures/block/rainstone_clean_6.png"
+                "textures/block/chaos_worn_1.png",
+                "textures/block/chaos_worn_2.png",
+                "textures/block/chaos_worn_3.png",
+                "textures/block/chaos_worn_4.png",
+                "textures/block/chaos_worn_5.png",
+                "textures/block/chaos_worn_6.png"
         };
         String[] baseTextures = {
-                "textures/block/concrete_worn_1.png",
-                "textures/block/concrete_worn_2.png",
-                "textures/block/concrete_worn_3.png",
-                "textures/block/concrete_worn_4.png",
-                "textures/block/concrete_worn_5.png",
-                "textures/block/concrete_worn_6.png"
+                "textures/block/concrete_clean_1.png",
+                "textures/block/concrete_clean_2.png",
+                "textures/block/concrete_clean_3.png",
+                "textures/block/concrete_clean_4.png",
+                "textures/block/concrete_clean_5.png",
+                "textures/block/concrete_clean_6.png"
         };
 
         for (int x = 0; x < 8; x++) {

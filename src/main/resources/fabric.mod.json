@@ -2,11 +2,11 @@
   "schemaVersion": 1,
   "id": "rainworld",
   "version": "${version}",
-  "name": "Rainworld-MC_Biomes",
+  "name": "Rainworld MC Biomes",
   "description": "rainworld-regions",
   "authors": [],
   "contact": {
-    "repo": "https://github.com/brickcraftdream/Rainworld-MC_Biomes"
+    "repo": "https://github.com/BrickCraftDream/Rainworld-room-biomes"
   },
   "license": "All-Rights-Reserved",
   "icon": "assets/rainworld/icon.png",
@@ -27,5 +27,11 @@
     "fabric": "*",
     "minecraft": "${minecraft_version}"
   },
-  "accessWidener" : "rainworldmc_biomes.accessWidener"
+  "suggests": {
+    "sodium": ">=0.6.11"
+  },
+  "accessWidener" : "rainworldmc_biomes.accessWidener",
+  "mixins": [
+    "rainworld.mixins.json"
+  ]
 }

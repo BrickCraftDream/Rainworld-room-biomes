@@ -87,10 +87,131 @@ public class BlockViewWidget extends AbstractWidget {
     public static PostChain renderEffectChain;
     public static boolean shouldHaveActiveEffectChain = false;
 
+    public static PostChain renderEffectChainForNormalGuis;
+    public static boolean shouldHaveActiveEffectChainForNormalGuis = false;
+
+    // Data holders for the current palette
+    public static int palette = 0;
+    public static int fadePalette = 0;
+    public static float fadeStrength = 0f;
+    public static float[] rawData = new float[108];
+
+    public static int paletteForNormalGuis = 0;
+    public static int fadePaletteForNormalGuis = 0;
+    public static float fadeStrengthForNormalGuis = 0f;
+    public static float[] rawDataForNormalGuis = new float[108];
+
+    public static void updateTextureValues(int paletteA, int fadePaletteA, float fadeStrengthA) {
+        //System.out.println("updateTextureValues called with paletteA: " + paletteA + ", fadePaletteA: " + fadePaletteA + ", fadeStrengthA: " + fadeStrengthA);
+
+        palette = paletteA;
+        fadePalette = fadePaletteA;
+        fadeStrength = fadeStrengthA;
+
+        //System.out.println("Palette values updated. palette: " + palette + ", fadePalette: " + fadePalette + ", fadeStrength: " + fadeStrength);
+
+        BufferedImage palette1 = BiomeImageProcessorClient.resourceLocationToBufferedImage(ResourceLocation.fromNamespaceAndPath("rainworld", "textures/palettes/palette" + paletteA + ".png"));
+        BufferedImage palette2 = BiomeImageProcessorClient.resourceLocationToBufferedImage(ResourceLocation.fromNamespaceAndPath("rainworld", "textures/palettes/palette" + fadePaletteA + ".png"));
+
+        if (palette1 == null || palette2 == null) {
+            //System.out.println("Failed to load palette images for paletteA: " + paletteA + " and fadePaletteA: " + fadePaletteA);
+            return;
+        }
+
+        //System.out.println("Palette images loaded successfully.");
+
+        rawData = BiomeImageProcessorClient.paletteColor(palette1, palette2, fadeStrength);
+        float[] fullRawData = BiomeImageProcessorClient.blendImagesAndSaveReturnFloat(palette1, palette2, fadeStrength, 0, 2, 29, 7, "/home/deck/IdeaProjects/Rainworld-MC_Biomes mojamap 1.21.1/build/datagen/shader_data.png");
+        //System.out.println("Raw data updated: " + Arrays.toString(rawData));
+
+        if (renderEffectChain != null) {
+            //System.out.println("Render effect chain is not null. Updating uniforms.");
+            for (PostPass postPass : renderEffectChain.passes) {
+                int n = 0;
+                while (n <= 44) {
+                    try {
+                        //System.out.println("Updating uniform 'colors" + (n + 1) + "' with raw data.");
+                        postPass.getEffect().safeGetUniform("data" + (n + 1)).set(new Matrix4f(
+                                fullRawData[0 + (n * 12)], fullRawData[1 + (n * 12)], fullRawData[2 + (n * 12)], 1,
+                                fullRawData[3 + (n * 12)], fullRawData[4 + (n * 12)], fullRawData[5 + (n * 12)], 1,
+                                fullRawData[6 + (n * 12)], fullRawData[7 + (n * 12)], fullRawData[8 + (n * 12)], 1,
+                                fullRawData[9 + (n * 12)], fullRawData[10 + (n * 12)], fullRawData[11 + (n * 12)], 1
+                        ));
+                        //System.out.println("Uniform 'colors" + (n + 1) + "' updated.");
+                        n++;
+                    }
+                    catch (Exception e) {
+                        e.printStackTrace();
+                        n = 99;
+                    }
+                }
+            }
+        } else {
+            //System.out.println("Render effect chain is null. Skipping uniform updates.");
+        }
+    }
+
+    public static void updateTextureValuesForNormalGuis(int paletteA, int fadePaletteA, float fadeStrengthA) {
+        //System.out.println("updateTextureValues called with paletteA: " + paletteA + ", fadePaletteA: " + fadePaletteA + ", fadeStrengthA: " + fadeStrengthA);
+
+        paletteForNormalGuis = paletteA;
+        fadePaletteForNormalGuis = fadePaletteA;
+        fadeStrengthForNormalGuis = fadeStrengthA;
+
+        //System.out.println("Palette values updated. palette: " + paletteForNormalGuis + ", fadePalette: " + fadePaletteForNormalGuis + ", fadeStrength: " + fadeStrengthForNormalGuis);
+
+        BufferedImage palette1 = BiomeImageProcessorClient.resourceLocationToBufferedImage(ResourceLocation.fromNamespaceAndPath("rainworld", "textures/palettes/palette" + paletteA + ".png"));
+        BufferedImage palette2 = BiomeImageProcessorClient.resourceLocationToBufferedImage(ResourceLocation.fromNamespaceAndPath("rainworld", "textures/palettes/palette" + fadePaletteA + ".png"));
+
+        if (palette1 == null || palette2 == null) {
+            System.out.println("Failed to load palette images for paletteA: " + paletteA + " and fadePaletteA: " + fadePaletteA);
+            return;
+        }
+
+        //System.out.println("Palette images loaded successfully.");
+
+        rawDataForNormalGuis = BiomeImageProcessorClient.paletteColor(palette1, palette2, fadeStrengthForNormalGuis);
+        //System.out.println("Raw data updated: " + Arrays.toString(rawDataForNormalGuis));
+
+        if (renderEffectChainForNormalGuis != null) {
+            //System.out.println("Render effect chain is not null. Updating uniforms.");
+            for (PostPass postPass : renderEffectChainForNormalGuis.passes) {
+                int n = 0;
+                while (n <= 8) {
+                    //System.out.println("Updating uniform 'colors" + n + "' with raw data.");
+                    postPass.getEffect().safeGetUniform("colors" + n).set(new Matrix4f(
+                            rawDataForNormalGuis[0 + (n * 12)], rawDataForNormalGuis[1 + (n * 12)], rawDataForNormalGuis[2 + (n * 12)], 1,
+                            rawDataForNormalGuis[3 + (n * 12)], rawDataForNormalGuis[4 + (n * 12)], rawDataForNormalGuis[5 + (n * 12)], 1,
+                            rawDataForNormalGuis[6 + (n * 12)], rawDataForNormalGuis[7 + (n * 12)], rawDataForNormalGuis[8 + (n * 12)], 1,
+                            rawDataForNormalGuis[9 + (n * 12)], rawDataForNormalGuis[10 + (n * 12)], rawDataForNormalGuis[11 + (n * 12)], 1
+                    ));
+                    //System.out.println("Uniform 'colors" + n + "' updated.");
+                    n++;
+                }
+            }
+        } else {
+            //System.out.println("Render effect chain is null. Skipping uniform updates.");
+        }
+    }
+
     public static void loadChain() {
         if(shouldHaveActiveEffectChain) {
             Minecraft.getInstance().gameRenderer.loadEffect(ResourceLocation.withDefaultNamespace("shaders/post/creeper.json"));
             renderEffectChain = Minecraft.getInstance().gameRenderer.postEffect;
+        }
+    }
+
+    public static void loadChainForNormalGuis() {
+        Minecraft.getInstance().gameRenderer.loadEffect(ResourceLocation.withDefaultNamespace("shaders/post/invert.json"));
+        renderEffectChainForNormalGuis = Minecraft.getInstance().gameRenderer.postEffect;
+    }
+
+    public static void unloadChainForNormalGuis() {
+        if(renderEffectChainForNormalGuis != null) {
+            renderEffectChainForNormalGuis.close();
+            renderEffectChainForNormalGuis = null;
+            Minecraft.getInstance().gameRenderer.shutdownEffect();
+            shouldHaveActiveEffectChainForNormalGuis = false;
         }
     }
 
@@ -126,10 +247,10 @@ public class BlockViewWidget extends AbstractWidget {
         if(renderEffectChain == null) {
             loadChain();
         }
-        for (PostPass postPass : renderEffectChain.passes) {
-            postPass.getEffect().safeGetUniform("RedMatrix").set((float) targetColor.x, (float) targetColor.y, (float) targetColor.z);
-            postPass.getEffect().safeGetUniform("GreenMatrix").set((float) replacementColor.x, (float) replacementColor.y, (float) replacementColor.z);
-        }
+        //for (PostPass postPass : renderEffectChain.passes) {
+        //    postPass.getEffect().safeGetUniform("RedMatrix").set((float) targetColor.x, (float) targetColor.y, (float) targetColor.z);
+        //    postPass.getEffect().safeGetUniform("GreenMatrix").set((float) replacementColor.x, (float) replacementColor.y, (float) replacementColor.z);
+        //}
     }
 
     /**
@@ -151,6 +272,13 @@ public class BlockViewWidget extends AbstractWidget {
         // Calculate center for rendering
         this.centerX = width / 2;
         this.centerY = height / 2;
+
+        //try {
+        //    BlockViewWidget.updateTextureValues(Integer.parseInt(paletteBoxContent), Integer.parseInt(fadePaletteBoxContent), Float.parseFloat(fadeStrengthBoxContent));
+        //}
+        //catch (Exception e) {
+        //    System.err.println("Error updating texture values: " + e.getMessage());
+        //}
     }
 
     /**
@@ -720,7 +848,7 @@ public class BlockViewWidget extends AbstractWidget {
         float r = 1.0f;//((blockColor >> 16) & 0xFF) / 255.0F;
         float g = 1.0f;//((blockColor >> 8) & 0xFF) / 255.0F;
         float b = 1.0f;//(blockColor & 0xFF) / 255.0F;
-        float a = 0.9f;
+        float a = 1f;
 
         // Use the custom sprite
 

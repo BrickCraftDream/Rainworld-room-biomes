@@ -23,11 +23,14 @@ import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderEvents;
 import net.fabricmc.fabric.api.client.screen.v1.ScreenEvents;
+import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
 import net.fabricmc.fabric.api.event.player.AttackBlockCallback;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.MouseHandler;
+import net.minecraft.client.renderer.GameRenderer;
+import net.minecraft.client.renderer.ShaderInstance;
 import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
@@ -48,10 +51,12 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static net.brickcraftdream.rainworldmc_biomes.Rainworld_MC_Biomes.MOD_ID;
 import static net.brickcraftdream.rainworldmc_biomes.Rainworld_MC_Biomes.ROOM_SELECTOR_ITEM;
+import static net.brickcraftdream.rainworldmc_biomes.gui.widget.BlockViewWidget.*;
 import static net.brickcraftdream.rainworldmc_biomes.networking.NetworkManager.*;
 
 @Environment(EnvType.CLIENT)
@@ -71,9 +76,14 @@ public class Rainworld_MC_BiomesClient implements ClientModInitializer {
     private static double scrollAccumulator = 0;
 
     private static long ctrlPressTime = 0;
-    private static final long CTRL_TIMEOUT_MS = 500; // 1 second timeout
+    private static final long CTRL_TIMEOUT_MS = 300; // 1 second timeout
 
     private static MainGui mainGui = null;
+
+    private static float lastTickTemp = 0;
+
+    private static int maxTicksToIgnoreInputsAfterGuiExit = 6;
+    public static int ticksSinceGuiExit = 0;
 
 
     // Mode handling
@@ -175,7 +185,7 @@ public class Rainworld_MC_BiomesClient implements ClientModInitializer {
                 ConfigManagerServer.saveBufferedImageToConfigFolder(image, "shader_data.png");
                 ConfigManagerServer.writeConfig("biome_settings.json", jsonData.getAsJsonObject());
                 DynamicAssets.loadOrUpdateTexture();
-                System.out.println("Received config " + jsonData.toString().getBytes().length + " bytes: " + payload.imageData().length);
+                //System.out.println("Received config " + jsonData.toString().getBytes().length + " bytes: " + payload.imageData().length);
             });
         });
 
@@ -220,16 +230,16 @@ public class Rainworld_MC_BiomesClient implements ClientModInitializer {
 
         ClientPlayNetworking.registerGlobalReceiver(BiomeUpdatePacket.ID, ((payload, context) -> {
             context.client().execute(() -> {
-                System.out.println(payload.internalBiomeName());
+                //System.out.println(payload.internalBiomeName());
                 BufferedImage image = BiomeImageProcessorClient.byteArrayToBufferedImage(payload.imageData());
                 saveBufferedImageToConfigFolder(image, "shader_data.png");
                 DynamicAssets.loadOrUpdateTexture();
             });
         }));
-        Matrix4f originalRenderMatrix = RenderSystem.getProjectionMatrix();
-        VertexSorting originalVertexSorting = RenderSystem.getVertexSorting();
+        //Matrix4f originalRenderMatrix = RenderSystem.getProjectionMatrix();
+        //VertexSorting originalVertexSorting = RenderSystem.getVertexSorting();
 
-        WorldRenderEvents.AFTER_TRANSLUCENT.register(context -> {
+        WorldRenderEvents.LAST.register(context -> {
 
             Vec3 cameraPos = context.camera().getPosition();
             PoseStack matrixStack = context.matrixStack();
@@ -259,7 +269,7 @@ public class Rainworld_MC_BiomesClient implements ClientModInitializer {
                 RenderHelper.renderBlockHighlight(matrixStack, secondCorner, cameraPos, 0.3f, 0.3f, 1.0f, 1.0f);
             }
 
-            RenderSystem.setProjectionMatrix(originalRenderMatrix, originalVertexSorting);
+            //RenderSystem.setProjectionMatrix(originalRenderMatrix, originalVertexSorting);
         });
 
         WorldRenderEvents.AFTER_ENTITIES.register(context -> {
@@ -279,6 +289,121 @@ public class Rainworld_MC_BiomesClient implements ClientModInitializer {
                 BlockViewWidget.render(matrixStack, cameraPos, context.camera().getLookVector());
             }
          });
+
+        ClientTickEvents.START_WORLD_TICK.register((world) -> {
+            // Check if the world is null or the player is null
+            try {
+                if (world == null || Minecraft.getInstance().player == null) return;
+                float temperature = world.getBiome(Minecraft.getInstance().player.blockPosition()).value().getBaseTemperature() - 2;
+                if(temperature != lastTickTemp) {
+                    if (!hasDecimal(temperature)) {
+                        lastTickTemp = temperature;
+                        BufferedImage image = null;
+                        try {
+                            image = BiomeImageProcessorClient.resourceLocationToBufferedImage(ResourceLocation.fromNamespaceAndPath(MOD_ID, "textures/dynamic/shader_data.png"));
+                        } catch (Exception e) {
+                            System.out.println("Failed to load shader data image: " + e.getMessage());
+                        }
+
+                        if (image != null) {
+                            Object[] data = ImageGenerator.imageToRoom(image, (int) temperature);
+                            if (data.length > 0) {
+                                // Update the shader data with the new temperature
+                                ShaderInstance instance = GameRenderer.getRendertypeEntityCutoutShader();
+                                BufferedImage palette1 = null;
+                                BufferedImage palette2 = null;
+                                try {
+                                    palette1 = BiomeImageProcessorClient.resourceLocationToBufferedImage(ResourceLocation.fromNamespaceAndPath(MOD_ID, "textures/palettes/palette" + (int) data[0] + ".png"));
+                                    palette2 = BiomeImageProcessorClient.resourceLocationToBufferedImage(ResourceLocation.fromNamespaceAndPath(MOD_ID, "textures/palettes/palette" + (int) data[1] + ".png"));
+                                } catch (Exception e) {
+                                    System.out.println("Failed to load palettes: " + e.getMessage());
+                                }
+                                //try {
+                                //    ImageGenerator.saveImageToFile(image, "png", "/home/deck/IdeaProjects/Rainworld-MC_Biomes mojamap 1.21.1/build/datagen/TEST_FAILSAFE.png");
+                                //} catch (Exception e) {
+                                //    System.out.println("Failed to save image: " + e.getMessage());
+                                //}
+                                if (instance != null && palette1 != null && palette2 != null) {
+                                    float[] fullRawData = BiomeImageProcessorClient.blendImagesAndSaveReturnFloat(palette1, palette2, (float) data[2] * 100, 0, 2, 29, 7, "/home/deck/IdeaProjects/Rainworld-MC_Biomes mojamap 1.21.1/build/datagen/shader_data.png");
+                                    //float[] rawDataForNormalGuis = BiomeImageProcessorClient.paletteColor(palette1, palette2, (float) data[2] * 100);
+                                    int n = 0;
+                                    //while (n <= 8) {
+                                    //    instance.safeGetUniform("colors" + n).set(new Matrix4f(
+                                    //            rawDataForNormalGuis[0 + (n * 12)], rawDataForNormalGuis[1 + (n * 12)], rawDataForNormalGuis[2 + (n * 12)], 1,
+                                    //            rawDataForNormalGuis[3 + (n * 12)], rawDataForNormalGuis[4 + (n * 12)], rawDataForNormalGuis[5 + (n * 12)], 1,
+                                    //            rawDataForNormalGuis[6 + (n * 12)], rawDataForNormalGuis[7 + (n * 12)], rawDataForNormalGuis[8 + (n * 12)], 1,
+                                    //            rawDataForNormalGuis[9 + (n * 12)], rawDataForNormalGuis[10 + (n * 12)], rawDataForNormalGuis[11 + (n * 12)], 1
+                                    //    ));
+                                    //    n++;
+                                    //}
+                                    while (n <= 44) {
+                                        try {
+                                            instance.safeGetUniform("data" + (n + 1)).set(new Matrix4f(
+                                                    fullRawData[0 + (n * 12)], fullRawData[1 + (n * 12)], fullRawData[2 + (n * 12)], 1,
+                                                    fullRawData[3 + (n * 12)], fullRawData[4 + (n * 12)], fullRawData[5 + (n * 12)], 1,
+                                                    fullRawData[6 + (n * 12)], fullRawData[7 + (n * 12)], fullRawData[8 + (n * 12)], 1,
+                                                    fullRawData[9 + (n * 12)], fullRawData[10 + (n * 12)], fullRawData[11 + (n * 12)], 1
+                                            ));
+                                            n++;
+                                        }
+                                        catch (Exception e) {
+                                            e.printStackTrace();
+                                            n = 99;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    } else {
+                        lastTickTemp = temperature;
+                        // Update the shader data with the new temperature
+                        ShaderInstance instance = GameRenderer.getRendertypeEntityCutoutShader();
+                        BufferedImage palette1 = null;
+                        BufferedImage palette2 = null;
+                        try {
+                            palette1 = BiomeImageProcessorClient.resourceLocationToBufferedImage(ResourceLocation.fromNamespaceAndPath(MOD_ID, "textures/palettes/palette" + 69420 + ".png"));
+                            palette2 = BiomeImageProcessorClient.resourceLocationToBufferedImage(ResourceLocation.fromNamespaceAndPath(MOD_ID, "textures/palettes/palette" + 69420 + ".png"));
+                        } catch (Exception e) {
+                            System.out.println("Failed to load palettes: " + e.getMessage());
+                        }
+                        if (instance != null && palette1 != null && palette2 != null) {
+                            float[] fullRawData = BiomeImageProcessorClient.blendImagesAndSaveReturnFloat(palette1, palette2, (float) 0 * 100, 0, 2, 29, 7, "/home/deck/IdeaProjects/Rainworld-MC_Biomes mojamap 1.21.1/build/datagen/shader_data.png");
+                            //float[] rawDataForNormalGuis = BiomeImageProcessorClient.paletteColor(palette1, palette2, (float) data[2] * 100);
+                            int n = 0;
+                            //while (n <= 8) {
+                            //    instance.safeGetUniform("colors" + n).set(new Matrix4f(
+                            //            rawDataForNormalGuis[0 + (n * 12)], rawDataForNormalGuis[1 + (n * 12)], rawDataForNormalGuis[2 + (n * 12)], 1,
+                            //            rawDataForNormalGuis[3 + (n * 12)], rawDataForNormalGuis[4 + (n * 12)], rawDataForNormalGuis[5 + (n * 12)], 1,
+                            //            rawDataForNormalGuis[6 + (n * 12)], rawDataForNormalGuis[7 + (n * 12)], rawDataForNormalGuis[8 + (n * 12)], 1,
+                            //            rawDataForNormalGuis[9 + (n * 12)], rawDataForNormalGuis[10 + (n * 12)], rawDataForNormalGuis[11 + (n * 12)], 1
+                            //    ));
+                            //    n++;
+                            //}
+                            while (n <= 44) {
+                                try {
+                                    instance.safeGetUniform("data" + (n + 1)).set(new Matrix4f(
+                                            fullRawData[0 + (n * 12)], fullRawData[1 + (n * 12)], fullRawData[2 + (n * 12)], 1,
+                                            fullRawData[3 + (n * 12)], fullRawData[4 + (n * 12)], fullRawData[5 + (n * 12)], 1,
+                                            fullRawData[6 + (n * 12)], fullRawData[7 + (n * 12)], fullRawData[8 + (n * 12)], 1,
+                                            fullRawData[9 + (n * 12)], fullRawData[10 + (n * 12)], fullRawData[11 + (n * 12)], 1
+                                    ));
+                                    n++;
+                                }
+                                catch (Exception e) {
+                                    e.printStackTrace();
+                                    n = 99;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception e) {
+                System.out.println("Something went wrong whilst updating biomes for the shader: " + e.getMessage());
+                e.printStackTrace();
+            }
+        });
+
 
         UseBlockCallback.EVENT.register((player, world, hand, hitResult) -> {
             ItemStack heldItem = player.getItemInHand(hand);
@@ -302,7 +427,22 @@ public class Rainworld_MC_BiomesClient implements ClientModInitializer {
 
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             if (client.level == null || client.player == null) return;
+            shouldHaveActiveEffectChain = true;
+            //if(renderEffectChain == null) {
+            //    loadChain();
+            //}
             if (client.screen != null) return;
+            if (ticksSinceGuiExit > 0) {
+                ticksSinceGuiExit++;
+                if (ticksSinceGuiExit >= maxTicksToIgnoreInputsAfterGuiExit) {
+                    ticksSinceGuiExit = 0;
+                    if(mainGui != null) {
+                        mainGui.isClosing = false;
+                    }
+                    //loadChain();
+                }
+                return;
+            }
 
             // Check if the player is holding the room selector item
             ItemStack mainHandItem = client.player.getMainHandItem();
@@ -376,6 +516,10 @@ public class Rainworld_MC_BiomesClient implements ClientModInitializer {
 
          */
 
+    }
+
+    public static boolean hasDecimal(float number) {
+        return number % 1 != 0; // Check if there's a remainder when dividing by 1
     }
 
     private void handleAreaSelectMode(Minecraft client, boolean leftClick, boolean rightClick, boolean ctrlPressed) {

@@ -5,14 +5,14 @@
   "compatibilityLevel": "JAVA_17",
   "mixins": [
     "BiomeManagerMixin",
-    //"BiomeMixin",
     "ChunkAccessMixin"
   ],
   "client": [
-    //"BakedQuadMixin",
-    //"ModelBlockRendererMixin",
-    //"ModelManagerAccessor",
-    //"ModelManagerMixin"
+    "DisableQuadShadeMixin",
+    "MinecraftMixin",
+    "ScreenMixin",
+    "sodium.LevelBiomeSliceMixin",
+    "sodium.SodiumDisableShadeMixin"
   ],
   "injectors": {
     "defaultRequire": 1
