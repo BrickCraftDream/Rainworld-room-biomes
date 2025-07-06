@@ -3,12 +3,14 @@
   "id": "rainworld",
   "version": "${version}",
   "name": "Rainworld MC Biomes",
-  "description": "rainworld-regions",
-  "authors": [],
+  "description": "Adds all rooms and their screens from Rain World, Downpour and Watcher to Minecraft as biomes. Also includes a tool for placing those biomes, inventory palettization based on the current biome and multiple graphical adjustments like removing biome border randomization and disabling per-side block shading.",
+  "authors": [
+    "BrickCraftDream"
+  ],
   "contact": {
     "repo": "https://github.com/BrickCraftDream/Rainworld-room-biomes"
   },
-  "license": "All-Rights-Reserved",
+  "license": "CC0-1.0",
   "icon": "assets/rainworld/icon.png",
   "environment": "*",
   "entrypoints": {
