@@ -448,15 +448,46 @@ public class MainGui extends Screen {
         //    }
         //}
 
-        if(!DataHandler.getLastPlacedRegion().isEmpty() && mainGui$regionDropdown.getValue().isEmpty() && !mainGui$regionDropdown.expanded) {
-            DataHandler.setCurrentRegion(DataHandler.getLastPlacedRegion());
+        validBiomeSelected = false;
+        try {
+            String biomePath = DataHandler.getCurrentRegion() + "." + DataHandler.getCurrentRoom() + (DataHandler.getCurrentScreen().equals(Component.translatable("gui.rainworld.select_screen").getString()) ? "" : (DataHandler.getCurrentScreen().isEmpty() ? "" : "_" + DataHandler.getCurrentScreen()));
+            //System.out.println("AAAAAAAAAAAAAAAAAAAAAAA  " + biomePath);
+            ResourceKey<Biome> biomeKey = ResourceKey.create(Registries.BIOME, ResourceLocation.fromNamespaceAndPath("rainworld", biomePath));
+            Registry<Biome> biomeRegistry = minecraft.level.registryAccess().registryOrThrow(Registries.BIOME);
+            Holder<Biome> biomeEntry = biomeRegistry.getHolderOrThrow(biomeKey);
+            validBiomeSelected = true;
+            //System.out.println("screen");
         }
-        if(!DataHandler.getLastPlacedRoom().isEmpty() && mainGui$roomDropdown.getValue().isEmpty() && !mainGui$roomDropdown.expanded) {
-            DataHandler.setCurrentRoom(DataHandler.getLastPlacedRoom());
+        catch (Exception e) {
+            //System.out.println(e.getMessage());
+            validBiomeSelected = false;
         }
-        if(!DataHandler.getLastPlacedScreen().isEmpty() && mainGui$screenDropdown.getValue().isEmpty() && !mainGui$screenDropdown.expanded) {
-            DataHandler.setCurrentScreen(DataHandler.getLastPlacedScreen());
+
+        if(!validBiomeSelected) {
+            player.sendSystemMessage(Component.literal("The current selected biome isn't valid. If you selected a room with more than one screen, make sure to click the screen dropdown once and then somewhere else to deselect it again."));
+            return;
         }
+
+        if(mainGui$roomDropdown.getValue() != DataHandler.getCurrentRoom()) {
+            if(DataHandler.getCurrentRoom() == Component.translatable("gui.rainworld.select_room").getString()) {
+                System.out.println("Setting current room to: " + mainGui$roomDropdown.getValue());
+                DataHandler.setCurrentRoom(mainGui$roomDropdown.getValue());
+            }
+            else {
+                System.out.println("Setting current room to: " + DataHandler.getCurrentRoom());
+                mainGui$roomDropdown.setValue(DataHandler.getCurrentRoom());
+            }
+        }
+
+        //if(!DataHandler.getLastPlacedRegion().isEmpty() && mainGui$regionDropdown.getValue().isEmpty() && !mainGui$regionDropdown.expanded) {
+        //    DataHandler.setCurrentRegion(DataHandler.getLastPlacedRegion());
+        //}
+        //if(!DataHandler.getLastPlacedRoom().isEmpty() && mainGui$roomDropdown.getValue().isEmpty() && !mainGui$roomDropdown.expanded) {
+        //    DataHandler.setCurrentRoom(DataHandler.getLastPlacedRoom());
+        //}
+        //if(!DataHandler.getLastPlacedScreen().isEmpty() && mainGui$screenDropdown.getValue().isEmpty() && !mainGui$screenDropdown.expanded) {
+        //    DataHandler.setCurrentScreen(DataHandler.getLastPlacedScreen());
+        //}
 
         if(DataHandler.getCurrentRegion().isEmpty()) {
             player.sendSystemMessage(Component.literal("You have to first select a region." + mainGui$regionDropdown.getValue() + " " + mainGui$roomDropdown.getValue()));
@@ -468,6 +499,7 @@ public class MainGui extends Screen {
             String biomeNamespace = "rainworld";
             String biomePath = DataHandler.getCurrentRegion() + "." + DataHandler.getCurrentRoom() + (DataHandler.getCurrentScreen().equals(Component.translatable("gui.rainworld.select_screen").getString()) ? "" : (DataHandler.getCurrentScreen().isEmpty() ? "" : "_" + DataHandler.getCurrentScreen()));
             GlobalPos pos = BoxRenderer.getCenterOfAllBoxes();
+            //System.out.println(biomePath);
             ClientPlayNetworking.send(new NetworkManager.BiomePlacePayload2(BoxRenderer.getLocations(), biomeNamespace, biomePath));
             resetSelections(player);
             //BoxRenderer.clearBoxes();
@@ -932,6 +964,9 @@ public class MainGui extends Screen {
                 } else {
                     this.allOptions = List.of("Select a region first");
                 }
+                if(DataHandler.getCurrentRoom() != Component.translatable("gui.rainworld.select_room").getString()) {
+                    this.setValue(DataHandler.getCurrentRoom());
+                }
                 //this.allOptions = List.of("Select a region first");
             }
             if(identifier.equals("screen.room_region_select")) {
@@ -939,6 +974,9 @@ public class MainGui extends Screen {
                     this.allOptions = List.copyOf(DataHandler.screenOptions);
                 } else {
                     this.allOptions = List.of("Select a room first");
+                }
+                if(DataHandler.getCurrentScreen() != Component.translatable("gui.rainworld.select_screen").getString()) {
+                    this.setValue(DataHandler.getCurrentScreen());
                 }
                 //this.allOptions = List.of("Select a room first");
             }

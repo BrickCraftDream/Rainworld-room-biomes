@@ -225,26 +225,26 @@ public class DataHandler {
         DataHandler.lastPlacedRoom = lastPlacedRoom;
     }
 
-    public static void setCurrentRoom(String currentRoom) {
-        //System.out.println("Room before update: " + DataHandler.currentRoom);
-        //if(!GuiComponents.mainGui$roomDropdown.getValue().equals(currentRoom)) currentRoom = GuiComponents.mainGui$roomDropdown.getValue();
-        DataHandler.currentRoom = currentRoom;
-        //System.out.println("Room after update: " + DataHandler.currentRoom);
-        addRoom(currentRoom);
+    public static void setCurrentRoom(String currentRoom_1) {
+        //System.out.println("Room before update: " + DataHandler.currentRoom_1);
+        //if(!GuiComponents.mainGui$roomDropdown.getValue().equals(currentRoom_1)) currentRoom_1 = GuiComponents.mainGui$roomDropdown.getValue();
+        currentRoom = currentRoom_1;
+        //System.out.println("Room after update: " + DataHandler.currentRoom_1);
+        addRoom(currentRoom_1);
         GuiComponents.mainGui$screenDropdown.setValue(Component.translatable("gui.rainworld.select_screen").getString());
-        GuiComponents.mainGui$screenDropdown.allOptions = getSortedStrings(List.copyOf(exporter.getAllScreenNames(currentRegion, currentRoom)));
+        GuiComponents.mainGui$screenDropdown.allOptions = getSortedStrings(List.copyOf(exporter.getAllScreenNames(currentRegion, currentRoom_1)));
         screenOptions = GuiComponents.mainGui$screenDropdown.allOptions;
         currentScreen = Component.translatable("gui.rainworld.select_screen").getString();
 
         //System.out.println("Size of TemplateOptions: " + templateOptions.size());
-        //System.out.println("Current selected biome: " + currentRegion + "." + currentRoom + "." + currentScreen);
-        //System.out.println("Does TemplateOptions contain the current selected biome: " + templateOptions.contains(currentRegion + "." + currentRoom + "." + currentScreen));
-        //System.out.println("Does TemplateOptions contain the current selected biome without the screen: " + templateOptions.contains(currentRegion + "." + currentRoom));
+        //System.out.println("Current selected biome: " + currentRegion + "." + currentRoom_1 + "." + currentScreen);
+        //System.out.println("Does TemplateOptions contain the current selected biome: " + templateOptions.contains(currentRegion + "." + currentRoom_1 + "." + currentScreen));
+        //System.out.println("Does TemplateOptions contain the current selected biome without the screen: " + templateOptions.contains(currentRegion + "." + currentRoom_1));
 
         //System.out.println(templateOptions.size());
-        if(templateOptions.contains(currentRegion + "." + currentRoom)) {
-            setTemplateRoomCreateName(currentRegion + "." + currentRoom);
-            setTemplateRoomEditName(currentRegion + "." + currentRoom);
+        if(templateOptions.contains(currentRegion + "." + currentRoom_1)) {
+            setTemplateRoomCreateName(currentRegion + "." + currentRoom_1);
+            setTemplateRoomEditName(currentRegion + "." + currentRoom_1);
             updateTextBoxes();
             //System.out.println(paletteBoxContent + " " + fadePaletteBoxContent + " " + fadeStrengthBoxContent);
             try {

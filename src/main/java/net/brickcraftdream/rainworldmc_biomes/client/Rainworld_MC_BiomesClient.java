@@ -444,6 +444,10 @@ public class Rainworld_MC_BiomesClient implements ClientModInitializer {
                 return;
             }
 
+            if(Minecraft.getInstance().options.biomeBlendRadius().get() != 0) {
+                Minecraft.getInstance().options.biomeBlendRadius().set(0);
+            }
+
             // Check if the player is holding the room selector item
             ItemStack mainHandItem = client.player.getMainHandItem();
             if (mainHandItem.getItem() != ROOM_SELECTOR_ITEM) {

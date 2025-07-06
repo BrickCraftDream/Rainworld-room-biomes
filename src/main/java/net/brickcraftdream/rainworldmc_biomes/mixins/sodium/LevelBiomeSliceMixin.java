@@ -15,6 +15,6 @@ public class LevelBiomeSliceMixin {
 
     @Inject(method = "calculateBias(IIIIJ)V", at = @At("TAIL"))
     private void calculateBias(int cellIndex, int cellX, int cellY, int cellZ, long seed, CallbackInfo ci) {
-        this.bias.set(cellIndex, 0, 0, 0);
+        this.bias.set(cellIndex, 10, 0, 4);
     }
 }

@@ -169,7 +169,6 @@ public class Rainworld_MC_Biomes implements ModInitializer {
             context.server().execute(() -> {
                 ServerPlayer player = context.player();
                 ServerLevel level = player.serverLevel();
-
                 ResourceKey<Biome> biomeKey = ResourceKey.create(Registries.BIOME, ResourceLocation.fromNamespaceAndPath(payload.biomeNamespace(), payload.biomePath()));
 
                 Registry<Biome> biomeRegistry = level.registryAccess().registryOrThrow(Registries.BIOME);

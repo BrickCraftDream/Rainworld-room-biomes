@@ -13,6 +13,8 @@
     "ScreenMixin",
     "sodium.LevelBiomeSliceMixin",
     "sodium.SodiumDisableShadeMixin"
+  //,
+  //  "sodium.LevelColorCacheMixin"
   ],
   "injectors": {
     "defaultRequire": 1
