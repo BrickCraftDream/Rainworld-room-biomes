@@ -5,7 +5,11 @@ import com.mojang.blaze3d.pipeline.RenderTarget;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexSorting;
+import net.brickcraftdream.rainworldmc_biomes.Rainworld_MC_Biomes;
 import net.brickcraftdream.rainworldmc_biomes.biome.BiomeModify;
+import net.brickcraftdream.rainworldmc_biomes.blocks.ModBlocks;
+//import net.brickcraftdream.rainworldmc_biomes.blocks.MultiPartBlock;
+//import net.brickcraftdream.rainworldmc_biomes.blocks.MultiPartBlockEntity;
 import net.brickcraftdream.rainworldmc_biomes.data.storage.ConfigManagerClient;
 import net.brickcraftdream.rainworldmc_biomes.data.storage.ConfigManagerServer;
 import net.brickcraftdream.rainworldmc_biomes.gui.MainGui;
@@ -33,12 +37,19 @@ import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.ShaderInstance;
 import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.DoorBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
@@ -239,20 +250,90 @@ public class Rainworld_MC_BiomesClient implements ClientModInitializer {
         //Matrix4f originalRenderMatrix = RenderSystem.getProjectionMatrix();
         //VertexSorting originalVertexSorting = RenderSystem.getVertexSorting();
 
+
+        /*
+        UseBlockCallback.EVENT.register((player, level, hand, hitResult) -> {
+            if (!level.isClientSide()) {
+                ItemStack itemStack = player.getItemInHand(hand);
+
+                if (itemStack.getItem() instanceof BlockItem blockItem) {
+                    Block block = blockItem.getBlock();
+                    ResourceLocation id = BuiltInRegistries.BLOCK.getKey(block);
+                    String namespace = id.getNamespace();
+                    String path = id.getPath();
+
+                    if (namespace.equals(MOD_ID) && path.equals("debug_block")) {
+                        BlockState stateToPlace = ModBlocks.MULTI_PART_BLOCK.defaultBlockState();
+                        BlockPos targetPos = hitResult.getBlockPos().above().above();
+
+                        // Place the block
+                        boolean success = level.setBlock(targetPos, stateToPlace, 3); // Flag 3 = update neighbors + client
+
+                        if (success) {
+                            // Now get the block entity from the world
+
+                            //BlockEntity be = level.getBlockEntity(targetPos);
+                            if(stateToPlace.getBlock() instanceof MultiPartBlock block1) {
+                                //BlockEntity be = level.getBlockEntity(targetPos);
+                                BlockEntity be = block1.newBlockEntity(targetPos, stateToPlace,
+                                        MultiPartBlockEntity.XPosition.MIDDLE,
+                                        MultiPartBlockEntity.YPosition.BOTTOM,
+                                        MultiPartBlockEntity.ZPosition.MIDDLE);
+
+                                be = block1.newBlockEntity(targetPos, stateToPlace,
+                                        MultiPartBlockEntity.XPosition.LEFT,
+                                        MultiPartBlockEntity.YPosition.BOTTOM,
+                                        MultiPartBlockEntity.ZPosition.MIDDLE);
+                                /*
+                                if (be instanceof MultiPartBlockEntity mpbe) {
+
+                                    mpbe.setLinkedX(targetPos.getX());
+                                    mpbe.setLinkedY(targetPos.getY() - 1);
+                                    mpbe.setLinkedZ(targetPos.getZ());
+
+                                    // Mark dirty so it gets saved
+                                    mpbe.setChanged();
+                                    // If you're using a custom sync packet, send it here
+                                    System.out.println("Updated linked values for MultiPartBlockEntity at target " + targetPos + ": " + "linkedPosX: " + mpbe.getLinkedX() + ", linkedPosY: " + mpbe.getLinkedY() + ", linkedPosZ: " + mpbe.getLinkedZ());
+                                    if(mpbe.getOriginalPos() != targetPos) {
+                                        System.out.println("Warning: MultiPartBlockEntity at " + targetPos + " has a different BlockPos than expected: " + mpbe.getOriginalPos());
+                                        mpbe.setOriginalPos(targetPos);
+                                    }
+
+                                } else {
+                                    System.out.println("Expected MultiPartBlockEntity at " + targetPos + ", but got: " + be);
+                                }
+
+                                 *//*
+                            }
+
+                        } else {
+                            System.out.println("Failed to place block at " + targetPos);
+                        }
+
+                        return InteractionResult.PASS; // Optionally stop further processing
+                    }
+                }
+            }
+
+            return InteractionResult.PASS;
+        });
+*/
+
         WorldRenderEvents.LAST.register(context -> {
 
             Vec3 cameraPos = context.camera().getPosition();
             PoseStack matrixStack = context.matrixStack();
 
-            Minecraft minecraft = Minecraft.getInstance();
-            RenderTarget renderTarget = minecraft.getMainRenderTarget();
+            //Minecraft minecraft = Minecraft.getInstance();
+            //RenderTarget renderTarget = minecraft.getMainRenderTarget();
 
-            int fbWidth = renderTarget.width;
-            int fbHeight = renderTarget.height;
-            float aspect = (float) fbWidth / fbHeight;
+            //int fbWidth = renderTarget.width;
+            //int fbHeight = renderTarget.height;
+            //float aspect = (float) fbWidth / fbHeight;
 
-            float orthoHalfWidth = 1.0f;
-            float orthoHalfHeight = 1.0f / aspect;
+            //float orthoHalfWidth = 1.0f;
+            //float orthoHalfHeight = 1.0f / aspect;
 
 
             if (!BoxRenderer.locations.isEmpty()) {
@@ -265,8 +346,8 @@ public class Rainworld_MC_BiomesClient implements ClientModInitializer {
             }
             if(!isSelectionConfirmed && firstCorner != null && secondCorner != null) {
                 BoxRenderer.renderBox(matrixStack, firstCorner, secondCorner, cameraPos);
-                RenderHelper.renderBlockHighlight(matrixStack, firstCorner, cameraPos, 1.0f, 0.3f, 0.3f, 1.0f);
-                RenderHelper.renderBlockHighlight(matrixStack, secondCorner, cameraPos, 0.3f, 0.3f, 1.0f, 1.0f);
+                RenderHelper.renderBlockHighlight(matrixStack, firstCorner, cameraPos, 1.0f, 0.3f, 0.3f, 0.95f);
+                RenderHelper.renderBlockHighlight(matrixStack, secondCorner, cameraPos, 0.3f, 0.3f, 1.0f, 0.95f);
             }
 
             //RenderSystem.setProjectionMatrix(originalRenderMatrix, originalVertexSorting);
@@ -294,7 +375,7 @@ public class Rainworld_MC_BiomesClient implements ClientModInitializer {
             // Check if the world is null or the player is null
             try {
                 if (world == null || Minecraft.getInstance().player == null) return;
-                float temperature = world.getBiome(Minecraft.getInstance().player.blockPosition()).value().getBaseTemperature() - 2;
+                float temperature = world.getBiome(Minecraft.getInstance().player.blockPosition()).value().getBaseTemperature();
                 if(temperature != lastTickTemp) {
                     if (!hasDecimal(temperature)) {
                         lastTickTemp = temperature;
@@ -361,8 +442,8 @@ public class Rainworld_MC_BiomesClient implements ClientModInitializer {
                         BufferedImage palette1 = null;
                         BufferedImage palette2 = null;
                         try {
-                            palette1 = BiomeImageProcessorClient.resourceLocationToBufferedImage(ResourceLocation.fromNamespaceAndPath(MOD_ID, "textures/palettes/palette" + 69420 + ".png"));
-                            palette2 = BiomeImageProcessorClient.resourceLocationToBufferedImage(ResourceLocation.fromNamespaceAndPath(MOD_ID, "textures/palettes/palette" + 69420 + ".png"));
+                            palette1 = BiomeImageProcessorClient.resourceLocationToBufferedImage(ResourceLocation.fromNamespaceAndPath(MOD_ID, "textures/palettes/palette" + 0 + ".png")); //69420
+                            palette2 = BiomeImageProcessorClient.resourceLocationToBufferedImage(ResourceLocation.fromNamespaceAndPath(MOD_ID, "textures/palettes/palette" + 0 + ".png"));
                         } catch (Exception e) {
                             System.out.println("Failed to load palettes: " + e.getMessage());
                         }

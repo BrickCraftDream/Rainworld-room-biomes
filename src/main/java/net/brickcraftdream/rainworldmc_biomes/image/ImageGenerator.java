@@ -1,6 +1,7 @@
 package net.brickcraftdream.rainworldmc_biomes.image;
 
 import net.minecraft.util.ColorRGBA;
+import net.minecraft.world.phys.Vec2;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -19,11 +20,30 @@ public class ImageGenerator {
         return new int[]{x, y};
     }
 
+    public static int getLinearFromCoords(int x, int y) {
+        return (y << IMAGE_RESOLUTION_SHIFT) | (x & IMAGE_RESOLUTION_MASK);
+    }
+
     // New method:
     public static byte[] splitPaletteIntoBytes(int palette) {
         byte hi = (byte) ((palette >> 8) & 0xFF);
         byte lo = (byte) ((palette >> 0) & 0xFF);
         return new byte[]{hi, lo};
+    }
+
+
+    private static final int TEXTURE_WIDTH = 256;
+    private static final int TEXTURE_HEIGHT = 256;
+
+    public static Vec2 indexToUV(float temperature) {
+        int index = (int) temperature;
+        int x = index % TEXTURE_WIDTH;
+        int y = index / TEXTURE_WIDTH;
+
+        float u = (x + 0.5f) / TEXTURE_WIDTH;
+        float v = (y + 0.5f) / TEXTURE_HEIGHT;
+
+        return new Vec2(u, v);
     }
 
     public static int roomToImage(BufferedImage image, int palette, int fadePalette, double fadeStrength, float grime, int effectColorA, int effectColorB, int dangerType, int index, String currRoom) {
@@ -81,16 +101,16 @@ public class ImageGenerator {
     }
 
     public static Object[] imageToRoom(BufferedImage image, int index) {
-        int[] coordsA = getCoordsFromLinear(index++);
+        int[] coordsA = getCoordsFromLinear(index + 1);
         int xA = coordsA[0];
         int yA = coordsA[1];
         //System.out.println("X: " + xA + " Y: " + yA);
 
-        int[] coordsB = getCoordsFromLinear(index++);
+        int[] coordsB = getCoordsFromLinear(index + 2);
         int xB = coordsB[0];
         int yB = coordsB[1];
 
-        int[] coordsC = getCoordsFromLinear(index++);
+        int[] coordsC = getCoordsFromLinear(index + 3);
         int xC = coordsC[0];
         int yC = coordsC[1];
 

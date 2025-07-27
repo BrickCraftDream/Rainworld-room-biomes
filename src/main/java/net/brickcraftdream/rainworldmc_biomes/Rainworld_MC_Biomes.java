@@ -4,6 +4,7 @@ import com.google.gson.JsonObject;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import net.brickcraftdream.rainworldmc_biomes.biome.BiomeModify;
 import net.brickcraftdream.rainworldmc_biomes.biome.ExtendedBiome;
+import net.brickcraftdream.rainworldmc_biomes.blocks.ModBlockEntityTypes;
 import net.brickcraftdream.rainworldmc_biomes.blocks.ModBlocks;
 import net.brickcraftdream.rainworldmc_biomes.command.RoomCommand;
 import net.brickcraftdream.rainworldmc_biomes.data.storage.ConfigManagerClient;
@@ -15,6 +16,7 @@ import net.brickcraftdream.rainworldmc_biomes.networking.BiomeImageProcessorServ
 import net.brickcraftdream.rainworldmc_biomes.networking.NetworkManager;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
@@ -39,6 +41,7 @@ import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.chunk.LevelChunk;
 import net.minecraft.world.level.chunk.LevelChunkSection;
 import net.minecraft.world.level.chunk.PalettedContainer;
@@ -60,10 +63,13 @@ public class Rainworld_MC_Biomes implements ModInitializer {
     // Define your item as a static field
     public static final Item ROOM_SELECTOR_ITEM = new RoomSelectorItem(new Item.Properties());
 
+    public static List<BlockPos> toBeRemovedBlocks = new ArrayList<>();
+
     @Override
     public void onInitialize() {
         setupDefaultConfig();
         ModBlocks.initialize();
+        ModBlockEntityTypes.initialize();
 
         PayloadTypeRegistry.playC2S().register(BiomeUpdatePacket.ID, BiomeUpdatePacket.CODEC);
         PayloadTypeRegistry.playS2C().register(BiomeUpdatePacket.ID, BiomeUpdatePacket.CODEC);
@@ -262,6 +268,32 @@ public class Rainworld_MC_Biomes implements ModInitializer {
             entries.accept(ROOM_SELECTOR_ITEM);
         });
 
+        ServerTickEvents.END_WORLD_TICK.register(server -> {
+            // Your code here — runs every server tick (20 times per second)
+            List<BlockPos> backupList = new ArrayList<>(toBeRemovedBlocks);
+            for(BlockPos pos : backupList) {
+                ServerLevel level = server.getLevel();
+                if (level != null && level.isLoaded(pos)) {
+                    if(level.getBlockEntity(pos) != null) {
+                        level.removeBlockEntity(pos);
+                    }
+                    if(level.getBlockState(pos) == Blocks.GREEN_CONCRETE.defaultBlockState()) {
+                        level.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
+                        toBeRemovedBlocks.remove(pos);
+                    }
+                    else {
+                        level.setBlockAndUpdate(pos, Blocks.GREEN_CONCRETE.defaultBlockState());
+                    }
+                }
+            }
+        });
+
+    }
+
+    public static void addToBeRemovedBlock(BlockPos pos) {
+        if (!toBeRemovedBlocks.contains(pos)) {
+            toBeRemovedBlocks.add(pos);
+        }
     }
 
     public void syncSelectedLocations(MinecraftServer server, GlobalPos firstPos, GlobalPos secondPos, UUID playerUUID) {

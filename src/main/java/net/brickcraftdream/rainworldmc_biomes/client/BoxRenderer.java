@@ -839,6 +839,14 @@ public class BoxRenderer {
 
         // Create a translucent filled box
         ResourceLocation texture = ResourceLocation.fromNamespaceAndPath(MOD_ID, "textures/block/outline.png");
+        //RenderType renderType = RenderType.create("test", DefaultVertexFormat.NEW_ENTITY, VertexFormat.Mode.QUADS, 256, false, true, RenderType.CompositeState.builder()
+        //        .setShaderState(RenderStateShard.RENDERTYPE_CUTOUT_SHADER)
+        //        .setTextureState(new RenderStateShard.TextureStateShard(texture, false, false))
+        //        .setLightmapState(RenderStateShard.LIGHTMAP)
+        //        .setOverlayState(RenderStateShard.OVERLAY)
+        //        .setCullState(RenderStateShard.NO_CULL)
+        //        .setTransparencyState(RenderStateShard.TRANSLUCENT_TRANSPARENCY)
+        //        .createCompositeState(true));
         RenderType renderType = RenderType.entityTranslucent(texture);
         VertexConsumer vertexConsumer = bufferSource.getBuffer(renderType);
 
@@ -862,7 +870,7 @@ public class BoxRenderer {
 
     // Helper method to draw a quad for a face
     public static void drawQuad(VertexConsumer vertexConsumer, Matrix4f matrix, float minX, float minY, float minZ, float maxX, float maxY, float maxZ, float r, float g, float b, float a, int packedLight, float u0, float v0, float u1, float v1, Direction face) {
-        float epsilon = 0.003f;
+        float epsilon = 0.0003f;
         int normalX = 0, normalY = 0, normalZ = 0;
         float faceR = r, faceG = g, faceB = b, faceA = a;
 

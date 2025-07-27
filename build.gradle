@@ -26,6 +26,10 @@ repositories {
         name = 'ParchmentMC'
         url = 'https://maven.parchmentmc.org'
     }
+    maven {
+        name = "AlexIIL"
+        url = "https://maven.alexiil.uk/"
+    }
     exclusiveContent {
         forRepository {
             maven {
@@ -83,6 +87,8 @@ dependencies {
 
     implementation "org.anarres:jcpp:1.4.9"
     runtimeOnly group: 'io.github.douira', name: 'glsl-transformer', version: '2.0.2'
+
+    //modImplementation "alexiil.mc.lib:libmultipart-all:0.8.0"
 }
 
 processResources {

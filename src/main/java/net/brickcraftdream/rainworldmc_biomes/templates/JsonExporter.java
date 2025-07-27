@@ -355,6 +355,43 @@ public class JsonExporter {
     }
 
     /**
+     * Gets the property values for a given node (region, room, or screen)
+     * @param node The node to get properties from
+     * @return Map of property names to values
+     */
+    public static Map<String, Object> getNodePropertiesStatic(JsonObject node) {
+        Map<String, Object> properties = new HashMap<>();
+
+        if (node == null) {
+            return properties;
+        }
+
+        for (Map.Entry<String, JsonElement> entry : node.entrySet()) {
+            String propertyName = entry.getKey();
+            JsonElement element = entry.getValue();
+
+            if (element.isJsonPrimitive()) {
+                JsonPrimitive primitive = element.getAsJsonPrimitive();
+                if (primitive.isNumber()) {
+                    // Handle int vs double values
+                    double value = primitive.getAsDouble();
+                    if (value == Math.floor(value)) {
+                        properties.put(propertyName, primitive.getAsInt());
+                    } else {
+                        properties.put(propertyName, value);
+                    }
+                } else if (primitive.isString()) {
+                    properties.put(propertyName, primitive.getAsString());
+                } else if (primitive.isBoolean()) {
+                    properties.put(propertyName, primitive.getAsBoolean());
+                }
+            }
+        }
+
+        return properties;
+    }
+
+    /**
      * Gets the properties for a specific region
      * @param regionName The name of the region
      * @return Map of property names to values, or empty map if region doesn't exist

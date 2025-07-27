@@ -34,8 +34,7 @@ import java.io.IOException;
 import java.util.*;
 
 import static net.brickcraftdream.rainworldmc_biomes.EverythingProvider.*;
-import static net.brickcraftdream.rainworldmc_biomes.image.ImageGenerator.roomToImage;
-import static net.brickcraftdream.rainworldmc_biomes.image.ImageGenerator.saveImageToFile;
+import static net.brickcraftdream.rainworldmc_biomes.image.ImageGenerator.*;
 
 public class BiomeBootstrap {
     public static List<String> stuff = new ArrayList<>();
@@ -49,6 +48,8 @@ public class BiomeBootstrap {
     ///VERSION SPECIFIC: 1.20.1
     ///public static void bootstrap(BootstapContext<Biome> biomeRegisterable) {
 
+
+        int highestTemp = 0;
         //System.out.println("ASDEWGASDFGASD");
         SpreadsheetGenerator_old generator = new SpreadsheetGenerator_old();
 
@@ -61,10 +62,50 @@ public class BiomeBootstrap {
         
         EverythingProvider.init();
 
-        // Process regular rooms with minimal logging
         BufferedImage image = new BufferedImage(256, 256, BufferedImage.TYPE_INT_ARGB);
         int indexTemp = 0;
         for (String currentRoom : keys) {
+            if(indexTemp + 2 > highestTemp) highestTemp = indexTemp + 2;
+            if(currentRoom.contains("wtdb_a18dd") && !currentRoom.contains("screen")) {
+                System.out.println("Palette 0: " + getPalette(currentRoom));
+                System.out.println("Palette 1: " + getFadePalette(currentRoom));
+                System.out.println("Fade: " + getFadePaletteStrength(currentRoom));
+                System.out.println("Grime: " + getGrime(currentRoom));
+                System.out.println("Effect Color A: " + getEffectColorA(currentRoom));
+                System.out.println("Effect Color B: " + getEffectColorB(currentRoom));
+                System.out.println("Danger Type: " + getDangerType(currentRoom));
+
+                System.out.println("Datattt: " + Arrays.toString(getCoordsFromLinear(indexTemp)));
+                System.out.println("Dataaaa: " + Arrays.toString(getCoordsFromLinear(3526)));
+
+                System.out.println("65535: " + Arrays.toString(getCoordsFromLinear(65278)));
+                System.out.println("65535 / 3: " + Arrays.toString(getCoordsFromLinear(65278 / 3)));
+                System.out.println("f: " + Arrays.toString(getCoordsFromLinear((10580 - 2) / 3)));
+
+                System.out.println("Palette as data: " + Arrays.toString(splitPaletteIntoBytes(getPalette(currentRoom))));
+                System.out.println("Fade palette as data: " + Arrays.toString(splitPaletteIntoBytes(getFadePalette(currentRoom))));
+
+                System.out.println("Linear from coords: " + getLinearFromCoords(3, 5));
+                System.out.println("Linear from coords: " + getLinearFromCoords(4, 5));
+                System.out.println("Linear from coords: " + getLinearFromCoords(5, 5));
+
+                System.out.println("Linear from coords: " + getLinearFromCoords(198, 13));
+                System.out.println("Linear from coords: " + getLinearFromCoords(254, 254));
+
+                //System.out.println("Test 1: " + indexToUV(getPalette(currentRoom)).x + " " + indexToUV(getPalette(currentRoom)).y);
+                //System.out.println("Test 1: " + indexToUV(getPalette(currentRoom) / 3).x * 255 + " " + indexToUV(getPalette(currentRoom) / 3).y * 255);
+
+            }
+            //if(indexTemp == 3526 || indexTemp == 3525 || indexTemp == 3524 || indexTemp == 3527 || indexTemp == 3528) {
+            //    System.out.println("Current Room: " + currentRoom);
+            //}
+
+
+            if(currentRoom.contains("su_b04")) {
+                System.out.println(currentRoom);
+                System.out.println(getRegionStandalone(currentRoom));
+            }
+
             registerBiome(biomeRegisterable, currentRoom, indexTemp + 2);
             int currentPalette = getPalette(currentRoom);
             int currentFadePalette = getFadePalette(currentRoom);
@@ -84,7 +125,6 @@ public class BiomeBootstrap {
                     getDangerType(currentRoom),
                     indexTemp,
                     currentRoom);
-
 
 
             if(currentRoom.contains("_screen")) {
@@ -135,6 +175,8 @@ public class BiomeBootstrap {
                     )
             }, colorMap);
         }
+        System.out.println("Highest temp biome: " + highestTemp);
+        System.out.println("Biome name: " + keys.get((highestTemp - 2) / 3));
         for(int i = 0; i < 366; i++) {
             String biomeName = String.valueOf(i);
             registerTempBiome(biomeRegisterable, biomeName, indexTemp + 2);
@@ -420,13 +462,22 @@ public class BiomeBootstrap {
             // Extract the region code (characters before the first underscore)
             String code = originalInput.substring(0, firstUnderscore);
 
+
+            //if(!code.contains("wsur") && !code.contains("wssr") && !code.contains("wdsr") && !code.contains("wgwr") && !code.contains("whir")) {
+
+            //}
+            //else {
+                //System.out.println("wsur detected, skipping region map lookup for code: " + code + "  " + originalInput);
+
+            //}
+
             // First try the full code
             regionPart = regionMap.get(code);
 
             // If not found and the code is longer than 2 characters, try the first 2 characters
             // (for backward compatibility with existing two-letter codes)
             if (regionPart == null && code.length() > 2) {
-                regionPart = regionMap.get(code.substring(0, 2));
+                regionPart = regionMap.get(code.substring(1, 3));
             }
 
             // If no match found in the map, use the original code
@@ -436,6 +487,36 @@ public class BiomeBootstrap {
 
             if (extraPart.equals("gate")) {
                 regionPart = "";
+            }
+            if(code.contains("su")) {
+                if(regionPart.equals("outskirts") && code.equals("wsur")) {
+                    regionPart = "crumbling_fringes";
+                    //System.out.println("Region code 'su' detected in: " + originalInput + ", code: " + code + ", regionPart: " + regionPart);
+                }
+            }
+            if(code.contains("ss")) {
+                if(regionPart.equals("five_pebbles") && code.equals("wssr")) {
+                    regionPart = "unfortunate_evolution";
+                    System.out.println("Region code 'ss' detected in: " + originalInput + ", code: " + code + ", regionPart: " + regionPart);
+                }
+            }
+            if(code.contains("ds")) {
+                if(regionPart.equals("drainage_system") && code.equals("wdsr")) {
+                    regionPart = "decaying_tunnels";
+                    System.out.println("Region code 'ds' detected in: " + originalInput + ", code: " + code + ", regionPart: " + regionPart);
+                }
+            }
+            if(code.contains("gw")) {
+                if(regionPart.equals("garbage_wastes") && code.equals("wgwr")) {
+                    regionPart = "infested_wastes";
+                    System.out.println("Region code 'gw' detected in: " + originalInput + ", code: " + code + ", regionPart: " + regionPart);
+                }
+            }
+            if(code.contains("hi")) {
+                if(regionPart.equals("industrial_complex") && code.equals("whir")) {
+                    regionPart = "corrupted_factories";
+                    System.out.println("Region code 'hi' detected in: " + originalInput + ", code: " + code + ", regionPart: " + regionPart);
+                }
             }
         }
 
@@ -480,8 +561,13 @@ public class BiomeBootstrap {
             // Extract the region code (characters before the first underscore)
             String code = originalInput.substring(0, firstUnderscore);
 
-            // First try the full code
-            regionPart = regionMap.get(code);
+            //if(!code.contains("wsur")) {
+                // First try the full code
+                regionPart = regionMap.get(code);
+            //}
+            //else {
+            //    System.out.println("wsur detected, skipping region map lookup for code: " + code + "  " + originalInput);
+            //}
 
             // If not found and the code is longer than 2 characters, try the first 2 characters
             // (for backward compatibility with existing two-letter codes)
@@ -496,6 +582,36 @@ public class BiomeBootstrap {
 
             if (extraPart.equals("gate")) {
                 regionPart = "";
+            }
+            if(code.contains("su")) {
+                if(regionPart.equals("outskirts") && code.equals("wsur")) {
+                    regionPart = "crumbling_fringes";
+                    //System.out.println("Region code 'su' detected in: " + originalInput + ", code: " + code + ", regionPart: " + regionPart);
+                }
+            }
+            if(code.contains("ss")) {
+                if(regionPart.equals("five_pebbles") && code.equals("wssr")) {
+                    regionPart = "unfortunate_evolution";
+                    System.out.println("Region code 'ss' detected in: " + originalInput + ", code: " + code + ", regionPart: " + regionPart);
+                }
+            }
+            if(code.contains("ds")) {
+                if(regionPart.equals("drainage_system") && code.equals("wdsr")) {
+                    regionPart = "decaying_tunnels";
+                    System.out.println("Region code 'ds' detected in: " + originalInput + ", code: " + code + ", regionPart: " + regionPart);
+                }
+            }
+            if(code.contains("gw")) {
+                if(regionPart.equals("garbage_wastes") && code.equals("wgwr")) {
+                    regionPart = "infested_wastes";
+                    System.out.println("Region code 'gw' detected in: " + originalInput + ", code: " + code + ", regionPart: " + regionPart);
+                }
+            }
+            if(code.contains("hi")) {
+                if(regionPart.equals("industrial_complex") && code.equals("whir")) {
+                    regionPart = "corrupted_factories";
+                    System.out.println("Region code 'hi' detected in: " + originalInput + ", code: " + code + ", regionPart: " + regionPart);
+                }
             }
         }
 

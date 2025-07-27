@@ -6,6 +6,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.npc.Villager;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
@@ -25,10 +26,49 @@ public class ModBlocks {
             true
     );
 
+    //public static final MultiPartBlock MULTI_PART_BLOCK = register(
+    //        new MultiPartBlock(BlockBehaviour.Properties.of().sound(SoundType.AMETHYST)),
+    //        "multi_part_block",
+    //        true
+    //);
+    //public static final MultiPartBlockCollisionBlock MULTI_PART_BLOCK_COLLISION = register(
+    //        new MultiPartBlockCollisionBlock(BlockBehaviour.Properties.of().sound(SoundType.AMETHYST)),
+    //        "multi_part_block_collision",
+    //        true
+    //);
+
     public static void initialize() {
 
     }
 
+    private static <T extends Block> T register(T block, String name, boolean shouldRegisterItem) {
+        // Register the block and its item.
+        ResourceLocation id = ResourceLocation.fromNamespaceAndPath(MOD_ID, name);
+
+        // Register the item if needed
+        if (shouldRegisterItem) {
+            BlockItem blockItem = new BlockItem(block, new Item.Properties());
+            Registry.register(BuiltInRegistries.ITEM, id, blockItem);
+        }
+
+        return Registry.register(BuiltInRegistries.BLOCK, id, block);
+    }
+
+    private static Block registerBlockAsMultiBlock(String name, Block block) {
+        registerBlockItem(name, block);
+        return (Block)Registry.register(BuiltInRegistries.BLOCK, ResourceLocation.fromNamespaceAndPath("rw_block_mod", name), block);
+    }
+
+    private static Block registerBlock(String name, Block block) {
+        registerBlockItem(name, block);
+        return (Block)Registry.register(BuiltInRegistries.BLOCK, ResourceLocation.fromNamespaceAndPath("rw_block_mod", name), block);
+    }
+
+    private static Item registerBlockItem(String name, Block block) {
+        return (Item)Registry.register(BuiltInRegistries.ITEM, ResourceLocation.fromNamespaceAndPath("rw_block_mod", name), new BlockItem(block, new Item.Properties()));
+    }
+
+    /*
     public static Block register(Block block, String name, boolean shouldRegisterItem) {
         // Register the block and its item.
         ResourceLocation id = ResourceLocation.fromNamespaceAndPath(MOD_ID, name);
@@ -42,4 +82,5 @@ public class ModBlocks {
 
         return Registry.register(BuiltInRegistries.BLOCK, id, block);
     }
+     */
 }

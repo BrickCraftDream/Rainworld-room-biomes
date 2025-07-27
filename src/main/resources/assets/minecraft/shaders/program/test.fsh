@@ -153,7 +153,7 @@ void main() {
         //    fragColor = vec4(getColor2(int(R + 1)), 1.0);
         //}
         //else if (R >= 119 && R <= 148) {
-        //    fragColor = vec4(getColor2(int(R + 1)), 1.0);
+        //    fragColor = vec4(getColor2(int(R + 0)), 1.0);
         //}
         //else if (R >= 90 && R <= 118) {
         //    fragColor = vec4(getColor2(int(R + 1)), 1.0);
@@ -162,7 +162,7 @@ void main() {
         //    fragColor = vec4(getColor2(int(R - 1)), 1.0);
         //}
          if (R < 186){
-            fragColor = vec4(getColor2(int(R)), 1.0);
+            fragColor = vec4(getColor2(int(R - 1)), 1.0);
         }
         else {
             fragColor = color;
