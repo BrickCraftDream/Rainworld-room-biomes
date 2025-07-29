@@ -173,6 +173,7 @@ public class Rainworld_MC_Biomes implements ModInitializer {
 
         ServerPlayNetworking.registerGlobalReceiver(BiomePlacePayload2.ID, (payload, context) -> {
             context.server().execute(() -> {
+                //System.out.println("Recieved BiomePlacePayload2 from MainGUI in " + this.toString());
                 ServerPlayer player = context.player();
                 ServerLevel level = player.serverLevel();
                 ResourceKey<Biome> biomeKey = ResourceKey.create(Registries.BIOME, ResourceLocation.fromNamespaceAndPath(payload.biomeNamespace(), payload.biomePath()));
@@ -252,8 +253,10 @@ public class Rainworld_MC_Biomes implements ModInitializer {
                 for(LevelChunk chunk : chunks) {
                     chunk.setUnsaved(true);
                     PlayerLookup.all(context.server()).forEach(player1 -> player1.connection.send(new ClientboundLevelChunkWithLightPacket(chunk, level.getLightEngine(), null, null)));
+                    //System.out.println("Sent ClientboundLevelChunkWithLightPacket from " + this.toString());
                 }
                 ServerPlayNetworking.send(context.player(), new HeyTheBiomeIsPlacedYouCanDiscardYourSelectionPacket("a"));
+                //System.out.println("Sent HeyTheBiomeIsPlacedYouCanDiscardYourSelectionPacket from " + this.toString());
             });
         });
 

@@ -501,6 +501,7 @@ public class MainGui extends Screen {
             GlobalPos pos = BoxRenderer.getCenterOfAllBoxes();
             //System.out.println(biomePath);
             ClientPlayNetworking.send(new NetworkManager.BiomePlacePayload2(BoxRenderer.getLocations(), biomeNamespace, biomePath));
+            //System.out.println("Sent BiomePlacePayload2 from " + this.toString());
             resetSelections(player);
             //BoxRenderer.clearBoxes();
             DataHandler.setLastPlacedRegion(DataHandler.getCurrentRegion());

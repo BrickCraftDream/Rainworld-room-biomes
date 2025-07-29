@@ -1,6 +1,7 @@
 package net.brickcraftdream.rainworldmc_biomes.networking;
 
 import com.google.gson.JsonElement;
+import io.netty.buffer.Unpooled;
 import net.minecraft.core.GlobalPos;
 import net.minecraft.core.UUIDUtil;
 import net.minecraft.core.registries.Registries;
@@ -15,9 +16,14 @@ import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.level.biome.Biome;
 import org.jetbrains.annotations.NotNull;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.zip.DeflaterOutputStream;
+import java.util.zip.InflaterInputStream;
 
 import static net.brickcraftdream.rainworldmc_biomes.Rainworld_MC_Biomes.MOD_ID;
 
@@ -326,11 +332,66 @@ public class NetworkManager {
         };
 
 
-        public static final StreamCodec<RegistryFriendlyByteBuf, BiomePlacePayload2> CODEC = StreamCodec.composite(
-                listCodec, BiomePlacePayload2::pos,
-                ByteBufCodecs.STRING_UTF8, BiomePlacePayload2::biomeNamespace,
-                ByteBufCodecs.STRING_UTF8, BiomePlacePayload2::biomePath,
-                BiomePlacePayload2::new);
+        //public static final StreamCodec<RegistryFriendlyByteBuf, BiomePlacePayload2> CODEC = StreamCodec.composite(
+        //        listCodec, BiomePlacePayload2::pos,
+        //        ByteBufCodecs.STRING_UTF8, BiomePlacePayload2::biomeNamespace,
+        //        ByteBufCodecs.STRING_UTF8, BiomePlacePayload2::biomePath,
+        //        BiomePlacePayload2::new);
+
+        public static final StreamCodec<RegistryFriendlyByteBuf, BiomePlacePayload2> CODEC = new StreamCodec<>() {
+            @Override
+            public void encode(RegistryFriendlyByteBuf buf, BiomePlacePayload2 payload) {
+                // Create temp buffer
+                FriendlyByteBuf tempBuf = new FriendlyByteBuf(Unpooled.buffer());
+
+                // Encode raw data to temp buffer
+                listCodec.encode(tempBuf, payload.pos());
+                tempBuf.writeUtf(payload.biomeNamespace());
+                tempBuf.writeUtf(payload.biomePath());
+
+                // Compress it
+                byte[] rawBytes = tempBuf.array();
+                ByteArrayOutputStream byteOut = new ByteArrayOutputStream();
+                try (DeflaterOutputStream deflater = new DeflaterOutputStream(byteOut)) {
+                    deflater.write(rawBytes);
+                } catch (IOException e) {
+                    throw new RuntimeException("Failed to compress BiomePlacePayload2", e);
+                }
+
+                // Write compressed bytes length + data
+                byte[] compressed = byteOut.toByteArray();
+                buf.writeVarInt(compressed.length);
+                buf.writeBytes(compressed);
+            }
+
+            @Override
+            public BiomePlacePayload2 decode(RegistryFriendlyByteBuf buf) {
+                int length = buf.readVarInt();
+                byte[] compressed = new byte[length];
+                buf.readBytes(compressed);
+
+                // Decompress
+                ByteArrayInputStream byteIn = new ByteArrayInputStream(compressed);
+                ByteArrayOutputStream byteOut = new ByteArrayOutputStream();
+                try (InflaterInputStream inflater = new InflaterInputStream(byteIn)) {
+                    byte[] buffer = new byte[256];
+                    int read;
+                    while ((read = inflater.read(buffer)) != -1) {
+                        byteOut.write(buffer, 0, read);
+                    }
+                } catch (IOException e) {
+                    throw new RuntimeException("Failed to decompress BiomePlacePayload2", e);
+                }
+
+                // Read from decompressed buffer
+                FriendlyByteBuf tempBuf = new FriendlyByteBuf(Unpooled.wrappedBuffer(byteOut.toByteArray()));
+                List<GlobalPos> pos = listCodec.decode(tempBuf);
+                String ns = tempBuf.readUtf();
+                String path = tempBuf.readUtf();
+
+                return new BiomePlacePayload2(pos, ns, path);
+            }
+        };
 
         @Override
         public @NotNull Type<? extends CustomPacketPayload> type() {
