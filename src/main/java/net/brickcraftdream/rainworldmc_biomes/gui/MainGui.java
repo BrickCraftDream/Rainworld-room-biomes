@@ -500,7 +500,7 @@ public class MainGui extends Screen {
             String biomePath = DataHandler.getCurrentRegion() + "." + DataHandler.getCurrentRoom() + (DataHandler.getCurrentScreen().equals(Component.translatable("gui.rainworld.select_screen").getString()) ? "" : (DataHandler.getCurrentScreen().isEmpty() ? "" : "_" + DataHandler.getCurrentScreen()));
             GlobalPos pos = BoxRenderer.getCenterOfAllBoxes();
             //System.out.println(biomePath);
-            ClientPlayNetworking.send(new NetworkManager.BiomePlacePayload2(BoxRenderer.getLocations(), biomeNamespace, biomePath));
+            ClientPlayNetworking.send(new NetworkManager.BiomePlacePayload2(List.copyOf(BoxRenderer.firstAndSecondLocations), biomeNamespace, biomePath));
             //System.out.println("Sent BiomePlacePayload2 from " + this.toString());
             resetSelections(player);
             //BoxRenderer.clearBoxes();
@@ -1075,6 +1075,34 @@ public class MainGui extends Screen {
 
 
             if (expanded) {
+
+                //if(this.identifier.equals("region.room_region_select")) {
+                //    if(mainGui$roomDropdown.expanded) {
+                //        mainGui$roomDropdown.mouseClicked(1, 1, 0);
+                //    }
+                //    if(mainGui$screenDropdown.expanded) {
+                //        mainGui$screenDropdown.mouseClicked(1, 1, 0);
+                //    }
+                  //}
+//
+                //if(this.identifier.equals("room.room_region_select")) {
+                //    if(mainGui$regionDropdown.expanded) {
+                //        mainGui$regionDropdown.mouseClicked(1, 1, 0);
+                //    }
+                //    if(mainGui$screenDropdown.expanded) {
+                //        mainGui$screenDropdown.mouseClicked(1, 1, 0);
+                //    }
+                 //}
+//
+                //if(this.identifier.equals("screen.room_region_select")) {
+                //    if(mainGui$roomDropdown.expanded) {
+                //        mainGui$roomDropdown.mouseClicked(1, 1, 0);
+                //    }
+                //    if(mainGui$regionDropdown.expanded) {
+                //        mainGui$regionDropdown.mouseClicked(1, 1, 0);
+                //    }
+                //}
+
                 //System.out.println("Dropdown is expanded.");
                 int optionHeight = BUTTON_HEIGHT;
                 int startY = this.getY() + BUTTON_HEIGHT;
@@ -1627,8 +1655,8 @@ public class MainGui extends Screen {
                 //"Draft menu thing",
                 "Don't ignore this screen",
                 "Designer? Who needs a designer",
-                "To be not redesigned",
-                "Dev slapped this together",
+                "To be or not to be (redesigned)",
+                "[Dev] slapped this together",
                 "Screen01_Final_test_4_FINAL_v3_new_2.java",
                 "Maybe final pass UI",
                 "Assets not missing",

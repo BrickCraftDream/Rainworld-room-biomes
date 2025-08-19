@@ -10944,6 +10944,3482 @@
       "danger_type": 1
     }
   },
+  "outer_expanse": {
+    "oe_power03": {
+      "palette": 14,
+      "fade_palette": 10,
+      "fade_strength": 0.5869565,
+      "grime": 0.21739129722118378,
+      "effect_color_a": 0,
+      "effect_color_b": 2,
+      "danger_type": 3,
+      "screen0": {
+        "palette": 14,
+        "fade_palette": 10,
+        "fade_strength": 0.5869565,
+        "grime": 0.21739129722118378,
+        "effect_color_a": 0,
+        "effect_color_b": 2,
+        "danger_type": 3
+      },
+      "screen1": {
+        "palette": 14,
+        "fade_palette": 10,
+        "fade_strength": 0.5869565,
+        "grime": 0.21739129722118378,
+        "effect_color_a": 0,
+        "effect_color_b": 2,
+        "danger_type": 3
+      },
+      "screen2": {
+        "palette": 14,
+        "fade_palette": 10,
+        "fade_strength": 0.5869565,
+        "grime": 0.21739129722118378,
+        "effect_color_a": 0,
+        "effect_color_b": 2,
+        "danger_type": 3
+      }
+    },
+    "oe_power02": {
+      "palette": 14,
+      "fade_palette": 10,
+      "fade_strength": 0.5217391,
+      "grime": 0.21739129722118378,
+      "effect_color_a": 0,
+      "effect_color_b": 2,
+      "danger_type": 3
+    },
+    "oe_power01": {
+      "palette": 14,
+      "fade_palette": 10,
+      "fade_strength": 0.6956522,
+      "grime": 0.19565220177173615,
+      "effect_color_a": 0,
+      "effect_color_b": 2,
+      "danger_type": 3
+    },
+    "oe_power05": {
+      "palette": 14,
+      "fade_palette": 10,
+      "fade_strength": 0.5869565,
+      "grime": 0.21739129722118378,
+      "effect_color_a": 0,
+      "effect_color_b": 2,
+      "danger_type": 3
+    },
+    "oe_power04": {
+      "palette": 14,
+      "fade_palette": 10,
+      "fade_strength": 0.6304348,
+      "grime": 0.21739129722118378,
+      "effect_color_a": 0,
+      "effect_color_b": 2,
+      "danger_type": 3,
+      "screen0": {
+        "palette": 14,
+        "fade_palette": 10,
+        "fade_strength": 0.6304348,
+        "grime": 0.21739129722118378,
+        "effect_color_a": 0,
+        "effect_color_b": 2,
+        "danger_type": 3
+      },
+      "screen1": {
+        "palette": 14,
+        "fade_palette": 10,
+        "fade_strength": 0.6304348,
+        "grime": 0.21739129722118378,
+        "effect_color_a": 0,
+        "effect_color_b": 2,
+        "danger_type": 3
+      },
+      "screen2": {
+        "palette": 14,
+        "fade_palette": 10,
+        "fade_strength": 0.6304348,
+        "grime": 0.21739129722118378,
+        "effect_color_a": 0,
+        "effect_color_b": 2,
+        "danger_type": 3
+      }
+    },
+    "oe_pump04": {
+      "palette": 14,
+      "fade_palette": 8,
+      "fade_strength": 0.9782609,
+      "grime": 0.27173909544944763,
+      "effect_color_a": 18,
+      "effect_color_b": 18,
+      "danger_type": 2
+    },
+    "oe_pump03": {
+      "palette": 14,
+      "fade_palette": 8,
+      "fade_strength": 0.9456522,
+      "grime": 0.0,
+      "effect_color_a": 18,
+      "danger_type": 2,
+      "screen0": {
+        "palette": 14,
+        "fade_palette": 8,
+        "fade_strength": 0.9456522,
+        "grime": 0.0,
+        "effect_color_a": 18,
+        "danger_type": 2
+      },
+      "screen1": {
+        "palette": 14,
+        "fade_palette": 8,
+        "fade_strength": 0.9456522,
+        "grime": 0.0,
+        "effect_color_a": 18,
+        "danger_type": 2
+      },
+      "screen2": {
+        "palette": 14,
+        "fade_palette": 8,
+        "fade_strength": 0.9456522,
+        "grime": 0.0,
+        "effect_color_a": 18,
+        "danger_type": 2
+      },
+      "screen3": {
+        "palette": 14,
+        "fade_palette": 8,
+        "fade_strength": 0.9456522,
+        "grime": 0.0,
+        "effect_color_a": 18,
+        "danger_type": 2
+      }
+    },
+    "oe_pump02": {
+      "palette": 14,
+      "fade_palette": 8,
+      "fade_strength": 0.9130435,
+      "grime": 0.32608699798583984,
+      "effect_color_b": 18,
+      "danger_type": 2,
+      "screen0": {
+        "palette": 14,
+        "fade_palette": 8,
+        "fade_strength": 0.9130435,
+        "grime": 0.32608699798583984,
+        "effect_color_b": 18,
+        "danger_type": 2
+      },
+      "screen1": {
+        "palette": 14,
+        "fade_palette": 8,
+        "fade_strength": 0.9130435,
+        "grime": 0.32608699798583984,
+        "effect_color_b": 18,
+        "danger_type": 2
+      }
+    },
+    "oe_pump01": {
+      "palette": 14,
+      "fade_palette": 8,
+      "fade_strength": 0.8695652,
+      "grime": 0.19565220177173615,
+      "effect_color_b": 18,
+      "danger_type": 2,
+      "screen0": {
+        "palette": 14,
+        "fade_palette": 8,
+        "fade_strength": 0.8695652,
+        "grime": 0.19565220177173615,
+        "effect_color_b": 18,
+        "danger_type": 2
+      },
+      "screen1": {
+        "palette": 14,
+        "fade_palette": 8,
+        "fade_strength": 0.8586956,
+        "grime": 0.19565220177173615,
+        "effect_color_b": 18,
+        "danger_type": 2
+      },
+      "screen2": {
+        "palette": 14,
+        "fade_palette": 8,
+        "fade_strength": 0.8478261,
+        "grime": 0.19565220177173615,
+        "effect_color_b": 18,
+        "danger_type": 2
+      },
+      "screen3": {
+        "palette": 14,
+        "fade_palette": 8,
+        "fade_strength": 0.8369565,
+        "grime": 0.19565220177173615,
+        "effect_color_b": 18,
+        "danger_type": 2
+      },
+      "screen4": {
+        "palette": 14,
+        "fade_palette": 8,
+        "fade_strength": 0.8369565,
+        "grime": 0.19565220177173615,
+        "effect_color_b": 18,
+        "danger_type": 2
+      }
+    },
+    "oe_cave20": {
+      "palette": 53,
+      "fade_palette": 3,
+      "fade_strength": 0.3695652,
+      "grime": 0.0,
+      "effect_color_a": 13,
+      "effect_color_b": 18,
+      "danger_type": 3,
+      "screen0": {
+        "palette": 53,
+        "fade_palette": 3,
+        "fade_strength": 0.3695652,
+        "grime": 0.0,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 3
+      },
+      "screen1": {
+        "palette": 53,
+        "fade_palette": 3,
+        "fade_strength": 0.5,
+        "grime": 0.0,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 3
+      }
+    },
+    "oe_cave10": {
+      "palette": 14,
+      "fade_palette": 3,
+      "fade_strength": 0.7608696,
+      "grime": 0.0,
+      "effect_color_a": 13,
+      "effect_color_b": 18,
+      "danger_type": 1,
+      "screen0": {
+        "palette": 14,
+        "fade_palette": 3,
+        "fade_strength": 0.7608696,
+        "grime": 0.0,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 1
+      },
+      "screen1": {
+        "palette": 14,
+        "fade_palette": 3,
+        "fade_strength": 0.7717391,
+        "grime": 0.0,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 1
+      },
+      "screen2": {
+        "palette": 14,
+        "fade_palette": 3,
+        "fade_strength": 0.7934783,
+        "grime": 0.0,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 1
+      }
+    },
+    "oe_cave11": {
+      "palette": 14,
+      "fade_palette": 3,
+      "fade_strength": 0.4782609,
+      "grime": 0.0,
+      "effect_color_a": 13,
+      "effect_color_b": 18,
+      "danger_type": 1,
+      "screen0": {
+        "palette": 14,
+        "fade_palette": 3,
+        "fade_strength": 0.4782609,
+        "grime": 0.0,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 1
+      },
+      "screen1": {
+        "palette": 14,
+        "fade_palette": 3,
+        "fade_strength": 0.4891304,
+        "grime": 0.0,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 1
+      },
+      "screen2": {
+        "palette": 14,
+        "fade_palette": 3,
+        "fade_strength": 0.423913,
+        "grime": 0.0,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 1
+      }
+    },
+    "oe_cave12": {
+      "palette": 14,
+      "fade_palette": 3,
+      "fade_strength": 0.3043478,
+      "grime": 0.0,
+      "effect_color_a": 13,
+      "effect_color_b": 18,
+      "danger_type": 1,
+      "screen0": {
+        "palette": 14,
+        "fade_palette": 3,
+        "fade_strength": 0.3043478,
+        "grime": 0.0,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 1
+      },
+      "screen1": {
+        "palette": 14,
+        "fade_palette": 3,
+        "fade_strength": 0.3369565,
+        "grime": 0.0,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 1
+      },
+      "screen2": {
+        "palette": 14,
+        "fade_palette": 3,
+        "fade_strength": 0.4347826,
+        "grime": 0.0,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 1
+      },
+      "screen3": {
+        "palette": 14,
+        "fade_palette": 3,
+        "fade_strength": 0.5543478,
+        "grime": 0.0,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 1
+      },
+      "screen4": {
+        "palette": 14,
+        "fade_palette": 3,
+        "fade_strength": 0.6413044,
+        "grime": 0.0,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 1
+      },
+      "screen5": {
+        "palette": 14,
+        "fade_palette": 3,
+        "fade_strength": 0.7934783,
+        "grime": 0.0,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 1
+      }
+    },
+    "oe_cave13": {
+      "palette": 14,
+      "fade_palette": 3,
+      "fade_strength": 0.5978261,
+      "grime": 0.0,
+      "effect_color_a": 13,
+      "effect_color_b": 18,
+      "danger_type": 1,
+      "screen0": {
+        "palette": 14,
+        "fade_palette": 3,
+        "fade_strength": 0.5978261,
+        "grime": 0.0,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 1
+      },
+      "screen1": {
+        "palette": 14,
+        "fade_palette": 3,
+        "fade_strength": 0.5760869,
+        "grime": 0.0,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 1
+      }
+    },
+    "oe_cave14": {
+      "palette": 14,
+      "fade_palette": 3,
+      "fade_strength": 0.6086956,
+      "grime": 0.0,
+      "effect_color_a": 13,
+      "effect_color_b": 18,
+      "danger_type": 1,
+      "screen0": {
+        "palette": 14,
+        "fade_palette": 3,
+        "fade_strength": 0.6086956,
+        "grime": 0.0,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 1
+      },
+      "screen1": {
+        "palette": 14,
+        "fade_palette": 3,
+        "fade_strength": 0.5652174,
+        "grime": 0.0,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 1
+      }
+    },
+    "oe_cave15": {
+      "palette": 14,
+      "fade_palette": 3,
+      "fade_strength": 0.5217391,
+      "grime": 0.0,
+      "effect_color_a": 13,
+      "effect_color_b": 18,
+      "danger_type": 3,
+      "screen0": {
+        "palette": 14,
+        "fade_palette": 3,
+        "fade_strength": 0.5217391,
+        "grime": 0.0,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 3
+      },
+      "screen1": {
+        "palette": 14,
+        "fade_palette": 3,
+        "fade_strength": 0.5543478,
+        "grime": 0.0,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 3
+      }
+    },
+    "oe_cave16": {
+      "palette": 14,
+      "fade_palette": 3,
+      "fade_strength": 0.5652174,
+      "grime": 0.0,
+      "effect_color_a": 13,
+      "effect_color_b": 18,
+      "danger_type": 3,
+      "screen0": {
+        "palette": 14,
+        "fade_palette": 3,
+        "fade_strength": 0.5652174,
+        "grime": 0.0,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 3
+      },
+      "screen1": {
+        "palette": 14,
+        "fade_palette": 3,
+        "fade_strength": 0.5543478,
+        "grime": 0.0,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 3
+      },
+      "screen2": {
+        "palette": 14,
+        "fade_palette": 3,
+        "fade_strength": 0.5326087,
+        "grime": 0.0,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 3
+      }
+    },
+    "oe_cave17": {
+      "palette": 14,
+      "fade_palette": 3,
+      "fade_strength": 0.6195652,
+      "grime": 0.0,
+      "effect_color_a": 13,
+      "effect_color_b": 18,
+      "danger_type": 3
+    },
+    "oe_cave18": {
+      "palette": 14,
+      "fade_palette": 3,
+      "fade_strength": 0.7173913,
+      "grime": 0.0,
+      "effect_color_a": 13,
+      "effect_color_b": 18,
+      "danger_type": 3,
+      "screen0": {
+        "palette": 14,
+        "fade_palette": 3,
+        "fade_strength": 0.7173913,
+        "grime": 0.0,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 3
+      },
+      "screen1": {
+        "palette": 14,
+        "fade_palette": 3,
+        "fade_strength": 0.75,
+        "grime": 0.0,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 3
+      }
+    },
+    "oe_cave19": {
+      "palette": 53,
+      "fade_palette": 3,
+      "fade_strength": 0.4673913,
+      "grime": 0.0,
+      "effect_color_a": 13,
+      "effect_color_b": 18,
+      "danger_type": 3
+    },
+    "oe_cave01": {
+      "palette": 14,
+      "fade_palette": 3,
+      "fade_strength": 0.4565217,
+      "grime": 0.0,
+      "effect_color_a": 13,
+      "effect_color_b": 18,
+      "danger_type": 1,
+      "screen0": {
+        "palette": 14,
+        "fade_palette": 3,
+        "fade_strength": 0.4565217,
+        "grime": 0.0,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 1
+      },
+      "screen1": {
+        "palette": 14,
+        "fade_palette": 3,
+        "fade_strength": 0.5543478,
+        "grime": 0.0,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 1
+      },
+      "screen2": {
+        "palette": 14,
+        "fade_palette": 3,
+        "fade_strength": 0.6739131,
+        "grime": 0.0,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 1
+      },
+      "screen3": {
+        "palette": 14,
+        "fade_palette": 3,
+        "fade_strength": 0.8260869,
+        "grime": 0.0,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 1
+      },
+      "screen4": {
+        "palette": 14,
+        "fade_palette": 3,
+        "fade_strength": 0.7826087,
+        "grime": 0.0,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 1
+      }
+    },
+    "oe_cave02": {
+      "palette": 53,
+      "fade_palette": 3,
+      "fade_strength": 0.3804348,
+      "grime": 0.0,
+      "effect_color_a": 13,
+      "effect_color_b": 18,
+      "danger_type": 3,
+      "screen0": {
+        "palette": 53,
+        "fade_palette": 3,
+        "fade_strength": 0.3804348,
+        "grime": 0.0,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 3
+      },
+      "screen1": {
+        "palette": 53,
+        "fade_palette": 3,
+        "fade_strength": 0.25,
+        "grime": 0.0,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 3
+      }
+    },
+    "oe_cave03": {
+      "palette": 53,
+      "fade_palette": 10,
+      "fade_strength": 0.1847826,
+      "grime": 0.0,
+      "effect_color_a": 13,
+      "effect_color_b": 18,
+      "danger_type": 3,
+      "screen0": {
+        "palette": 53,
+        "fade_palette": 10,
+        "fade_strength": 0.1847826,
+        "grime": 0.0,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 3
+      },
+      "screen1": {
+        "palette": 53,
+        "fade_palette": 10,
+        "fade_strength": 0.1847826,
+        "grime": 0.0,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 3
+      },
+      "screen2": {
+        "palette": 53,
+        "fade_palette": 10,
+        "fade_strength": 0.5543478,
+        "grime": 0.0,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 3
+      },
+      "screen3": {
+        "palette": 53,
+        "fade_palette": 10,
+        "fade_strength": 0.5434783,
+        "grime": 0.0,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 3
+      },
+      "screen4": {
+        "palette": 53,
+        "fade_palette": 10,
+        "fade_strength": 0.6847826,
+        "grime": 0.0,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 3
+      },
+      "screen5": {
+        "palette": 53,
+        "fade_palette": 10,
+        "fade_strength": 0.7391304,
+        "grime": 0.0,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 3
+      },
+      "screen6": {
+        "palette": 53,
+        "fade_palette": 10,
+        "fade_strength": 0.6413044,
+        "grime": 0.0,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 3
+      },
+      "screen7": {
+        "palette": 53,
+        "fade_palette": 10,
+        "fade_strength": 0.8260869,
+        "grime": 0.0,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 3
+      }
+    },
+    "oe_cave04": {
+      "palette": 14,
+      "fade_palette": 3,
+      "fade_strength": 0.6739131,
+      "grime": 0.0,
+      "effect_color_a": 13,
+      "effect_color_b": 18,
+      "danger_type": 3,
+      "screen0": {
+        "palette": 14,
+        "fade_palette": 3,
+        "fade_strength": 0.6739131,
+        "grime": 0.0,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 3
+      },
+      "screen1": {
+        "palette": 14,
+        "fade_palette": 3,
+        "fade_strength": 0.7391304,
+        "grime": 0.0,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 3
+      }
+    },
+    "oe_cave05": {
+      "palette": 14,
+      "fade_palette": 3,
+      "fade_strength": 0.7391304,
+      "grime": 0.0,
+      "effect_color_a": 13,
+      "effect_color_b": 18,
+      "danger_type": 1,
+      "screen0": {
+        "palette": 14,
+        "fade_palette": 3,
+        "fade_strength": 0.7391304,
+        "grime": 0.0,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 1
+      },
+      "screen1": {
+        "palette": 14,
+        "fade_palette": 3,
+        "fade_strength": 0.7717391,
+        "grime": 0.0,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 1
+      },
+      "screen2": {
+        "palette": 14,
+        "fade_palette": 3,
+        "fade_strength": 0.8043478,
+        "grime": 0.0,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 1
+      }
+    },
+    "oe_cave06": {
+      "palette": 14,
+      "fade_palette": 10,
+      "fade_strength": 0.8152174,
+      "grime": 0.0,
+      "effect_color_a": 13,
+      "effect_color_b": 18,
+      "danger_type": 1
+    },
+    "oe_cave07": {
+      "palette": 54,
+      "fade_palette": 3,
+      "fade_strength": 0.3804348,
+      "grime": 0.0,
+      "effect_color_a": 13,
+      "effect_color_b": 18,
+      "danger_type": 1,
+      "screen0": {
+        "palette": 54,
+        "fade_palette": 3,
+        "fade_strength": 0.3804348,
+        "grime": 0.0,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 1
+      },
+      "screen1": {
+        "palette": 54,
+        "fade_palette": 3,
+        "fade_strength": 0.4565217,
+        "grime": 0.0,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 1
+      },
+      "screen2": {
+        "palette": 54,
+        "fade_palette": 3,
+        "fade_strength": 0.5217391,
+        "grime": 0.0,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 1
+      },
+      "screen3": {
+        "palette": 54,
+        "fade_palette": 3,
+        "fade_strength": 0.5652174,
+        "grime": 0.0,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 1
+      }
+    },
+    "oe_cave08": {
+      "palette": 14,
+      "fade_palette": 3,
+      "fade_strength": 0.5326087,
+      "grime": 0.0,
+      "effect_color_a": 13,
+      "effect_color_b": 18,
+      "danger_type": 3
+    },
+    "oe_cave09": {
+      "palette": 14,
+      "fade_palette": 3,
+      "fade_strength": 0.5217391,
+      "grime": 0.0,
+      "effect_color_a": 13,
+      "effect_color_b": 18,
+      "danger_type": 1,
+      "screen0": {
+        "palette": 14,
+        "fade_palette": 3,
+        "fade_strength": 0.5217391,
+        "grime": 0.0,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 1
+      },
+      "screen1": {
+        "palette": 14,
+        "fade_palette": 3,
+        "fade_strength": 0.6521739,
+        "grime": 0.0,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 1
+      }
+    },
+    "oe_jungleescape": {
+      "palette": 14,
+      "fade_palette": 3,
+      "fade_strength": 0.8695652,
+      "grime": 0.0,
+      "effect_color_a": 13,
+      "effect_color_b": 18,
+      "danger_type": 1,
+      "screen0": {
+        "palette": 14,
+        "fade_palette": 3,
+        "fade_strength": 0.8695652,
+        "grime": 0.0,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 1
+      },
+      "screen1": {
+        "palette": 14,
+        "fade_palette": 3,
+        "fade_strength": 0.8369565,
+        "grime": 0.0,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 1
+      },
+      "screen2": {
+        "palette": 14,
+        "fade_palette": 3,
+        "fade_strength": 0.8260869,
+        "grime": 0.0,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 1
+      },
+      "screen3": {
+        "palette": 14,
+        "fade_palette": 3,
+        "fade_strength": 0.7934783,
+        "grime": 0.0,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 1
+      },
+      "screen4": {
+        "palette": 14,
+        "fade_palette": 3,
+        "fade_strength": 0.8043478,
+        "grime": 0.0,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 1
+      },
+      "screen5": {
+        "palette": 14,
+        "fade_palette": 3,
+        "fade_strength": 0.75,
+        "grime": 0.0,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 1
+      },
+      "screen6": {
+        "palette": 14,
+        "fade_palette": 3,
+        "fade_strength": 0.7717391,
+        "grime": 0.0,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 1
+      },
+      "screen7": {
+        "palette": 14,
+        "fade_palette": 3,
+        "fade_strength": 0.8152174,
+        "grime": 0.0,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 1
+      },
+      "screen8": {
+        "palette": 14,
+        "fade_palette": 3,
+        "fade_strength": 0.8586956,
+        "grime": 0.0,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 1
+      },
+      "screen9": {
+        "palette": 14,
+        "fade_palette": 3,
+        "fade_strength": 0.6521739,
+        "grime": 0.0,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 1
+      },
+      "screen10": {
+        "palette": 14,
+        "fade_palette": 3,
+        "fade_strength": 0.5217391,
+        "grime": 0.0,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 1
+      },
+      "screen11": {
+        "palette": 14,
+        "fade_palette": 3,
+        "fade_strength": 0.6521739,
+        "grime": 0.0,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 1
+      },
+      "screen12": {
+        "palette": 14,
+        "fade_palette": 3,
+        "fade_strength": 0.5217391,
+        "grime": 0.0,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 1
+      },
+      "screen13": {
+        "palette": 14,
+        "fade_palette": 3,
+        "fade_strength": 0.6521739,
+        "grime": 0.0,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 1
+      }
+    },
+    "oe_s05x": {
+      "palette": 14,
+      "fade_palette": 3,
+      "fade_strength": 0.5434783,
+      "grime": 0.0,
+      "effect_color_a": 13,
+      "effect_color_b": 18,
+      "danger_type": 1
+    },
+    "oe_exshelter": {
+      "palette": 14,
+      "fade_palette": 3,
+      "fade_strength": 0.7608696,
+      "grime": 0.0,
+      "effect_color_a": 13,
+      "effect_color_b": 18,
+      "danger_type": 1
+    },
+    "oe_sfinal": {
+      "palette": 53,
+      "fade_palette": 3,
+      "fade_strength": 0.3586957,
+      "grime": 0.0,
+      "effect_color_a": 3,
+      "effect_color_b": 16,
+      "danger_type": 0
+    },
+    "oe_final02": {
+      "palette": 53,
+      "fade_palette": 42,
+      "fade_strength": 0.09782609,
+      "grime": 0.0,
+      "effect_color_a": 13,
+      "effect_color_b": 18,
+      "danger_type": 1,
+      "screen0": {
+        "palette": 53,
+        "fade_palette": 42,
+        "fade_strength": 0.09782609,
+        "grime": 0.0,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 1
+      },
+      "screen1": {
+        "palette": 53,
+        "fade_palette": 42,
+        "fade_strength": 0.1521739,
+        "grime": 0.0,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 1
+      },
+      "screen2": {
+        "palette": 53,
+        "fade_palette": 42,
+        "fade_strength": 0.2282609,
+        "grime": 0.0,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 1
+      },
+      "screen3": {
+        "palette": 53,
+        "fade_palette": 42,
+        "fade_strength": 0.3478261,
+        "grime": 0.0,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 1
+      }
+    },
+    "oe_final01": {
+      "palette": 53,
+      "fade_palette": 3,
+      "fade_strength": 0.2717391,
+      "grime": 0.0,
+      "effect_color_a": 13,
+      "effect_color_b": 18,
+      "danger_type": 1,
+      "screen0": {
+        "palette": 53,
+        "fade_palette": 3,
+        "fade_strength": 0.2717391,
+        "grime": 0.0,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 1
+      },
+      "screen1": {
+        "palette": 53,
+        "fade_palette": 3,
+        "fade_strength": 0.2608696,
+        "grime": 0.0,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 1
+      }
+    },
+    "oe_final03": {
+      "palette": 53,
+      "fade_palette": 42,
+      "fade_strength": 0.3478261,
+      "grime": 0.0,
+      "effect_color_a": 13,
+      "effect_color_b": 18,
+      "danger_type": 1,
+      "screen0": {
+        "palette": 53,
+        "fade_palette": 42,
+        "fade_strength": 0.3478261,
+        "grime": 0.0,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 1
+      },
+      "screen1": {
+        "palette": 53,
+        "fade_palette": 42,
+        "fade_strength": 0.3043478,
+        "grime": 0.0,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 1
+      },
+      "screen2": {
+        "palette": 53,
+        "fade_palette": 42,
+        "fade_strength": 0.2826087,
+        "grime": 0.0,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 1
+      },
+      "screen3": {
+        "palette": 53,
+        "fade_palette": 42,
+        "fade_strength": 0.2391304,
+        "grime": 0.0,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 1
+      },
+      "screen4": {
+        "palette": 53,
+        "fade_palette": 42,
+        "fade_strength": 0.1956522,
+        "grime": 0.0,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 1
+      },
+      "screen5": {
+        "palette": 53,
+        "fade_palette": 42,
+        "fade_strength": 0.173913,
+        "grime": 0.0,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 1
+      }
+    },
+    "oe_ruinbackhall": {
+      "palette": 53,
+      "fade_palette": 42,
+      "fade_strength": 0.2391304,
+      "grime": 0.0,
+      "effect_color_a": 13,
+      "effect_color_b": 18,
+      "danger_type": 1,
+      "screen0": {
+        "palette": 53,
+        "fade_palette": 42,
+        "fade_strength": 0.2391304,
+        "grime": 0.0,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 1
+      },
+      "screen1": {
+        "palette": 53,
+        "fade_palette": 42,
+        "fade_strength": 0.2934783,
+        "grime": 0.0,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 1
+      },
+      "screen2": {
+        "palette": 53,
+        "fade_palette": 42,
+        "fade_strength": 0.3478261,
+        "grime": 0.0,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 1
+      },
+      "screen3": {
+        "palette": 53,
+        "fade_palette": 42,
+        "fade_strength": 0.4130435,
+        "grime": 0.0,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 1
+      }
+    },
+    "oe_s04": {
+      "palette": 23,
+      "fade_palette": 14,
+      "fade_strength": 0.6413044,
+      "grime": 0.0,
+      "effect_color_b": 14,
+      "danger_type": 0
+    },
+    "oe_s05": {
+      "palette": 14,
+      "fade_palette": 10,
+      "fade_strength": 0.7173913,
+      "grime": 0.0,
+      "effect_color_a": 13,
+      "effect_color_b": 18,
+      "danger_type": 1
+    },
+    "oe_s02": {
+      "palette": 14,
+      "fade_palette": 8,
+      "fade_strength": 0.6304348,
+      "grime": 0.09782609343528748,
+      "effect_color_a": 0,
+      "effect_color_b": 13,
+      "danger_type": 3
+    },
+    "oe_s03": {
+      "palette": 14,
+      "fade_palette": 8,
+      "fade_strength": 0.9565217,
+      "grime": 0.19565220177173615,
+      "effect_color_a": 18,
+      "effect_color_b": 6,
+      "danger_type": 0
+    },
+    "oe_s01": {
+      "palette": 14,
+      "fade_palette": 8,
+      "fade_strength": 0.5978261,
+      "grime": 0.19565220177173615,
+      "effect_color_a": 0,
+      "effect_color_b": 18,
+      "danger_type": 0
+    },
+    "oe_s06": {
+      "palette": 53,
+      "fade_palette": 3,
+      "fade_strength": 0.4673913,
+      "grime": 0.0,
+      "danger_type": 1
+    },
+    "oe_ruin08": {
+      "palette": 53,
+      "fade_palette": 42,
+      "fade_strength": 0.1521739,
+      "grime": 0.0,
+      "effect_color_a": 3,
+      "effect_color_b": 16,
+      "danger_type": 0,
+      "screen0": {
+        "palette": 53,
+        "fade_palette": 42,
+        "fade_strength": 0.1521739,
+        "grime": 0.0,
+        "effect_color_a": 3,
+        "effect_color_b": 16,
+        "danger_type": 0
+      },
+      "screen1": {
+        "palette": 53,
+        "fade_palette": 42,
+        "fade_strength": 0.1630435,
+        "grime": 0.0,
+        "effect_color_a": 3,
+        "effect_color_b": 16,
+        "danger_type": 0
+      },
+      "screen2": {
+        "palette": 53,
+        "fade_palette": 42,
+        "fade_strength": 0.173913,
+        "grime": 0.0,
+        "effect_color_a": 3,
+        "effect_color_b": 16,
+        "danger_type": 0
+      }
+    },
+    "oe_ruin07": {
+      "palette": 53,
+      "fade_palette": 3,
+      "fade_strength": 0.2391304,
+      "grime": 0.0,
+      "effect_color_a": 13,
+      "effect_color_b": 18,
+      "danger_type": 1,
+      "screen0": {
+        "palette": 53,
+        "fade_palette": 3,
+        "fade_strength": 0.2391304,
+        "grime": 0.0,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 1
+      },
+      "screen1": {
+        "palette": 53,
+        "fade_palette": 3,
+        "fade_strength": 0.2826087,
+        "grime": 0.0,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 1
+      }
+    },
+    "oe_ruin09": {
+      "palette": 53,
+      "fade_palette": 42,
+      "fade_strength": 0.3586957,
+      "grime": 0.0,
+      "effect_color_a": 3,
+      "effect_color_b": 16,
+      "danger_type": 0,
+      "screen0": {
+        "palette": 53,
+        "fade_palette": 42,
+        "fade_strength": 0.3586957,
+        "grime": 0.0,
+        "effect_color_a": 3,
+        "effect_color_b": 16,
+        "danger_type": 0
+      },
+      "screen1": {
+        "palette": 53,
+        "fade_palette": 42,
+        "fade_strength": 0.3913043,
+        "grime": 0.0,
+        "effect_color_a": 3,
+        "effect_color_b": 16,
+        "danger_type": 0
+      }
+    },
+    "oe_ruin04": {
+      "palette": 53,
+      "fade_palette": 42,
+      "fade_strength": 0.0,
+      "grime": 0.0,
+      "effect_color_a": 13,
+      "effect_color_b": 18,
+      "danger_type": 1,
+      "screen0": {
+        "palette": 53,
+        "fade_palette": 42,
+        "fade_strength": 0.0,
+        "grime": 0.0,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 1
+      },
+      "screen1": {
+        "palette": 53,
+        "fade_palette": 42,
+        "fade_strength": 0.2065217,
+        "grime": 0.0,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 1
+      },
+      "screen2": {
+        "palette": 53,
+        "fade_palette": 42,
+        "fade_strength": 0.4021739,
+        "grime": 0.0,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 1
+      }
+    },
+    "oe_ruin03": {
+      "palette": 53,
+      "fade_palette": 3,
+      "fade_strength": 0.7826087,
+      "grime": 0.0,
+      "effect_color_a": 3,
+      "effect_color_b": 16,
+      "danger_type": 0,
+      "screen0": {
+        "palette": 53,
+        "fade_palette": 3,
+        "fade_strength": 0.7826087,
+        "grime": 0.0,
+        "effect_color_a": 3,
+        "effect_color_b": 16,
+        "danger_type": 0
+      },
+      "screen1": {
+        "palette": 53,
+        "fade_palette": 3,
+        "fade_strength": 0.7934783,
+        "grime": 0.0,
+        "effect_color_a": 3,
+        "effect_color_b": 16,
+        "danger_type": 0
+      }
+    },
+    "oe_ruin06": {
+      "palette": 54,
+      "fade_palette": 3,
+      "fade_strength": 0.2391304,
+      "grime": 0.0,
+      "effect_color_a": 13,
+      "effect_color_b": 18,
+      "danger_type": 1,
+      "screen0": {
+        "palette": 54,
+        "fade_palette": 3,
+        "fade_strength": 0.2391304,
+        "grime": 0.0,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 1
+      },
+      "screen1": {
+        "palette": 54,
+        "fade_palette": 3,
+        "fade_strength": 0.3369565,
+        "grime": 0.0,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 1
+      },
+      "screen2": {
+        "palette": 54,
+        "fade_palette": 3,
+        "fade_strength": 0.326087,
+        "grime": 0.0,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 1
+      },
+      "screen3": {
+        "palette": 54,
+        "fade_palette": 3,
+        "fade_strength": 0.2065217,
+        "grime": 0.0,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 1
+      },
+      "screen4": {
+        "palette": 54,
+        "fade_palette": 3,
+        "fade_strength": 0.4565217,
+        "grime": 0.0,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 1
+      },
+      "screen5": {
+        "palette": 54,
+        "fade_palette": 3,
+        "fade_strength": 0.4565217,
+        "grime": 0.0,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 1
+      }
+    },
+    "oe_ruin05": {
+      "palette": 53,
+      "fade_palette": 42,
+      "fade_strength": 0.2065217,
+      "grime": 0.0,
+      "effect_color_a": 13,
+      "effect_color_b": 18,
+      "danger_type": 1,
+      "screen0": {
+        "palette": 53,
+        "fade_palette": 42,
+        "fade_strength": 0.2065217,
+        "grime": 0.0,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 1
+      },
+      "screen1": {
+        "palette": 53,
+        "fade_palette": 42,
+        "fade_strength": 0.2391304,
+        "grime": 0.0,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 1
+      },
+      "screen2": {
+        "palette": 53,
+        "fade_palette": 42,
+        "fade_strength": 0.2934783,
+        "grime": 0.0,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 1
+      }
+    },
+    "oe_ruin02": {
+      "palette": 53,
+      "fade_palette": 3,
+      "fade_strength": 0.4130435,
+      "grime": 0.0,
+      "effect_color_a": 13,
+      "effect_color_b": 18,
+      "danger_type": 1,
+      "screen0": {
+        "palette": 53,
+        "fade_palette": 3,
+        "fade_strength": 0.4130435,
+        "grime": 0.0,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 1
+      },
+      "screen1": {
+        "palette": 53,
+        "fade_palette": 3,
+        "fade_strength": 0.4891304,
+        "grime": 0.0,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 1
+      },
+      "screen2": {
+        "palette": 53,
+        "fade_palette": 3,
+        "fade_strength": 0.4673913,
+        "grime": 0.0,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 1
+      },
+      "screen3": {
+        "palette": 53,
+        "fade_palette": 3,
+        "fade_strength": 0.5869565,
+        "grime": 0.0,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 1
+      }
+    },
+    "oe_ruin01": {
+      "palette": 53,
+      "fade_palette": 3,
+      "fade_strength": 0.5326087,
+      "grime": 0.1304347962141037,
+      "effect_color_a": 16,
+      "effect_color_b": 18,
+      "danger_type": 0,
+      "screen0": {
+        "palette": 53,
+        "fade_palette": 3,
+        "fade_strength": 0.5326087,
+        "grime": 0.1304347962141037,
+        "effect_color_a": 16,
+        "effect_color_b": 18,
+        "danger_type": 0
+      },
+      "screen1": {
+        "palette": 53,
+        "fade_palette": 3,
+        "fade_strength": 0.6630435,
+        "grime": 0.1304347962141037,
+        "effect_color_a": 16,
+        "effect_color_b": 18,
+        "danger_type": 0
+      }
+    },
+    "oe_ruin19": {
+      "palette": 14,
+      "fade_palette": 3,
+      "fade_strength": 0.7065217,
+      "grime": 0.0,
+      "effect_color_a": 13,
+      "effect_color_b": 18,
+      "danger_type": 1,
+      "screen0": {
+        "palette": 14,
+        "fade_palette": 3,
+        "fade_strength": 0.7065217,
+        "grime": 0.0,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 1
+      },
+      "screen1": {
+        "palette": 14,
+        "fade_palette": 3,
+        "fade_strength": 0.6956522,
+        "grime": 0.0,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 1
+      },
+      "screen2": {
+        "palette": 14,
+        "fade_palette": 3,
+        "fade_strength": 0.6847826,
+        "grime": 0.0,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 1
+      },
+      "screen3": {
+        "palette": 14,
+        "fade_palette": 3,
+        "fade_strength": 0.7065217,
+        "grime": 0.0,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 1
+      },
+      "screen4": {
+        "palette": 14,
+        "fade_palette": 3,
+        "fade_strength": 0.7173913,
+        "grime": 0.0,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 1
+      }
+    },
+    "oe_ruin18": {
+      "palette": 53,
+      "fade_palette": 42,
+      "fade_strength": 0.4565217,
+      "grime": 0.0,
+      "effect_color_a": 3,
+      "effect_color_b": 16,
+      "danger_type": 0,
+      "screen0": {
+        "palette": 53,
+        "fade_palette": 42,
+        "fade_strength": 0.4565217,
+        "grime": 0.0,
+        "effect_color_a": 3,
+        "effect_color_b": 16,
+        "danger_type": 0
+      },
+      "screen1": {
+        "palette": 53,
+        "fade_palette": 42,
+        "fade_strength": 0.4673913,
+        "grime": 0.0,
+        "effect_color_a": 3,
+        "effect_color_b": 16,
+        "danger_type": 0
+      },
+      "screen2": {
+        "palette": 53,
+        "fade_palette": 42,
+        "fade_strength": 0.5108696,
+        "grime": 0.0,
+        "effect_color_a": 3,
+        "effect_color_b": 16,
+        "danger_type": 0
+      },
+      "screen3": {
+        "palette": 53,
+        "fade_palette": 42,
+        "fade_strength": 0.5760869,
+        "grime": 0.0,
+        "effect_color_a": 3,
+        "effect_color_b": 16,
+        "danger_type": 0
+      }
+    },
+    "oe_ruin15": {
+      "palette": 53,
+      "fade_palette": 42,
+      "fade_strength": 0.25,
+      "grime": 0.0,
+      "effect_color_a": 3,
+      "effect_color_b": 16,
+      "danger_type": 0,
+      "screen0": {
+        "palette": 53,
+        "fade_palette": 42,
+        "fade_strength": 0.25,
+        "grime": 0.0,
+        "effect_color_a": 3,
+        "effect_color_b": 16,
+        "danger_type": 0
+      },
+      "screen1": {
+        "palette": 53,
+        "fade_palette": 42,
+        "fade_strength": 0.25,
+        "grime": 0.0,
+        "effect_color_a": 3,
+        "effect_color_b": 16,
+        "danger_type": 0
+      },
+      "screen2": {
+        "palette": 53,
+        "fade_palette": 42,
+        "fade_strength": 0.25,
+        "grime": 0.0,
+        "effect_color_a": 3,
+        "effect_color_b": 16,
+        "danger_type": 0
+      },
+      "screen3": {
+        "palette": 53,
+        "fade_palette": 42,
+        "fade_strength": 0.25,
+        "grime": 0.0,
+        "effect_color_a": 3,
+        "effect_color_b": 16,
+        "danger_type": 0
+      }
+    },
+    "oe_ruin14": {
+      "palette": 53,
+      "fade_palette": 42,
+      "fade_strength": 0.326087,
+      "grime": 0.0,
+      "effect_color_a": 13,
+      "effect_color_b": 18,
+      "danger_type": 1,
+      "screen0": {
+        "palette": 53,
+        "fade_palette": 42,
+        "fade_strength": 0.326087,
+        "grime": 0.0,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 1
+      },
+      "screen1": {
+        "palette": 53,
+        "fade_palette": 42,
+        "fade_strength": 0.326087,
+        "grime": 0.0,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 1
+      },
+      "screen2": {
+        "palette": 53,
+        "fade_palette": 42,
+        "fade_strength": 0.3152174,
+        "grime": 0.0,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 1
+      },
+      "screen3": {
+        "palette": 53,
+        "fade_palette": 42,
+        "fade_strength": 0.3152174,
+        "grime": 0.0,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 1
+      }
+    },
+    "oe_ruin17": {
+      "palette": 53,
+      "fade_palette": 42,
+      "fade_strength": 0.3043478,
+      "grime": 0.0,
+      "effect_color_a": 3,
+      "effect_color_b": 16,
+      "danger_type": 0,
+      "screen0": {
+        "palette": 53,
+        "fade_palette": 42,
+        "fade_strength": 0.3043478,
+        "grime": 0.0,
+        "effect_color_a": 3,
+        "effect_color_b": 16,
+        "danger_type": 0
+      },
+      "screen1": {
+        "palette": 53,
+        "fade_palette": 42,
+        "fade_strength": 0.3586957,
+        "grime": 0.0,
+        "effect_color_a": 3,
+        "effect_color_b": 16,
+        "danger_type": 0
+      },
+      "screen2": {
+        "palette": 53,
+        "fade_palette": 42,
+        "fade_strength": 0.4347826,
+        "grime": 0.0,
+        "effect_color_a": 3,
+        "effect_color_b": 16,
+        "danger_type": 0
+      }
+    },
+    "oe_ruin16": {
+      "palette": 53,
+      "fade_palette": 3,
+      "fade_strength": 0.5978261,
+      "grime": 0.0,
+      "effect_color_a": 3,
+      "effect_color_b": 16,
+      "danger_type": 0,
+      "screen0": {
+        "palette": 53,
+        "fade_palette": 3,
+        "fade_strength": 0.5978261,
+        "grime": 0.0,
+        "effect_color_a": 3,
+        "effect_color_b": 16,
+        "danger_type": 0
+      },
+      "screen1": {
+        "palette": 53,
+        "fade_palette": 3,
+        "fade_strength": 0.6847826,
+        "grime": 0.0,
+        "effect_color_a": 3,
+        "effect_color_b": 16,
+        "danger_type": 0
+      }
+    },
+    "oe_ruin11": {
+      "palette": 53,
+      "fade_palette": 42,
+      "fade_strength": 0.1630435,
+      "grime": 0.0,
+      "effect_color_a": 3,
+      "effect_color_b": 16,
+      "danger_type": 0,
+      "screen0": {
+        "palette": 53,
+        "fade_palette": 42,
+        "fade_strength": 0.1630435,
+        "grime": 0.0,
+        "effect_color_a": 3,
+        "effect_color_b": 16,
+        "danger_type": 0
+      },
+      "screen1": {
+        "palette": 53,
+        "fade_palette": 42,
+        "fade_strength": 0.3369565,
+        "grime": 0.0,
+        "effect_color_a": 3,
+        "effect_color_b": 16,
+        "danger_type": 0
+      },
+      "screen2": {
+        "palette": 53,
+        "fade_palette": 42,
+        "fade_strength": 0.6086956,
+        "grime": 0.0,
+        "effect_color_a": 3,
+        "effect_color_b": 16,
+        "danger_type": 0
+      }
+    },
+    "oe_ruin10": {
+      "palette": 53,
+      "fade_palette": 42,
+      "fade_strength": 0.4021739,
+      "grime": 0.0,
+      "effect_color_a": 3,
+      "effect_color_b": 16,
+      "danger_type": 0,
+      "screen0": {
+        "palette": 53,
+        "fade_palette": 42,
+        "fade_strength": 0.4021739,
+        "grime": 0.0,
+        "effect_color_a": 3,
+        "effect_color_b": 16,
+        "danger_type": 0
+      },
+      "screen1": {
+        "palette": 53,
+        "fade_palette": 42,
+        "fade_strength": 0.4347826,
+        "grime": 0.0,
+        "effect_color_a": 3,
+        "effect_color_b": 16,
+        "danger_type": 0
+      }
+    },
+    "oe_ruin13": {
+      "palette": 53,
+      "fade_palette": 42,
+      "fade_strength": 0.4456522,
+      "grime": 0.0,
+      "effect_color_a": 3,
+      "effect_color_b": 16,
+      "danger_type": 0
+    },
+    "oe_ruin12": {
+      "palette": 53,
+      "fade_palette": 42,
+      "fade_strength": 0.5434783,
+      "grime": 0.0,
+      "effect_color_a": 13,
+      "effect_color_b": 18,
+      "danger_type": 1,
+      "screen0": {
+        "palette": 53,
+        "fade_palette": 42,
+        "fade_strength": 0.5434783,
+        "grime": 0.0,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 1
+      },
+      "screen1": {
+        "palette": 53,
+        "fade_palette": 42,
+        "fade_strength": 0.7065217,
+        "grime": 0.0,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 1
+      }
+    },
+    "oe_ruin25": {
+      "palette": 53,
+      "fade_palette": 42,
+      "fade_strength": 0.3152174,
+      "grime": 0.0,
+      "effect_color_a": 3,
+      "effect_color_b": 16,
+      "danger_type": 0,
+      "screen0": {
+        "palette": 53,
+        "fade_palette": 42,
+        "fade_strength": 0.3152174,
+        "grime": 0.0,
+        "effect_color_a": 3,
+        "effect_color_b": 16,
+        "danger_type": 0
+      },
+      "screen1": {
+        "palette": 53,
+        "fade_palette": 42,
+        "fade_strength": 0.3152174,
+        "grime": 0.0,
+        "effect_color_a": 3,
+        "effect_color_b": 16,
+        "danger_type": 0
+      }
+    },
+    "oe_ruin22": {
+      "palette": 53,
+      "fade_palette": 42,
+      "fade_strength": 0.423913,
+      "grime": 0.0,
+      "effect_color_a": 3,
+      "effect_color_b": 16,
+      "danger_type": 0
+    },
+    "oe_ruin21": {
+      "palette": 53,
+      "fade_palette": 42,
+      "fade_strength": 0.3913043,
+      "grime": 0.0,
+      "effect_color_a": 3,
+      "effect_color_b": 16,
+      "danger_type": 0,
+      "screen0": {
+        "palette": 53,
+        "fade_palette": 42,
+        "fade_strength": 0.3913043,
+        "grime": 0.0,
+        "effect_color_a": 3,
+        "effect_color_b": 16,
+        "danger_type": 0
+      },
+      "screen1": {
+        "palette": 53,
+        "fade_palette": 42,
+        "fade_strength": 0.3913043,
+        "grime": 0.0,
+        "effect_color_a": 3,
+        "effect_color_b": 16,
+        "danger_type": 0
+      }
+    },
+    "oe_ruin24": {
+      "palette": 53,
+      "fade_palette": 42,
+      "fade_strength": 0.3152174,
+      "grime": 0.0,
+      "effect_color_a": 13,
+      "effect_color_b": 18,
+      "danger_type": 1,
+      "screen0": {
+        "palette": 53,
+        "fade_palette": 42,
+        "fade_strength": 0.3152174,
+        "grime": 0.0,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 1
+      },
+      "screen1": {
+        "palette": 53,
+        "fade_palette": 42,
+        "fade_strength": 0.3152174,
+        "grime": 0.0,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 1
+      },
+      "screen2": {
+        "palette": 53,
+        "fade_palette": 42,
+        "fade_strength": 0.3152174,
+        "grime": 0.0,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 1
+      }
+    },
+    "oe_ruin23": {
+      "palette": 53,
+      "fade_palette": 3,
+      "fade_strength": 0.1630435,
+      "grime": 0.0,
+      "effect_color_a": 3,
+      "effect_color_b": 16,
+      "danger_type": 0,
+      "screen0": {
+        "palette": 53,
+        "fade_palette": 3,
+        "fade_strength": 0.1630435,
+        "grime": 0.0,
+        "effect_color_a": 3,
+        "effect_color_b": 16,
+        "danger_type": 0
+      },
+      "screen1": {
+        "palette": 53,
+        "fade_palette": 3,
+        "fade_strength": 0.3695652,
+        "grime": 0.0,
+        "effect_color_a": 3,
+        "effect_color_b": 16,
+        "danger_type": 0
+      },
+      "screen2": {
+        "palette": 53,
+        "fade_palette": 3,
+        "fade_strength": 0.5652174,
+        "grime": 0.0,
+        "effect_color_a": 3,
+        "effect_color_b": 16,
+        "danger_type": 0
+      }
+    },
+    "oe_ruin20": {
+      "palette": 53,
+      "fade_palette": 3,
+      "fade_strength": 0.2173913,
+      "grime": 0.0,
+      "effect_color_a": 3,
+      "effect_color_b": 16,
+      "danger_type": 0,
+      "screen0": {
+        "palette": 53,
+        "fade_palette": 3,
+        "fade_strength": 0.2173913,
+        "grime": 0.0,
+        "effect_color_a": 3,
+        "effect_color_b": 16,
+        "danger_type": 0
+      },
+      "screen1": {
+        "palette": 53,
+        "fade_palette": 3,
+        "fade_strength": 0.2173913,
+        "grime": 0.0,
+        "effect_color_a": 3,
+        "effect_color_b": 16,
+        "danger_type": 0
+      },
+      "screen2": {
+        "palette": 53,
+        "fade_palette": 3,
+        "fade_strength": 0.2173913,
+        "grime": 0.0,
+        "effect_color_a": 3,
+        "effect_color_b": 16,
+        "danger_type": 0
+      },
+      "screen3": {
+        "palette": 53,
+        "fade_palette": 3,
+        "fade_strength": 0.2173913,
+        "grime": 0.0,
+        "effect_color_a": 3,
+        "effect_color_b": 16,
+        "danger_type": 0
+      },
+      "screen4": {
+        "palette": 53,
+        "fade_palette": 3,
+        "fade_strength": 0.2173913,
+        "grime": 0.0,
+        "effect_color_a": 3,
+        "effect_color_b": 16,
+        "danger_type": 0
+      },
+      "screen5": {
+        "palette": 53,
+        "fade_palette": 3,
+        "fade_strength": 0.2173913,
+        "grime": 0.0,
+        "effect_color_a": 3,
+        "effect_color_b": 16,
+        "danger_type": 0
+      }
+    },
+    "oe_exitpath": {
+      "palette": 54,
+      "fade_palette": 3,
+      "fade_strength": 0.4673913,
+      "grime": 0.0,
+      "effect_color_a": 13,
+      "effect_color_b": 18,
+      "danger_type": 1,
+      "screen0": {
+        "palette": 54,
+        "fade_palette": 3,
+        "fade_strength": 0.4673913,
+        "grime": 0.0,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 1
+      },
+      "screen1": {
+        "palette": 54,
+        "fade_palette": 3,
+        "fade_strength": 0.5108696,
+        "grime": 0.0,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 1
+      }
+    },
+    "oe_sextra": {
+      "palette": 53,
+      "fade_palette": 3,
+      "fade_strength": 0.6847826,
+      "grime": 0.0,
+      "danger_type": 0
+    },
+    "oe_ruinfronthall": {
+      "palette": 53,
+      "fade_palette": 42,
+      "fade_strength": 0.3152174,
+      "grime": 0.0,
+      "effect_color_a": 13,
+      "effect_color_b": 18,
+      "danger_type": 1,
+      "screen0": {
+        "palette": 53,
+        "fade_palette": 42,
+        "fade_strength": 0.3152174,
+        "grime": 0.0,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 1
+      },
+      "screen1": {
+        "palette": 53,
+        "fade_palette": 42,
+        "fade_strength": 0.423913,
+        "grime": 0.0,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 1
+      }
+    },
+    "oe_treetop": {
+      "palette": 53,
+      "fade_palette": 42,
+      "fade_strength": 0.0,
+      "grime": 0.0,
+      "effect_color_a": 13,
+      "effect_color_b": 18,
+      "danger_type": 1,
+      "screen0": {
+        "palette": 53,
+        "fade_palette": 42,
+        "fade_strength": 0.0,
+        "grime": 0.0,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 1
+      },
+      "screen1": {
+        "palette": 53,
+        "fade_palette": 42,
+        "fade_strength": 0.07608695,
+        "grime": 0.0,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 1
+      },
+      "screen2": {
+        "palette": 53,
+        "fade_palette": 42,
+        "fade_strength": 0.1630435,
+        "grime": 0.0,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 1
+      }
+    },
+    "oe_jungle01": {
+      "palette": 53,
+      "fade_palette": 42,
+      "fade_strength": 0.0,
+      "grime": 0.0,
+      "effect_color_a": 13,
+      "effect_color_b": 18,
+      "danger_type": 1,
+      "screen0": {
+        "palette": 53,
+        "fade_palette": 42,
+        "fade_strength": 0.0,
+        "grime": 0.0,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 1
+      },
+      "screen1": {
+        "palette": 53,
+        "fade_palette": 42,
+        "fade_strength": 0.1195652,
+        "grime": 0.0,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 1
+      },
+      "screen2": {
+        "palette": 53,
+        "fade_palette": 42,
+        "fade_strength": 0.2282609,
+        "grime": 0.0,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 1
+      }
+    },
+    "oe_jungle03": {
+      "palette": 53,
+      "fade_palette": 42,
+      "fade_strength": 0.2717391,
+      "grime": 0.0,
+      "effect_color_a": 13,
+      "effect_color_b": 18,
+      "danger_type": 1,
+      "screen0": {
+        "palette": 53,
+        "fade_palette": 42,
+        "fade_strength": 0.2717391,
+        "grime": 0.0,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 1
+      },
+      "screen1": {
+        "palette": 53,
+        "fade_palette": 42,
+        "fade_strength": 0.1847826,
+        "grime": 0.0,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 1
+      },
+      "screen2": {
+        "palette": 53,
+        "fade_palette": 42,
+        "fade_strength": 0.2717391,
+        "grime": 0.0,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 1
+      }
+    },
+    "oe_jungle02": {
+      "palette": 53,
+      "fade_palette": 42,
+      "fade_strength": 0.1630435,
+      "grime": 0.0,
+      "effect_color_a": 13,
+      "effect_color_b": 18,
+      "danger_type": 1
+    },
+    "oe_jungle05": {
+      "palette": 54,
+      "fade_palette": 42,
+      "fade_strength": 0.3695652,
+      "grime": 0.0,
+      "effect_color_a": 6,
+      "effect_color_b": 18,
+      "danger_type": 1,
+      "screen0": {
+        "palette": 54,
+        "fade_palette": 42,
+        "fade_strength": 0.3695652,
+        "grime": 0.0,
+        "effect_color_a": 6,
+        "effect_color_b": 18,
+        "danger_type": 1
+      },
+      "screen1": {
+        "palette": 54,
+        "fade_palette": 42,
+        "fade_strength": 0.3695652,
+        "grime": 0.0,
+        "effect_color_a": 6,
+        "effect_color_b": 18,
+        "danger_type": 1
+      },
+      "screen2": {
+        "palette": 54,
+        "fade_palette": 42,
+        "fade_strength": 0.4347826,
+        "grime": 0.0,
+        "effect_color_a": 6,
+        "effect_color_b": 18,
+        "danger_type": 1
+      }
+    },
+    "oe_jungle04": {
+      "palette": 54,
+      "fade_palette": 42,
+      "fade_strength": 0.2173913,
+      "grime": 0.19565220177173615,
+      "effect_color_a": 6,
+      "effect_color_b": 18,
+      "danger_type": 1,
+      "screen0": {
+        "palette": 54,
+        "fade_palette": 42,
+        "fade_strength": 0.2173913,
+        "grime": 0.19565220177173615,
+        "effect_color_a": 6,
+        "effect_color_b": 18,
+        "danger_type": 1
+      },
+      "screen1": {
+        "palette": 54,
+        "fade_palette": 42,
+        "fade_strength": 0.1956522,
+        "grime": 0.19565220177173615,
+        "effect_color_a": 6,
+        "effect_color_b": 18,
+        "danger_type": 1
+      }
+    },
+    "oe_jungle06": {
+      "palette": 54,
+      "fade_palette": 42,
+      "fade_strength": 0.2173913,
+      "grime": 0.0,
+      "effect_color_a": 6,
+      "effect_color_b": 18,
+      "danger_type": 1,
+      "screen0": {
+        "palette": 54,
+        "fade_palette": 42,
+        "fade_strength": 0.2173913,
+        "grime": 0.0,
+        "effect_color_a": 6,
+        "effect_color_b": 18,
+        "danger_type": 1
+      },
+      "screen1": {
+        "palette": 54,
+        "fade_palette": 42,
+        "fade_strength": 0.2173913,
+        "grime": 0.0,
+        "effect_color_a": 6,
+        "effect_color_b": 18,
+        "danger_type": 1
+      }
+    },
+    "oe_ruincourtyard": {
+      "palette": 53,
+      "fade_palette": 42,
+      "fade_strength": 0.2065217,
+      "grime": 0.0,
+      "effect_color_a": 13,
+      "effect_color_b": 18,
+      "danger_type": 1,
+      "screen0": {
+        "palette": 53,
+        "fade_palette": 42,
+        "fade_strength": 0.2065217,
+        "grime": 0.0,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 1
+      },
+      "screen1": {
+        "palette": 53,
+        "fade_palette": 42,
+        "fade_strength": 0.2934783,
+        "grime": 0.0,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 1
+      },
+      "screen2": {
+        "palette": 53,
+        "fade_palette": 42,
+        "fade_strength": 0.3369565,
+        "grime": 0.0,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 1
+      },
+      "screen3": {
+        "palette": 53,
+        "fade_palette": 42,
+        "fade_strength": 0.3369565,
+        "grime": 0.0,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 1
+      },
+      "screen4": {
+        "palette": 53,
+        "fade_palette": 42,
+        "fade_strength": 0.7391304,
+        "grime": 0.0,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 1
+      },
+      "screen5": {
+        "palette": 53,
+        "fade_palette": 42,
+        "fade_strength": 0.3478261,
+        "grime": 0.0,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 1
+      }
+    },
+    "oe_rail04": {
+      "palette": 19,
+      "fade_palette": 8,
+      "fade_strength": 0.6304348,
+      "grime": 0.0,
+      "effect_color_b": 18,
+      "danger_type": 2
+    },
+    "oe_rail03": {
+      "palette": 10,
+      "fade_palette": 14,
+      "fade_strength": 0.8260869,
+      "grime": 0.0,
+      "effect_color_a": 21,
+      "effect_color_b": 21,
+      "danger_type": 1,
+      "screen0": {
+        "palette": 10,
+        "fade_palette": 14,
+        "fade_strength": 0.8260869,
+        "grime": 0.0,
+        "effect_color_a": 21,
+        "effect_color_b": 21,
+        "danger_type": 1
+      },
+      "screen1": {
+        "palette": 10,
+        "fade_palette": 14,
+        "fade_strength": 0.6847826,
+        "grime": 0.0,
+        "effect_color_a": 21,
+        "effect_color_b": 21,
+        "danger_type": 1
+      },
+      "screen2": {
+        "palette": 10,
+        "fade_palette": 14,
+        "fade_strength": 0.6195652,
+        "grime": 0.0,
+        "effect_color_a": 21,
+        "effect_color_b": 21,
+        "danger_type": 1
+      },
+      "screen3": {
+        "palette": 10,
+        "fade_palette": 14,
+        "fade_strength": 0.5543478,
+        "grime": 0.0,
+        "effect_color_a": 21,
+        "effect_color_b": 21,
+        "danger_type": 1
+      },
+      "screen4": {
+        "palette": 10,
+        "fade_palette": 14,
+        "fade_strength": 0.5,
+        "grime": 0.0,
+        "effect_color_a": 21,
+        "effect_color_b": 21,
+        "danger_type": 1
+      },
+      "screen5": {
+        "palette": 10,
+        "fade_palette": 14,
+        "fade_strength": 0.75,
+        "grime": 0.0,
+        "effect_color_a": 21,
+        "effect_color_b": 21,
+        "danger_type": 1
+      },
+      "screen6": {
+        "palette": 10,
+        "fade_palette": 14,
+        "fade_strength": 0.6630435,
+        "grime": 0.0,
+        "effect_color_a": 21,
+        "effect_color_b": 21,
+        "danger_type": 1
+      },
+      "screen7": {
+        "palette": 10,
+        "fade_palette": 14,
+        "fade_strength": 0.5869565,
+        "grime": 0.0,
+        "effect_color_a": 21,
+        "effect_color_b": 21,
+        "danger_type": 1
+      },
+      "screen8": {
+        "palette": 10,
+        "fade_palette": 14,
+        "fade_strength": 0.5326087,
+        "grime": 0.0,
+        "effect_color_a": 21,
+        "effect_color_b": 21,
+        "danger_type": 1
+      },
+      "screen9": {
+        "palette": 10,
+        "fade_palette": 14,
+        "fade_strength": 0.4891304,
+        "grime": 0.0,
+        "effect_color_a": 21,
+        "effect_color_b": 21,
+        "danger_type": 1
+      }
+    },
+    "oe_rail02": {
+      "palette": 53,
+      "fade_palette": 53,
+      "fade_strength": 1.0,
+      "grime": 0.0,
+      "effect_color_a": 13,
+      "effect_color_b": 18,
+      "danger_type": 1,
+      "screen0": {
+        "palette": 53,
+        "fade_palette": 53,
+        "fade_strength": 1.0,
+        "grime": 0.0,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 1
+      },
+      "screen1": {
+        "palette": 53,
+        "fade_palette": 53,
+        "fade_strength": 0.6521739,
+        "grime": 0.0,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 1
+      },
+      "screen2": {
+        "palette": 53,
+        "fade_palette": 53,
+        "fade_strength": 0.3043478,
+        "grime": 0.0,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 1
+      },
+      "screen3": {
+        "palette": 53,
+        "fade_palette": 53,
+        "fade_strength": 0.0,
+        "grime": 0.0,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 1
+      }
+    },
+    "oe_rail01": {
+      "palette": 14,
+      "fade_palette": 10,
+      "fade_strength": 0.5543478,
+      "grime": 0.19565220177173615,
+      "effect_color_a": 0,
+      "effect_color_b": 2,
+      "danger_type": 3,
+      "screen0": {
+        "palette": 14,
+        "fade_palette": 10,
+        "fade_strength": 0.5543478,
+        "grime": 0.19565220177173615,
+        "effect_color_a": 0,
+        "effect_color_b": 2,
+        "danger_type": 3
+      },
+      "screen1": {
+        "palette": 14,
+        "fade_palette": 10,
+        "fade_strength": 0.5652174,
+        "grime": 0.19565220177173615,
+        "effect_color_a": 0,
+        "effect_color_b": 2,
+        "danger_type": 3
+      },
+      "screen2": {
+        "palette": 14,
+        "fade_palette": 10,
+        "fade_strength": 0.5760869,
+        "grime": 0.19565220177173615,
+        "effect_color_a": 0,
+        "effect_color_b": 2,
+        "danger_type": 3
+      },
+      "screen3": {
+        "palette": 14,
+        "fade_palette": 10,
+        "fade_strength": 0.5978261,
+        "grime": 0.19565220177173615,
+        "effect_color_a": 0,
+        "effect_color_b": 2,
+        "danger_type": 3
+      },
+      "screen4": {
+        "palette": 14,
+        "fade_palette": 10,
+        "fade_strength": 0.6086956,
+        "grime": 0.19565220177173615,
+        "effect_color_a": 0,
+        "effect_color_b": 2,
+        "danger_type": 3
+      },
+      "screen5": {
+        "palette": 14,
+        "fade_palette": 10,
+        "fade_strength": 0.6195652,
+        "grime": 0.19565220177173615,
+        "effect_color_a": 0,
+        "effect_color_b": 2,
+        "danger_type": 3
+      },
+      "screen6": {
+        "palette": 14,
+        "fade_palette": 10,
+        "fade_strength": 0.5108696,
+        "grime": 0.19565220177173615,
+        "effect_color_a": 0,
+        "effect_color_b": 2,
+        "danger_type": 3
+      },
+      "screen7": {
+        "palette": 14,
+        "fade_palette": 10,
+        "fade_strength": 0.5326087,
+        "grime": 0.19565220177173615,
+        "effect_color_a": 0,
+        "effect_color_b": 2,
+        "danger_type": 3
+      },
+      "screen8": {
+        "palette": 14,
+        "fade_palette": 10,
+        "fade_strength": 0.5652174,
+        "grime": 0.19565220177173615,
+        "effect_color_a": 0,
+        "effect_color_b": 2,
+        "danger_type": 3
+      },
+      "screen9": {
+        "palette": 14,
+        "fade_palette": 10,
+        "fade_strength": 0.5869565,
+        "grime": 0.19565220177173615,
+        "effect_color_a": 0,
+        "effect_color_b": 2,
+        "danger_type": 3
+      },
+      "screen10": {
+        "palette": 14,
+        "fade_palette": 10,
+        "fade_strength": 0.5978261,
+        "grime": 0.19565220177173615,
+        "effect_color_a": 0,
+        "effect_color_b": 2,
+        "danger_type": 3
+      },
+      "screen11": {
+        "palette": 14,
+        "fade_palette": 10,
+        "fade_strength": 0.6086956,
+        "grime": 0.19565220177173615,
+        "effect_color_a": 0,
+        "effect_color_b": 2,
+        "danger_type": 3
+      }
+    },
+    "oe_rail06": {
+      "palette": 19,
+      "fade_palette": 8,
+      "fade_strength": 0.5978261,
+      "grime": 0.30434781312942505,
+      "effect_color_b": 18,
+      "danger_type": 0,
+      "screen0": {
+        "palette": 19,
+        "fade_palette": 8,
+        "fade_strength": 0.5978261,
+        "grime": 0.30434781312942505,
+        "effect_color_b": 18,
+        "danger_type": 0
+      },
+      "screen1": {
+        "palette": 19,
+        "fade_palette": 8,
+        "fade_strength": 0.6086956,
+        "grime": 0.30434781312942505,
+        "effect_color_b": 18,
+        "danger_type": 0
+      },
+      "screen2": {
+        "palette": 19,
+        "fade_palette": 8,
+        "fade_strength": 0.6195652,
+        "grime": 0.30434781312942505,
+        "effect_color_b": 18,
+        "danger_type": 0
+      },
+      "screen3": {
+        "palette": 19,
+        "fade_palette": 8,
+        "fade_strength": 0.6304348,
+        "grime": 0.30434781312942505,
+        "effect_color_b": 18,
+        "danger_type": 0
+      },
+      "screen4": {
+        "palette": 19,
+        "fade_palette": 8,
+        "fade_strength": 0.6413044,
+        "grime": 0.30434781312942505,
+        "effect_color_b": 18,
+        "danger_type": 0
+      },
+      "screen5": {
+        "palette": 19,
+        "fade_palette": 8,
+        "fade_strength": 0.6521739,
+        "grime": 0.30434781312942505,
+        "effect_color_b": 18,
+        "danger_type": 0
+      }
+    },
+    "oe_rail05": {
+      "palette": 19,
+      "fade_palette": 8,
+      "fade_strength": 0.6521739,
+      "grime": 0.0,
+      "effect_color_a": 16,
+      "effect_color_b": 18,
+      "danger_type": 2,
+      "screen0": {
+        "palette": 19,
+        "fade_palette": 8,
+        "fade_strength": 0.6521739,
+        "grime": 0.0,
+        "effect_color_a": 16,
+        "effect_color_b": 18,
+        "danger_type": 2
+      },
+      "screen1": {
+        "palette": 19,
+        "fade_palette": 8,
+        "fade_strength": 0.6413044,
+        "grime": 0.0,
+        "effect_color_a": 16,
+        "effect_color_b": 18,
+        "danger_type": 2
+      },
+      "screen2": {
+        "palette": 19,
+        "fade_palette": 8,
+        "fade_strength": 0.6413044,
+        "grime": 0.0,
+        "effect_color_a": 16,
+        "effect_color_b": 18,
+        "danger_type": 2
+      }
+    },
+    "oe_spire": {
+      "palette": 23,
+      "fade_palette": 14,
+      "fade_strength": 0.6847826,
+      "grime": 0.0,
+      "effect_color_a": 6,
+      "effect_color_b": 18,
+      "danger_type": 1,
+      "screen0": {
+        "palette": 23,
+        "fade_palette": 14,
+        "fade_strength": 0.6847826,
+        "grime": 0.0,
+        "effect_color_a": 6,
+        "effect_color_b": 18,
+        "danger_type": 1
+      },
+      "screen1": {
+        "palette": 23,
+        "fade_palette": 14,
+        "fade_strength": 0.6304348,
+        "grime": 0.0,
+        "effect_color_a": 6,
+        "effect_color_b": 18,
+        "danger_type": 1
+      }
+    },
+    "oe_brokendrain": {
+      "palette": 53,
+      "fade_palette": 3,
+      "fade_strength": 0.326087,
+      "grime": 0.0,
+      "effect_color_a": 16,
+      "effect_color_b": 18,
+      "danger_type": 3,
+      "screen0": {
+        "palette": 53,
+        "fade_palette": 3,
+        "fade_strength": 0.326087,
+        "grime": 0.0,
+        "effect_color_a": 16,
+        "effect_color_b": 18,
+        "danger_type": 3
+      },
+      "screen1": {
+        "palette": 53,
+        "fade_palette": 3,
+        "fade_strength": 0.3804348,
+        "grime": 0.0,
+        "effect_color_a": 16,
+        "effect_color_b": 18,
+        "danger_type": 3
+      }
+    },
+    "oe_midshelter": {
+      "palette": 53,
+      "fade_palette": 42,
+      "fade_strength": 0.1195652,
+      "grime": 0.0,
+      "effect_color_a": 13,
+      "effect_color_b": 18,
+      "danger_type": 1
+    },
+    "oe_backfilter": {
+      "palette": 14,
+      "fade_palette": 3,
+      "fade_strength": 0.6630435,
+      "grime": 0.0,
+      "effect_color_a": 13,
+      "effect_color_b": 18,
+      "danger_type": 1
+    },
+    "oe_tower11": {
+      "palette": 14,
+      "fade_palette": 8,
+      "fade_strength": 0.6521739,
+      "grime": 0.18478259444236755,
+      "effect_color_a": 0,
+      "effect_color_b": 18,
+      "danger_type": 3
+    },
+    "oe_tower12": {
+      "palette": 14,
+      "fade_palette": 8,
+      "fade_strength": 0.4565217,
+      "grime": 0.21739129722118378,
+      "effect_color_a": 0,
+      "effect_color_b": 18,
+      "danger_type": 3,
+      "screen0": {
+        "palette": 14,
+        "fade_palette": 8,
+        "fade_strength": 0.4565217,
+        "grime": 0.21739129722118378,
+        "effect_color_a": 0,
+        "effect_color_b": 18,
+        "danger_type": 3
+      },
+      "screen1": {
+        "palette": 14,
+        "fade_palette": 8,
+        "fade_strength": 0.4565217,
+        "grime": 0.21739129722118378,
+        "effect_color_a": 0,
+        "effect_color_b": 18,
+        "danger_type": 3
+      }
+    },
+    "oe_tower13": {
+      "palette": 14,
+      "fade_palette": 8,
+      "fade_strength": 0.5760869,
+      "grime": 0.21739129722118378,
+      "effect_color_a": 0,
+      "effect_color_b": 18,
+      "danger_type": 3,
+      "screen0": {
+        "palette": 14,
+        "fade_palette": 8,
+        "fade_strength": 0.5760869,
+        "grime": 0.21739129722118378,
+        "effect_color_a": 0,
+        "effect_color_b": 18,
+        "danger_type": 3
+      },
+      "screen1": {
+        "palette": 14,
+        "fade_palette": 8,
+        "fade_strength": 0.5760869,
+        "grime": 0.21739129722118378,
+        "effect_color_a": 0,
+        "effect_color_b": 18,
+        "danger_type": 3
+      }
+    },
+    "oe_tower14": {
+      "palette": 14,
+      "fade_palette": 8,
+      "fade_strength": 0.7826087,
+      "grime": 0.21739129722118378,
+      "effect_color_a": 0,
+      "effect_color_b": 18,
+      "danger_type": 3,
+      "screen0": {
+        "palette": 14,
+        "fade_palette": 8,
+        "fade_strength": 0.7826087,
+        "grime": 0.21739129722118378,
+        "effect_color_a": 0,
+        "effect_color_b": 18,
+        "danger_type": 3
+      },
+      "screen1": {
+        "palette": 14,
+        "fade_palette": 8,
+        "fade_strength": 0.7717391,
+        "grime": 0.21739129722118378,
+        "effect_color_a": 0,
+        "effect_color_b": 18,
+        "danger_type": 3
+      }
+    },
+    "oe_wormpit": {
+      "palette": 54,
+      "fade_palette": 3,
+      "fade_strength": 0.7065217,
+      "grime": 0.0,
+      "effect_color_a": 13,
+      "effect_color_b": 18,
+      "danger_type": 1
+    },
+    "oe_tower01": {
+      "palette": 14,
+      "fade_palette": 10,
+      "fade_strength": 0.5652174,
+      "grime": 0.30434781312942505,
+      "effect_color_a": 0,
+      "effect_color_b": 0,
+      "danger_type": 3,
+      "screen0": {
+        "palette": 14,
+        "fade_palette": 10,
+        "fade_strength": 0.5652174,
+        "grime": 0.30434781312942505,
+        "effect_color_a": 0,
+        "effect_color_b": 0,
+        "danger_type": 3
+      },
+      "screen1": {
+        "palette": 14,
+        "fade_palette": 10,
+        "fade_strength": 0.6086956,
+        "grime": 0.30434781312942505,
+        "effect_color_a": 0,
+        "effect_color_b": 0,
+        "danger_type": 3
+      },
+      "screen2": {
+        "palette": 14,
+        "fade_palette": 10,
+        "fade_strength": 0.6521739,
+        "grime": 0.30434781312942505,
+        "effect_color_a": 0,
+        "effect_color_b": 0,
+        "danger_type": 3
+      },
+      "screen3": {
+        "palette": 14,
+        "fade_palette": 10,
+        "fade_strength": 0.6956522,
+        "grime": 0.30434781312942505,
+        "effect_color_a": 0,
+        "effect_color_b": 0,
+        "danger_type": 3
+      }
+    },
+    "oe_tower02": {
+      "palette": 14,
+      "fade_palette": 10,
+      "fade_strength": 0.6086956,
+      "grime": 0.21739129722118378,
+      "effect_color_a": 13,
+      "effect_color_b": 18,
+      "danger_type": 3,
+      "screen0": {
+        "palette": 14,
+        "fade_palette": 10,
+        "fade_strength": 0.6086956,
+        "grime": 0.21739129722118378,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 3
+      },
+      "screen1": {
+        "palette": 14,
+        "fade_palette": 10,
+        "fade_strength": 0.6304348,
+        "grime": 0.21739129722118378,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 3
+      },
+      "screen2": {
+        "palette": 14,
+        "fade_palette": 10,
+        "fade_strength": 0.6086956,
+        "grime": 0.21739129722118378,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 3
+      },
+      "screen3": {
+        "palette": 14,
+        "fade_palette": 10,
+        "fade_strength": 0.5978261,
+        "grime": 0.21739129722118378,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 3
+      },
+      "screen4": {
+        "palette": 14,
+        "fade_palette": 10,
+        "fade_strength": 0.5978261,
+        "grime": 0.21739129722118378,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 3
+      }
+    },
+    "oe_tower03": {
+      "palette": 14,
+      "fade_palette": 10,
+      "fade_strength": 0.5543478,
+      "grime": 0.21739129722118378,
+      "effect_color_a": 0,
+      "effect_color_b": 2,
+      "danger_type": 3,
+      "screen0": {
+        "palette": 14,
+        "fade_palette": 10,
+        "fade_strength": 0.5543478,
+        "grime": 0.21739129722118378,
+        "effect_color_a": 0,
+        "effect_color_b": 2,
+        "danger_type": 3
+      },
+      "screen1": {
+        "palette": 14,
+        "fade_palette": 10,
+        "fade_strength": 0.5978261,
+        "grime": 0.21739129722118378,
+        "effect_color_a": 0,
+        "effect_color_b": 2,
+        "danger_type": 3
+      },
+      "screen2": {
+        "palette": 14,
+        "fade_palette": 10,
+        "fade_strength": 0.6304348,
+        "grime": 0.21739129722118378,
+        "effect_color_a": 0,
+        "effect_color_b": 2,
+        "danger_type": 3
+      }
+    },
+    "oe_tower04": {
+      "palette": 14,
+      "fade_palette": 10,
+      "fade_strength": 0.6630435,
+      "grime": 0.21739129722118378,
+      "effect_color_a": 13,
+      "effect_color_b": 18,
+      "danger_type": 3,
+      "screen0": {
+        "palette": 14,
+        "fade_palette": 10,
+        "fade_strength": 0.6630435,
+        "grime": 0.21739129722118378,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 3
+      },
+      "screen1": {
+        "palette": 14,
+        "fade_palette": 10,
+        "fade_strength": 0.6413044,
+        "grime": 0.21739129722118378,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 3
+      },
+      "screen2": {
+        "palette": 14,
+        "fade_palette": 10,
+        "fade_strength": 0.6195652,
+        "grime": 0.21739129722118378,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 3
+      },
+      "screen3": {
+        "palette": 14,
+        "fade_palette": 10,
+        "fade_strength": 0.6413044,
+        "grime": 0.21739129722118378,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 3
+      },
+      "screen4": {
+        "palette": 14,
+        "fade_palette": 10,
+        "fade_strength": 0.6739131,
+        "grime": 0.21739129722118378,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 3
+      },
+      "screen5": {
+        "palette": 14,
+        "fade_palette": 10,
+        "fade_strength": 0.6739131,
+        "grime": 0.21739129722118378,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 3
+      },
+      "screen6": {
+        "palette": 14,
+        "fade_palette": 10,
+        "fade_strength": 0.6739131,
+        "grime": 0.21739129722118378,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 3
+      },
+      "screen7": {
+        "palette": 14,
+        "fade_palette": 10,
+        "fade_strength": 0.6739131,
+        "grime": 0.21739129722118378,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 3
+      }
+    },
+    "oe_tower05": {
+      "palette": 14,
+      "fade_palette": 10,
+      "fade_strength": 0.5652174,
+      "grime": 0.30434781312942505,
+      "effect_color_a": 0,
+      "effect_color_b": 0,
+      "danger_type": 3,
+      "screen0": {
+        "palette": 14,
+        "fade_palette": 10,
+        "fade_strength": 0.5652174,
+        "grime": 0.30434781312942505,
+        "effect_color_a": 0,
+        "effect_color_b": 0,
+        "danger_type": 3
+      },
+      "screen1": {
+        "palette": 14,
+        "fade_palette": 10,
+        "fade_strength": 0.6086956,
+        "grime": 0.30434781312942505,
+        "effect_color_a": 0,
+        "effect_color_b": 0,
+        "danger_type": 3
+      },
+      "screen2": {
+        "palette": 14,
+        "fade_palette": 10,
+        "fade_strength": 0.6521739,
+        "grime": 0.30434781312942505,
+        "effect_color_a": 0,
+        "effect_color_b": 0,
+        "danger_type": 3
+      },
+      "screen3": {
+        "palette": 14,
+        "fade_palette": 10,
+        "fade_strength": 0.6956522,
+        "grime": 0.30434781312942505,
+        "effect_color_a": 0,
+        "effect_color_b": 0,
+        "danger_type": 3
+      }
+    },
+    "oe_tower06": {
+      "palette": 14,
+      "fade_palette": 10,
+      "fade_strength": 0.4673913,
+      "grime": 0.21739129722118378,
+      "effect_color_a": 0,
+      "effect_color_b": 2,
+      "danger_type": 3,
+      "screen0": {
+        "palette": 14,
+        "fade_palette": 10,
+        "fade_strength": 0.4673913,
+        "grime": 0.21739129722118378,
+        "effect_color_a": 0,
+        "effect_color_b": 2,
+        "danger_type": 3
+      },
+      "screen1": {
+        "palette": 14,
+        "fade_palette": 10,
+        "fade_strength": 0.5217391,
+        "grime": 0.21739129722118378,
+        "effect_color_a": 0,
+        "effect_color_b": 2,
+        "danger_type": 3
+      },
+      "screen2": {
+        "palette": 14,
+        "fade_palette": 10,
+        "fade_strength": 0.5978261,
+        "grime": 0.21739129722118378,
+        "effect_color_a": 0,
+        "effect_color_b": 2,
+        "danger_type": 3
+      }
+    },
+    "oe_tower07": {
+      "palette": 14,
+      "fade_palette": 3,
+      "fade_strength": 0.4782609,
+      "grime": 0.0,
+      "effect_color_a": 13,
+      "effect_color_b": 18,
+      "danger_type": 3,
+      "screen0": {
+        "palette": 14,
+        "fade_palette": 3,
+        "fade_strength": 0.4782609,
+        "grime": 0.0,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 3
+      },
+      "screen1": {
+        "palette": 14,
+        "fade_palette": 3,
+        "fade_strength": 0.5,
+        "grime": 0.0,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 3
+      },
+      "screen2": {
+        "palette": 14,
+        "fade_palette": 3,
+        "fade_strength": 0.5760869,
+        "grime": 0.0,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 3
+      },
+      "screen3": {
+        "palette": 14,
+        "fade_palette": 3,
+        "fade_strength": 0.6521739,
+        "grime": 0.0,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 3
+      }
+    },
+    "oe_tower08": {
+      "palette": 53,
+      "fade_palette": 20,
+      "fade_strength": 0.1413043,
+      "grime": 0.0,
+      "effect_color_a": 3,
+      "effect_color_b": 16,
+      "danger_type": 0,
+      "screen0": {
+        "palette": 53,
+        "fade_palette": 20,
+        "fade_strength": 0.1413043,
+        "grime": 0.0,
+        "effect_color_a": 3,
+        "effect_color_b": 16,
+        "danger_type": 0
+      },
+      "screen1": {
+        "palette": 53,
+        "fade_palette": 20,
+        "fade_strength": 0.2717391,
+        "grime": 0.0,
+        "effect_color_a": 3,
+        "effect_color_b": 16,
+        "danger_type": 0
+      },
+      "screen2": {
+        "palette": 53,
+        "fade_palette": 20,
+        "fade_strength": 0.4347826,
+        "grime": 0.0,
+        "effect_color_a": 3,
+        "effect_color_b": 16,
+        "danger_type": 0
+      },
+      "screen3": {
+        "palette": 53,
+        "fade_palette": 20,
+        "fade_strength": 0.6195652,
+        "grime": 0.0,
+        "effect_color_a": 3,
+        "effect_color_b": 16,
+        "danger_type": 0
+      }
+    },
+    "oe_tower09": {
+      "palette": 14,
+      "fade_palette": 10,
+      "fade_strength": 0.5978261,
+      "grime": 0.21739129722118378,
+      "effect_color_a": 13,
+      "effect_color_b": 18,
+      "danger_type": 3,
+      "screen0": {
+        "palette": 14,
+        "fade_palette": 10,
+        "fade_strength": 0.5978261,
+        "grime": 0.21739129722118378,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 3
+      },
+      "screen1": {
+        "palette": 14,
+        "fade_palette": 10,
+        "fade_strength": 0.5760869,
+        "grime": 0.21739129722118378,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 3
+      },
+      "screen2": {
+        "palette": 14,
+        "fade_palette": 10,
+        "fade_strength": 0.5869565,
+        "grime": 0.21739129722118378,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 3
+      },
+      "screen3": {
+        "palette": 14,
+        "fade_palette": 10,
+        "fade_strength": 0.5869565,
+        "grime": 0.21739129722118378,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 3
+      },
+      "screen4": {
+        "palette": 14,
+        "fade_palette": 10,
+        "fade_strength": 0.5652174,
+        "grime": 0.21739129722118378,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 3
+      },
+      "screen5": {
+        "palette": 14,
+        "fade_palette": 10,
+        "fade_strength": 0.5869565,
+        "grime": 0.21739129722118378,
+        "effect_color_a": 13,
+        "effect_color_b": 18,
+        "danger_type": 3
+      }
+    },
+    "oe_tower10": {
+      "palette": 14,
+      "fade_palette": 10,
+      "fade_strength": 0.6304348,
+      "grime": 0.21739129722118378,
+      "effect_color_a": 0,
+      "effect_color_b": 18,
+      "danger_type": 3,
+      "screen0": {
+        "palette": 14,
+        "fade_palette": 10,
+        "fade_strength": 0.6304348,
+        "grime": 0.21739129722118378,
+        "effect_color_a": 0,
+        "effect_color_b": 18,
+        "danger_type": 3
+      },
+      "screen1": {
+        "palette": 14,
+        "fade_palette": 10,
+        "fade_strength": 0.6521739,
+        "grime": 0.21739129722118378,
+        "effect_color_a": 0,
+        "effect_color_b": 18,
+        "danger_type": 3
+      },
+      "screen2": {
+        "palette": 14,
+        "fade_palette": 10,
+        "fade_strength": 0.6847826,
+        "grime": 0.21739129722118378,
+        "effect_color_a": 0,
+        "effect_color_b": 18,
+        "danger_type": 3
+      }
+    }
+  },
   "submerged_superstructure": {
     "ms_o03": {
       "palette": 45,
@@ -15583,20 +19059,20 @@
       "grime": 0.0,
       "danger_type": 0
     },
-    "ms_lab1": {
-      "palette": 35,
-      "fade_palette": 13,
-      "fade_strength": 0.09782609,
-      "grime": 0.1304347962141037,
-      "effect_color_a": 0,
-      "effect_color_b": 6,
-      "danger_type": 3
-    },
     "ms_a05": {
       "palette": 35,
       "fade_palette": 33,
       "fade_strength": 0.6086956,
       "grime": 0.30434781312942505,
+      "effect_color_a": 0,
+      "effect_color_b": 6,
+      "danger_type": 3
+    },
+    "ms_lab1": {
+      "palette": 35,
+      "fade_palette": 13,
+      "fade_strength": 0.09782609,
+      "grime": 0.1304347962141037,
       "effect_color_a": 0,
       "effect_color_b": 6,
       "danger_type": 3
@@ -16066,6 +19542,13 @@
       "effect_color_b": 7,
       "danger_type": 0
     },
+    "ms_s02": {
+      "palette": 30,
+      "fade_palette": 0,
+      "fade_strength": 0.0,
+      "grime": 0.0,
+      "danger_type": 0
+    },
     "ms_roof01": {
       "palette": 37,
       "fade_palette": 40,
@@ -16114,13 +19597,6 @@
         "grime": 0.0,
         "danger_type": 4
       }
-    },
-    "ms_s02": {
-      "palette": 30,
-      "fade_palette": 0,
-      "fade_strength": 0.0,
-      "grime": 0.0,
-      "danger_type": 0
     },
     "ms_s05": {
       "palette": 45,
@@ -16203,6 +19679,15 @@
       "effect_color_b": 3,
       "danger_type": 0
     },
+    "ms_bittershelter": {
+      "palette": 37,
+      "fade_palette": 51,
+      "fade_strength": 0.4673913,
+      "grime": 0.17391300201416016,
+      "effect_color_a": 11,
+      "effect_color_b": 8,
+      "danger_type": 1
+    },
     "ms_b04": {
       "palette": 35,
       "fade_palette": 33,
@@ -16229,15 +19714,6 @@
         "effect_color_b": 6,
         "danger_type": 3
       }
-    },
-    "ms_bittershelter": {
-      "palette": 37,
-      "fade_palette": 51,
-      "fade_strength": 0.4673913,
-      "grime": 0.17391300201416016,
-      "effect_color_a": 11,
-      "effect_color_b": 8,
-      "danger_type": 1
     },
     "ms_scavtrader": {
       "palette": 37,
@@ -16385,3482 +19861,6 @@
         "grime": 0.0,
         "effect_color_a": 12,
         "danger_type": 2
-      }
-    }
-  },
-  "outer_expanse": {
-    "oe_power03": {
-      "palette": 14,
-      "fade_palette": 10,
-      "fade_strength": 0.5869565,
-      "grime": 0.21739129722118378,
-      "effect_color_a": 0,
-      "effect_color_b": 2,
-      "danger_type": 3,
-      "screen0": {
-        "palette": 14,
-        "fade_palette": 10,
-        "fade_strength": 0.5869565,
-        "grime": 0.21739129722118378,
-        "effect_color_a": 0,
-        "effect_color_b": 2,
-        "danger_type": 3
-      },
-      "screen1": {
-        "palette": 14,
-        "fade_palette": 10,
-        "fade_strength": 0.5869565,
-        "grime": 0.21739129722118378,
-        "effect_color_a": 0,
-        "effect_color_b": 2,
-        "danger_type": 3
-      },
-      "screen2": {
-        "palette": 14,
-        "fade_palette": 10,
-        "fade_strength": 0.5869565,
-        "grime": 0.21739129722118378,
-        "effect_color_a": 0,
-        "effect_color_b": 2,
-        "danger_type": 3
-      }
-    },
-    "oe_power02": {
-      "palette": 14,
-      "fade_palette": 10,
-      "fade_strength": 0.5217391,
-      "grime": 0.21739129722118378,
-      "effect_color_a": 0,
-      "effect_color_b": 2,
-      "danger_type": 3
-    },
-    "oe_power01": {
-      "palette": 14,
-      "fade_palette": 10,
-      "fade_strength": 0.6956522,
-      "grime": 0.19565220177173615,
-      "effect_color_a": 0,
-      "effect_color_b": 2,
-      "danger_type": 3
-    },
-    "oe_power05": {
-      "palette": 14,
-      "fade_palette": 10,
-      "fade_strength": 0.5869565,
-      "grime": 0.21739129722118378,
-      "effect_color_a": 0,
-      "effect_color_b": 2,
-      "danger_type": 3
-    },
-    "oe_power04": {
-      "palette": 14,
-      "fade_palette": 10,
-      "fade_strength": 0.6304348,
-      "grime": 0.21739129722118378,
-      "effect_color_a": 0,
-      "effect_color_b": 2,
-      "danger_type": 3,
-      "screen0": {
-        "palette": 14,
-        "fade_palette": 10,
-        "fade_strength": 0.6304348,
-        "grime": 0.21739129722118378,
-        "effect_color_a": 0,
-        "effect_color_b": 2,
-        "danger_type": 3
-      },
-      "screen1": {
-        "palette": 14,
-        "fade_palette": 10,
-        "fade_strength": 0.6304348,
-        "grime": 0.21739129722118378,
-        "effect_color_a": 0,
-        "effect_color_b": 2,
-        "danger_type": 3
-      },
-      "screen2": {
-        "palette": 14,
-        "fade_palette": 10,
-        "fade_strength": 0.6304348,
-        "grime": 0.21739129722118378,
-        "effect_color_a": 0,
-        "effect_color_b": 2,
-        "danger_type": 3
-      }
-    },
-    "oe_pump04": {
-      "palette": 14,
-      "fade_palette": 8,
-      "fade_strength": 0.9782609,
-      "grime": 0.27173909544944763,
-      "effect_color_a": 18,
-      "effect_color_b": 18,
-      "danger_type": 2
-    },
-    "oe_pump03": {
-      "palette": 14,
-      "fade_palette": 8,
-      "fade_strength": 0.9456522,
-      "grime": 0.0,
-      "effect_color_a": 18,
-      "danger_type": 2,
-      "screen0": {
-        "palette": 14,
-        "fade_palette": 8,
-        "fade_strength": 0.9456522,
-        "grime": 0.0,
-        "effect_color_a": 18,
-        "danger_type": 2
-      },
-      "screen1": {
-        "palette": 14,
-        "fade_palette": 8,
-        "fade_strength": 0.9456522,
-        "grime": 0.0,
-        "effect_color_a": 18,
-        "danger_type": 2
-      },
-      "screen2": {
-        "palette": 14,
-        "fade_palette": 8,
-        "fade_strength": 0.9456522,
-        "grime": 0.0,
-        "effect_color_a": 18,
-        "danger_type": 2
-      },
-      "screen3": {
-        "palette": 14,
-        "fade_palette": 8,
-        "fade_strength": 0.9456522,
-        "grime": 0.0,
-        "effect_color_a": 18,
-        "danger_type": 2
-      }
-    },
-    "oe_pump02": {
-      "palette": 14,
-      "fade_palette": 8,
-      "fade_strength": 0.9130435,
-      "grime": 0.32608699798583984,
-      "effect_color_b": 18,
-      "danger_type": 2,
-      "screen0": {
-        "palette": 14,
-        "fade_palette": 8,
-        "fade_strength": 0.9130435,
-        "grime": 0.32608699798583984,
-        "effect_color_b": 18,
-        "danger_type": 2
-      },
-      "screen1": {
-        "palette": 14,
-        "fade_palette": 8,
-        "fade_strength": 0.9130435,
-        "grime": 0.32608699798583984,
-        "effect_color_b": 18,
-        "danger_type": 2
-      }
-    },
-    "oe_pump01": {
-      "palette": 14,
-      "fade_palette": 8,
-      "fade_strength": 0.8695652,
-      "grime": 0.19565220177173615,
-      "effect_color_b": 18,
-      "danger_type": 2,
-      "screen0": {
-        "palette": 14,
-        "fade_palette": 8,
-        "fade_strength": 0.8695652,
-        "grime": 0.19565220177173615,
-        "effect_color_b": 18,
-        "danger_type": 2
-      },
-      "screen1": {
-        "palette": 14,
-        "fade_palette": 8,
-        "fade_strength": 0.8586956,
-        "grime": 0.19565220177173615,
-        "effect_color_b": 18,
-        "danger_type": 2
-      },
-      "screen2": {
-        "palette": 14,
-        "fade_palette": 8,
-        "fade_strength": 0.8478261,
-        "grime": 0.19565220177173615,
-        "effect_color_b": 18,
-        "danger_type": 2
-      },
-      "screen3": {
-        "palette": 14,
-        "fade_palette": 8,
-        "fade_strength": 0.8369565,
-        "grime": 0.19565220177173615,
-        "effect_color_b": 18,
-        "danger_type": 2
-      },
-      "screen4": {
-        "palette": 14,
-        "fade_palette": 8,
-        "fade_strength": 0.8369565,
-        "grime": 0.19565220177173615,
-        "effect_color_b": 18,
-        "danger_type": 2
-      }
-    },
-    "oe_cave20": {
-      "palette": 53,
-      "fade_palette": 3,
-      "fade_strength": 0.3695652,
-      "grime": 0.0,
-      "effect_color_a": 13,
-      "effect_color_b": 18,
-      "danger_type": 3,
-      "screen0": {
-        "palette": 53,
-        "fade_palette": 3,
-        "fade_strength": 0.3695652,
-        "grime": 0.0,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 3
-      },
-      "screen1": {
-        "palette": 53,
-        "fade_palette": 3,
-        "fade_strength": 0.5,
-        "grime": 0.0,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 3
-      }
-    },
-    "oe_cave10": {
-      "palette": 14,
-      "fade_palette": 3,
-      "fade_strength": 0.7608696,
-      "grime": 0.0,
-      "effect_color_a": 13,
-      "effect_color_b": 18,
-      "danger_type": 1,
-      "screen0": {
-        "palette": 14,
-        "fade_palette": 3,
-        "fade_strength": 0.7608696,
-        "grime": 0.0,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 1
-      },
-      "screen1": {
-        "palette": 14,
-        "fade_palette": 3,
-        "fade_strength": 0.7717391,
-        "grime": 0.0,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 1
-      },
-      "screen2": {
-        "palette": 14,
-        "fade_palette": 3,
-        "fade_strength": 0.7934783,
-        "grime": 0.0,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 1
-      }
-    },
-    "oe_cave11": {
-      "palette": 14,
-      "fade_palette": 3,
-      "fade_strength": 0.4782609,
-      "grime": 0.0,
-      "effect_color_a": 13,
-      "effect_color_b": 18,
-      "danger_type": 1,
-      "screen0": {
-        "palette": 14,
-        "fade_palette": 3,
-        "fade_strength": 0.4782609,
-        "grime": 0.0,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 1
-      },
-      "screen1": {
-        "palette": 14,
-        "fade_palette": 3,
-        "fade_strength": 0.4891304,
-        "grime": 0.0,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 1
-      },
-      "screen2": {
-        "palette": 14,
-        "fade_palette": 3,
-        "fade_strength": 0.423913,
-        "grime": 0.0,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 1
-      }
-    },
-    "oe_cave12": {
-      "palette": 14,
-      "fade_palette": 3,
-      "fade_strength": 0.3043478,
-      "grime": 0.0,
-      "effect_color_a": 13,
-      "effect_color_b": 18,
-      "danger_type": 1,
-      "screen0": {
-        "palette": 14,
-        "fade_palette": 3,
-        "fade_strength": 0.3043478,
-        "grime": 0.0,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 1
-      },
-      "screen1": {
-        "palette": 14,
-        "fade_palette": 3,
-        "fade_strength": 0.3369565,
-        "grime": 0.0,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 1
-      },
-      "screen2": {
-        "palette": 14,
-        "fade_palette": 3,
-        "fade_strength": 0.4347826,
-        "grime": 0.0,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 1
-      },
-      "screen3": {
-        "palette": 14,
-        "fade_palette": 3,
-        "fade_strength": 0.5543478,
-        "grime": 0.0,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 1
-      },
-      "screen4": {
-        "palette": 14,
-        "fade_palette": 3,
-        "fade_strength": 0.6413044,
-        "grime": 0.0,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 1
-      },
-      "screen5": {
-        "palette": 14,
-        "fade_palette": 3,
-        "fade_strength": 0.7934783,
-        "grime": 0.0,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 1
-      }
-    },
-    "oe_cave13": {
-      "palette": 14,
-      "fade_palette": 3,
-      "fade_strength": 0.5978261,
-      "grime": 0.0,
-      "effect_color_a": 13,
-      "effect_color_b": 18,
-      "danger_type": 1,
-      "screen0": {
-        "palette": 14,
-        "fade_palette": 3,
-        "fade_strength": 0.5978261,
-        "grime": 0.0,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 1
-      },
-      "screen1": {
-        "palette": 14,
-        "fade_palette": 3,
-        "fade_strength": 0.5760869,
-        "grime": 0.0,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 1
-      }
-    },
-    "oe_cave14": {
-      "palette": 14,
-      "fade_palette": 3,
-      "fade_strength": 0.6086956,
-      "grime": 0.0,
-      "effect_color_a": 13,
-      "effect_color_b": 18,
-      "danger_type": 1,
-      "screen0": {
-        "palette": 14,
-        "fade_palette": 3,
-        "fade_strength": 0.6086956,
-        "grime": 0.0,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 1
-      },
-      "screen1": {
-        "palette": 14,
-        "fade_palette": 3,
-        "fade_strength": 0.5652174,
-        "grime": 0.0,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 1
-      }
-    },
-    "oe_cave15": {
-      "palette": 14,
-      "fade_palette": 3,
-      "fade_strength": 0.5217391,
-      "grime": 0.0,
-      "effect_color_a": 13,
-      "effect_color_b": 18,
-      "danger_type": 3,
-      "screen0": {
-        "palette": 14,
-        "fade_palette": 3,
-        "fade_strength": 0.5217391,
-        "grime": 0.0,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 3
-      },
-      "screen1": {
-        "palette": 14,
-        "fade_palette": 3,
-        "fade_strength": 0.5543478,
-        "grime": 0.0,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 3
-      }
-    },
-    "oe_cave16": {
-      "palette": 14,
-      "fade_palette": 3,
-      "fade_strength": 0.5652174,
-      "grime": 0.0,
-      "effect_color_a": 13,
-      "effect_color_b": 18,
-      "danger_type": 3,
-      "screen0": {
-        "palette": 14,
-        "fade_palette": 3,
-        "fade_strength": 0.5652174,
-        "grime": 0.0,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 3
-      },
-      "screen1": {
-        "palette": 14,
-        "fade_palette": 3,
-        "fade_strength": 0.5543478,
-        "grime": 0.0,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 3
-      },
-      "screen2": {
-        "palette": 14,
-        "fade_palette": 3,
-        "fade_strength": 0.5326087,
-        "grime": 0.0,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 3
-      }
-    },
-    "oe_cave17": {
-      "palette": 14,
-      "fade_palette": 3,
-      "fade_strength": 0.6195652,
-      "grime": 0.0,
-      "effect_color_a": 13,
-      "effect_color_b": 18,
-      "danger_type": 3
-    },
-    "oe_cave18": {
-      "palette": 14,
-      "fade_palette": 3,
-      "fade_strength": 0.7173913,
-      "grime": 0.0,
-      "effect_color_a": 13,
-      "effect_color_b": 18,
-      "danger_type": 3,
-      "screen0": {
-        "palette": 14,
-        "fade_palette": 3,
-        "fade_strength": 0.7173913,
-        "grime": 0.0,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 3
-      },
-      "screen1": {
-        "palette": 14,
-        "fade_palette": 3,
-        "fade_strength": 0.75,
-        "grime": 0.0,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 3
-      }
-    },
-    "oe_cave19": {
-      "palette": 53,
-      "fade_palette": 3,
-      "fade_strength": 0.4673913,
-      "grime": 0.0,
-      "effect_color_a": 13,
-      "effect_color_b": 18,
-      "danger_type": 3
-    },
-    "oe_cave01": {
-      "palette": 14,
-      "fade_palette": 3,
-      "fade_strength": 0.4565217,
-      "grime": 0.0,
-      "effect_color_a": 13,
-      "effect_color_b": 18,
-      "danger_type": 1,
-      "screen0": {
-        "palette": 14,
-        "fade_palette": 3,
-        "fade_strength": 0.4565217,
-        "grime": 0.0,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 1
-      },
-      "screen1": {
-        "palette": 14,
-        "fade_palette": 3,
-        "fade_strength": 0.5543478,
-        "grime": 0.0,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 1
-      },
-      "screen2": {
-        "palette": 14,
-        "fade_palette": 3,
-        "fade_strength": 0.6739131,
-        "grime": 0.0,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 1
-      },
-      "screen3": {
-        "palette": 14,
-        "fade_palette": 3,
-        "fade_strength": 0.8260869,
-        "grime": 0.0,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 1
-      },
-      "screen4": {
-        "palette": 14,
-        "fade_palette": 3,
-        "fade_strength": 0.7826087,
-        "grime": 0.0,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 1
-      }
-    },
-    "oe_cave02": {
-      "palette": 53,
-      "fade_palette": 3,
-      "fade_strength": 0.3804348,
-      "grime": 0.0,
-      "effect_color_a": 13,
-      "effect_color_b": 18,
-      "danger_type": 3,
-      "screen0": {
-        "palette": 53,
-        "fade_palette": 3,
-        "fade_strength": 0.3804348,
-        "grime": 0.0,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 3
-      },
-      "screen1": {
-        "palette": 53,
-        "fade_palette": 3,
-        "fade_strength": 0.25,
-        "grime": 0.0,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 3
-      }
-    },
-    "oe_cave03": {
-      "palette": 53,
-      "fade_palette": 10,
-      "fade_strength": 0.1847826,
-      "grime": 0.0,
-      "effect_color_a": 13,
-      "effect_color_b": 18,
-      "danger_type": 3,
-      "screen0": {
-        "palette": 53,
-        "fade_palette": 10,
-        "fade_strength": 0.1847826,
-        "grime": 0.0,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 3
-      },
-      "screen1": {
-        "palette": 53,
-        "fade_palette": 10,
-        "fade_strength": 0.1847826,
-        "grime": 0.0,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 3
-      },
-      "screen2": {
-        "palette": 53,
-        "fade_palette": 10,
-        "fade_strength": 0.5543478,
-        "grime": 0.0,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 3
-      },
-      "screen3": {
-        "palette": 53,
-        "fade_palette": 10,
-        "fade_strength": 0.5434783,
-        "grime": 0.0,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 3
-      },
-      "screen4": {
-        "palette": 53,
-        "fade_palette": 10,
-        "fade_strength": 0.6847826,
-        "grime": 0.0,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 3
-      },
-      "screen5": {
-        "palette": 53,
-        "fade_palette": 10,
-        "fade_strength": 0.7391304,
-        "grime": 0.0,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 3
-      },
-      "screen6": {
-        "palette": 53,
-        "fade_palette": 10,
-        "fade_strength": 0.6413044,
-        "grime": 0.0,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 3
-      },
-      "screen7": {
-        "palette": 53,
-        "fade_palette": 10,
-        "fade_strength": 0.8260869,
-        "grime": 0.0,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 3
-      }
-    },
-    "oe_cave04": {
-      "palette": 14,
-      "fade_palette": 3,
-      "fade_strength": 0.6739131,
-      "grime": 0.0,
-      "effect_color_a": 13,
-      "effect_color_b": 18,
-      "danger_type": 3,
-      "screen0": {
-        "palette": 14,
-        "fade_palette": 3,
-        "fade_strength": 0.6739131,
-        "grime": 0.0,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 3
-      },
-      "screen1": {
-        "palette": 14,
-        "fade_palette": 3,
-        "fade_strength": 0.7391304,
-        "grime": 0.0,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 3
-      }
-    },
-    "oe_cave05": {
-      "palette": 14,
-      "fade_palette": 3,
-      "fade_strength": 0.7391304,
-      "grime": 0.0,
-      "effect_color_a": 13,
-      "effect_color_b": 18,
-      "danger_type": 1,
-      "screen0": {
-        "palette": 14,
-        "fade_palette": 3,
-        "fade_strength": 0.7391304,
-        "grime": 0.0,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 1
-      },
-      "screen1": {
-        "palette": 14,
-        "fade_palette": 3,
-        "fade_strength": 0.7717391,
-        "grime": 0.0,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 1
-      },
-      "screen2": {
-        "palette": 14,
-        "fade_palette": 3,
-        "fade_strength": 0.8043478,
-        "grime": 0.0,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 1
-      }
-    },
-    "oe_cave06": {
-      "palette": 14,
-      "fade_palette": 10,
-      "fade_strength": 0.8152174,
-      "grime": 0.0,
-      "effect_color_a": 13,
-      "effect_color_b": 18,
-      "danger_type": 1
-    },
-    "oe_cave07": {
-      "palette": 54,
-      "fade_palette": 3,
-      "fade_strength": 0.3804348,
-      "grime": 0.0,
-      "effect_color_a": 13,
-      "effect_color_b": 18,
-      "danger_type": 1,
-      "screen0": {
-        "palette": 54,
-        "fade_palette": 3,
-        "fade_strength": 0.3804348,
-        "grime": 0.0,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 1
-      },
-      "screen1": {
-        "palette": 54,
-        "fade_palette": 3,
-        "fade_strength": 0.4565217,
-        "grime": 0.0,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 1
-      },
-      "screen2": {
-        "palette": 54,
-        "fade_palette": 3,
-        "fade_strength": 0.5217391,
-        "grime": 0.0,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 1
-      },
-      "screen3": {
-        "palette": 54,
-        "fade_palette": 3,
-        "fade_strength": 0.5652174,
-        "grime": 0.0,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 1
-      }
-    },
-    "oe_cave08": {
-      "palette": 14,
-      "fade_palette": 3,
-      "fade_strength": 0.5326087,
-      "grime": 0.0,
-      "effect_color_a": 13,
-      "effect_color_b": 18,
-      "danger_type": 3
-    },
-    "oe_cave09": {
-      "palette": 14,
-      "fade_palette": 3,
-      "fade_strength": 0.5217391,
-      "grime": 0.0,
-      "effect_color_a": 13,
-      "effect_color_b": 18,
-      "danger_type": 1,
-      "screen0": {
-        "palette": 14,
-        "fade_palette": 3,
-        "fade_strength": 0.5217391,
-        "grime": 0.0,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 1
-      },
-      "screen1": {
-        "palette": 14,
-        "fade_palette": 3,
-        "fade_strength": 0.6521739,
-        "grime": 0.0,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 1
-      }
-    },
-    "oe_jungleescape": {
-      "palette": 14,
-      "fade_palette": 3,
-      "fade_strength": 0.8695652,
-      "grime": 0.0,
-      "effect_color_a": 13,
-      "effect_color_b": 18,
-      "danger_type": 1,
-      "screen0": {
-        "palette": 14,
-        "fade_palette": 3,
-        "fade_strength": 0.8695652,
-        "grime": 0.0,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 1
-      },
-      "screen1": {
-        "palette": 14,
-        "fade_palette": 3,
-        "fade_strength": 0.8369565,
-        "grime": 0.0,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 1
-      },
-      "screen2": {
-        "palette": 14,
-        "fade_palette": 3,
-        "fade_strength": 0.8260869,
-        "grime": 0.0,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 1
-      },
-      "screen3": {
-        "palette": 14,
-        "fade_palette": 3,
-        "fade_strength": 0.7934783,
-        "grime": 0.0,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 1
-      },
-      "screen4": {
-        "palette": 14,
-        "fade_palette": 3,
-        "fade_strength": 0.8043478,
-        "grime": 0.0,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 1
-      },
-      "screen5": {
-        "palette": 14,
-        "fade_palette": 3,
-        "fade_strength": 0.75,
-        "grime": 0.0,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 1
-      },
-      "screen6": {
-        "palette": 14,
-        "fade_palette": 3,
-        "fade_strength": 0.7717391,
-        "grime": 0.0,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 1
-      },
-      "screen7": {
-        "palette": 14,
-        "fade_palette": 3,
-        "fade_strength": 0.8152174,
-        "grime": 0.0,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 1
-      },
-      "screen8": {
-        "palette": 14,
-        "fade_palette": 3,
-        "fade_strength": 0.8586956,
-        "grime": 0.0,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 1
-      },
-      "screen9": {
-        "palette": 14,
-        "fade_palette": 3,
-        "fade_strength": 0.6521739,
-        "grime": 0.0,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 1
-      },
-      "screen10": {
-        "palette": 14,
-        "fade_palette": 3,
-        "fade_strength": 0.5217391,
-        "grime": 0.0,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 1
-      },
-      "screen11": {
-        "palette": 14,
-        "fade_palette": 3,
-        "fade_strength": 0.6521739,
-        "grime": 0.0,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 1
-      },
-      "screen12": {
-        "palette": 14,
-        "fade_palette": 3,
-        "fade_strength": 0.5217391,
-        "grime": 0.0,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 1
-      },
-      "screen13": {
-        "palette": 14,
-        "fade_palette": 3,
-        "fade_strength": 0.6521739,
-        "grime": 0.0,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 1
-      }
-    },
-    "oe_s05x": {
-      "palette": 14,
-      "fade_palette": 3,
-      "fade_strength": 0.5434783,
-      "grime": 0.0,
-      "effect_color_a": 13,
-      "effect_color_b": 18,
-      "danger_type": 1
-    },
-    "oe_exshelter": {
-      "palette": 14,
-      "fade_palette": 3,
-      "fade_strength": 0.7608696,
-      "grime": 0.0,
-      "effect_color_a": 13,
-      "effect_color_b": 18,
-      "danger_type": 1
-    },
-    "oe_sfinal": {
-      "palette": 53,
-      "fade_palette": 3,
-      "fade_strength": 0.3586957,
-      "grime": 0.0,
-      "effect_color_a": 3,
-      "effect_color_b": 16,
-      "danger_type": 0
-    },
-    "oe_final02": {
-      "palette": 53,
-      "fade_palette": 42,
-      "fade_strength": 0.09782609,
-      "grime": 0.0,
-      "effect_color_a": 13,
-      "effect_color_b": 18,
-      "danger_type": 1,
-      "screen0": {
-        "palette": 53,
-        "fade_palette": 42,
-        "fade_strength": 0.09782609,
-        "grime": 0.0,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 1
-      },
-      "screen1": {
-        "palette": 53,
-        "fade_palette": 42,
-        "fade_strength": 0.1521739,
-        "grime": 0.0,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 1
-      },
-      "screen2": {
-        "palette": 53,
-        "fade_palette": 42,
-        "fade_strength": 0.2282609,
-        "grime": 0.0,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 1
-      },
-      "screen3": {
-        "palette": 53,
-        "fade_palette": 42,
-        "fade_strength": 0.3478261,
-        "grime": 0.0,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 1
-      }
-    },
-    "oe_final01": {
-      "palette": 53,
-      "fade_palette": 3,
-      "fade_strength": 0.2717391,
-      "grime": 0.0,
-      "effect_color_a": 13,
-      "effect_color_b": 18,
-      "danger_type": 1,
-      "screen0": {
-        "palette": 53,
-        "fade_palette": 3,
-        "fade_strength": 0.2717391,
-        "grime": 0.0,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 1
-      },
-      "screen1": {
-        "palette": 53,
-        "fade_palette": 3,
-        "fade_strength": 0.2608696,
-        "grime": 0.0,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 1
-      }
-    },
-    "oe_final03": {
-      "palette": 53,
-      "fade_palette": 42,
-      "fade_strength": 0.3478261,
-      "grime": 0.0,
-      "effect_color_a": 13,
-      "effect_color_b": 18,
-      "danger_type": 1,
-      "screen0": {
-        "palette": 53,
-        "fade_palette": 42,
-        "fade_strength": 0.3478261,
-        "grime": 0.0,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 1
-      },
-      "screen1": {
-        "palette": 53,
-        "fade_palette": 42,
-        "fade_strength": 0.3043478,
-        "grime": 0.0,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 1
-      },
-      "screen2": {
-        "palette": 53,
-        "fade_palette": 42,
-        "fade_strength": 0.2826087,
-        "grime": 0.0,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 1
-      },
-      "screen3": {
-        "palette": 53,
-        "fade_palette": 42,
-        "fade_strength": 0.2391304,
-        "grime": 0.0,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 1
-      },
-      "screen4": {
-        "palette": 53,
-        "fade_palette": 42,
-        "fade_strength": 0.1956522,
-        "grime": 0.0,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 1
-      },
-      "screen5": {
-        "palette": 53,
-        "fade_palette": 42,
-        "fade_strength": 0.173913,
-        "grime": 0.0,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 1
-      }
-    },
-    "oe_ruinbackhall": {
-      "palette": 53,
-      "fade_palette": 42,
-      "fade_strength": 0.2391304,
-      "grime": 0.0,
-      "effect_color_a": 13,
-      "effect_color_b": 18,
-      "danger_type": 1,
-      "screen0": {
-        "palette": 53,
-        "fade_palette": 42,
-        "fade_strength": 0.2391304,
-        "grime": 0.0,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 1
-      },
-      "screen1": {
-        "palette": 53,
-        "fade_palette": 42,
-        "fade_strength": 0.2934783,
-        "grime": 0.0,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 1
-      },
-      "screen2": {
-        "palette": 53,
-        "fade_palette": 42,
-        "fade_strength": 0.3478261,
-        "grime": 0.0,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 1
-      },
-      "screen3": {
-        "palette": 53,
-        "fade_palette": 42,
-        "fade_strength": 0.4130435,
-        "grime": 0.0,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 1
-      }
-    },
-    "oe_s04": {
-      "palette": 23,
-      "fade_palette": 14,
-      "fade_strength": 0.6413044,
-      "grime": 0.0,
-      "effect_color_b": 14,
-      "danger_type": 0
-    },
-    "oe_s05": {
-      "palette": 14,
-      "fade_palette": 10,
-      "fade_strength": 0.7173913,
-      "grime": 0.0,
-      "effect_color_a": 13,
-      "effect_color_b": 18,
-      "danger_type": 1
-    },
-    "oe_s02": {
-      "palette": 14,
-      "fade_palette": 8,
-      "fade_strength": 0.6304348,
-      "grime": 0.09782609343528748,
-      "effect_color_a": 0,
-      "effect_color_b": 13,
-      "danger_type": 3
-    },
-    "oe_s03": {
-      "palette": 14,
-      "fade_palette": 8,
-      "fade_strength": 0.9565217,
-      "grime": 0.19565220177173615,
-      "effect_color_a": 18,
-      "effect_color_b": 6,
-      "danger_type": 0
-    },
-    "oe_s01": {
-      "palette": 14,
-      "fade_palette": 8,
-      "fade_strength": 0.5978261,
-      "grime": 0.19565220177173615,
-      "effect_color_a": 0,
-      "effect_color_b": 18,
-      "danger_type": 0
-    },
-    "oe_s06": {
-      "palette": 53,
-      "fade_palette": 3,
-      "fade_strength": 0.4673913,
-      "grime": 0.0,
-      "danger_type": 1
-    },
-    "oe_ruin08": {
-      "palette": 53,
-      "fade_palette": 42,
-      "fade_strength": 0.1521739,
-      "grime": 0.0,
-      "effect_color_a": 3,
-      "effect_color_b": 16,
-      "danger_type": 0,
-      "screen0": {
-        "palette": 53,
-        "fade_palette": 42,
-        "fade_strength": 0.1521739,
-        "grime": 0.0,
-        "effect_color_a": 3,
-        "effect_color_b": 16,
-        "danger_type": 0
-      },
-      "screen1": {
-        "palette": 53,
-        "fade_palette": 42,
-        "fade_strength": 0.1630435,
-        "grime": 0.0,
-        "effect_color_a": 3,
-        "effect_color_b": 16,
-        "danger_type": 0
-      },
-      "screen2": {
-        "palette": 53,
-        "fade_palette": 42,
-        "fade_strength": 0.173913,
-        "grime": 0.0,
-        "effect_color_a": 3,
-        "effect_color_b": 16,
-        "danger_type": 0
-      }
-    },
-    "oe_ruin07": {
-      "palette": 53,
-      "fade_palette": 3,
-      "fade_strength": 0.2391304,
-      "grime": 0.0,
-      "effect_color_a": 13,
-      "effect_color_b": 18,
-      "danger_type": 1,
-      "screen0": {
-        "palette": 53,
-        "fade_palette": 3,
-        "fade_strength": 0.2391304,
-        "grime": 0.0,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 1
-      },
-      "screen1": {
-        "palette": 53,
-        "fade_palette": 3,
-        "fade_strength": 0.2826087,
-        "grime": 0.0,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 1
-      }
-    },
-    "oe_ruin09": {
-      "palette": 53,
-      "fade_palette": 42,
-      "fade_strength": 0.3586957,
-      "grime": 0.0,
-      "effect_color_a": 3,
-      "effect_color_b": 16,
-      "danger_type": 0,
-      "screen0": {
-        "palette": 53,
-        "fade_palette": 42,
-        "fade_strength": 0.3586957,
-        "grime": 0.0,
-        "effect_color_a": 3,
-        "effect_color_b": 16,
-        "danger_type": 0
-      },
-      "screen1": {
-        "palette": 53,
-        "fade_palette": 42,
-        "fade_strength": 0.3913043,
-        "grime": 0.0,
-        "effect_color_a": 3,
-        "effect_color_b": 16,
-        "danger_type": 0
-      }
-    },
-    "oe_ruin04": {
-      "palette": 53,
-      "fade_palette": 42,
-      "fade_strength": 0.0,
-      "grime": 0.0,
-      "effect_color_a": 13,
-      "effect_color_b": 18,
-      "danger_type": 1,
-      "screen0": {
-        "palette": 53,
-        "fade_palette": 42,
-        "fade_strength": 0.0,
-        "grime": 0.0,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 1
-      },
-      "screen1": {
-        "palette": 53,
-        "fade_palette": 42,
-        "fade_strength": 0.2065217,
-        "grime": 0.0,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 1
-      },
-      "screen2": {
-        "palette": 53,
-        "fade_palette": 42,
-        "fade_strength": 0.4021739,
-        "grime": 0.0,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 1
-      }
-    },
-    "oe_ruin03": {
-      "palette": 53,
-      "fade_palette": 3,
-      "fade_strength": 0.7826087,
-      "grime": 0.0,
-      "effect_color_a": 3,
-      "effect_color_b": 16,
-      "danger_type": 0,
-      "screen0": {
-        "palette": 53,
-        "fade_palette": 3,
-        "fade_strength": 0.7826087,
-        "grime": 0.0,
-        "effect_color_a": 3,
-        "effect_color_b": 16,
-        "danger_type": 0
-      },
-      "screen1": {
-        "palette": 53,
-        "fade_palette": 3,
-        "fade_strength": 0.7934783,
-        "grime": 0.0,
-        "effect_color_a": 3,
-        "effect_color_b": 16,
-        "danger_type": 0
-      }
-    },
-    "oe_ruin06": {
-      "palette": 54,
-      "fade_palette": 3,
-      "fade_strength": 0.2391304,
-      "grime": 0.0,
-      "effect_color_a": 13,
-      "effect_color_b": 18,
-      "danger_type": 1,
-      "screen0": {
-        "palette": 54,
-        "fade_palette": 3,
-        "fade_strength": 0.2391304,
-        "grime": 0.0,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 1
-      },
-      "screen1": {
-        "palette": 54,
-        "fade_palette": 3,
-        "fade_strength": 0.3369565,
-        "grime": 0.0,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 1
-      },
-      "screen2": {
-        "palette": 54,
-        "fade_palette": 3,
-        "fade_strength": 0.326087,
-        "grime": 0.0,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 1
-      },
-      "screen3": {
-        "palette": 54,
-        "fade_palette": 3,
-        "fade_strength": 0.2065217,
-        "grime": 0.0,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 1
-      },
-      "screen4": {
-        "palette": 54,
-        "fade_palette": 3,
-        "fade_strength": 0.4565217,
-        "grime": 0.0,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 1
-      },
-      "screen5": {
-        "palette": 54,
-        "fade_palette": 3,
-        "fade_strength": 0.4565217,
-        "grime": 0.0,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 1
-      }
-    },
-    "oe_ruin05": {
-      "palette": 53,
-      "fade_palette": 42,
-      "fade_strength": 0.2065217,
-      "grime": 0.0,
-      "effect_color_a": 13,
-      "effect_color_b": 18,
-      "danger_type": 1,
-      "screen0": {
-        "palette": 53,
-        "fade_palette": 42,
-        "fade_strength": 0.2065217,
-        "grime": 0.0,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 1
-      },
-      "screen1": {
-        "palette": 53,
-        "fade_palette": 42,
-        "fade_strength": 0.2391304,
-        "grime": 0.0,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 1
-      },
-      "screen2": {
-        "palette": 53,
-        "fade_palette": 42,
-        "fade_strength": 0.2934783,
-        "grime": 0.0,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 1
-      }
-    },
-    "oe_ruin02": {
-      "palette": 53,
-      "fade_palette": 3,
-      "fade_strength": 0.4130435,
-      "grime": 0.0,
-      "effect_color_a": 13,
-      "effect_color_b": 18,
-      "danger_type": 1,
-      "screen0": {
-        "palette": 53,
-        "fade_palette": 3,
-        "fade_strength": 0.4130435,
-        "grime": 0.0,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 1
-      },
-      "screen1": {
-        "palette": 53,
-        "fade_palette": 3,
-        "fade_strength": 0.4891304,
-        "grime": 0.0,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 1
-      },
-      "screen2": {
-        "palette": 53,
-        "fade_palette": 3,
-        "fade_strength": 0.4673913,
-        "grime": 0.0,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 1
-      },
-      "screen3": {
-        "palette": 53,
-        "fade_palette": 3,
-        "fade_strength": 0.5869565,
-        "grime": 0.0,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 1
-      }
-    },
-    "oe_ruin01": {
-      "palette": 53,
-      "fade_palette": 3,
-      "fade_strength": 0.5326087,
-      "grime": 0.1304347962141037,
-      "effect_color_a": 16,
-      "effect_color_b": 18,
-      "danger_type": 0,
-      "screen0": {
-        "palette": 53,
-        "fade_palette": 3,
-        "fade_strength": 0.5326087,
-        "grime": 0.1304347962141037,
-        "effect_color_a": 16,
-        "effect_color_b": 18,
-        "danger_type": 0
-      },
-      "screen1": {
-        "palette": 53,
-        "fade_palette": 3,
-        "fade_strength": 0.6630435,
-        "grime": 0.1304347962141037,
-        "effect_color_a": 16,
-        "effect_color_b": 18,
-        "danger_type": 0
-      }
-    },
-    "oe_ruin19": {
-      "palette": 14,
-      "fade_palette": 3,
-      "fade_strength": 0.7065217,
-      "grime": 0.0,
-      "effect_color_a": 13,
-      "effect_color_b": 18,
-      "danger_type": 1,
-      "screen0": {
-        "palette": 14,
-        "fade_palette": 3,
-        "fade_strength": 0.7065217,
-        "grime": 0.0,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 1
-      },
-      "screen1": {
-        "palette": 14,
-        "fade_palette": 3,
-        "fade_strength": 0.6956522,
-        "grime": 0.0,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 1
-      },
-      "screen2": {
-        "palette": 14,
-        "fade_palette": 3,
-        "fade_strength": 0.6847826,
-        "grime": 0.0,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 1
-      },
-      "screen3": {
-        "palette": 14,
-        "fade_palette": 3,
-        "fade_strength": 0.7065217,
-        "grime": 0.0,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 1
-      },
-      "screen4": {
-        "palette": 14,
-        "fade_palette": 3,
-        "fade_strength": 0.7173913,
-        "grime": 0.0,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 1
-      }
-    },
-    "oe_ruin18": {
-      "palette": 53,
-      "fade_palette": 42,
-      "fade_strength": 0.4565217,
-      "grime": 0.0,
-      "effect_color_a": 3,
-      "effect_color_b": 16,
-      "danger_type": 0,
-      "screen0": {
-        "palette": 53,
-        "fade_palette": 42,
-        "fade_strength": 0.4565217,
-        "grime": 0.0,
-        "effect_color_a": 3,
-        "effect_color_b": 16,
-        "danger_type": 0
-      },
-      "screen1": {
-        "palette": 53,
-        "fade_palette": 42,
-        "fade_strength": 0.4673913,
-        "grime": 0.0,
-        "effect_color_a": 3,
-        "effect_color_b": 16,
-        "danger_type": 0
-      },
-      "screen2": {
-        "palette": 53,
-        "fade_palette": 42,
-        "fade_strength": 0.5108696,
-        "grime": 0.0,
-        "effect_color_a": 3,
-        "effect_color_b": 16,
-        "danger_type": 0
-      },
-      "screen3": {
-        "palette": 53,
-        "fade_palette": 42,
-        "fade_strength": 0.5760869,
-        "grime": 0.0,
-        "effect_color_a": 3,
-        "effect_color_b": 16,
-        "danger_type": 0
-      }
-    },
-    "oe_ruin15": {
-      "palette": 53,
-      "fade_palette": 42,
-      "fade_strength": 0.25,
-      "grime": 0.0,
-      "effect_color_a": 3,
-      "effect_color_b": 16,
-      "danger_type": 0,
-      "screen0": {
-        "palette": 53,
-        "fade_palette": 42,
-        "fade_strength": 0.25,
-        "grime": 0.0,
-        "effect_color_a": 3,
-        "effect_color_b": 16,
-        "danger_type": 0
-      },
-      "screen1": {
-        "palette": 53,
-        "fade_palette": 42,
-        "fade_strength": 0.25,
-        "grime": 0.0,
-        "effect_color_a": 3,
-        "effect_color_b": 16,
-        "danger_type": 0
-      },
-      "screen2": {
-        "palette": 53,
-        "fade_palette": 42,
-        "fade_strength": 0.25,
-        "grime": 0.0,
-        "effect_color_a": 3,
-        "effect_color_b": 16,
-        "danger_type": 0
-      },
-      "screen3": {
-        "palette": 53,
-        "fade_palette": 42,
-        "fade_strength": 0.25,
-        "grime": 0.0,
-        "effect_color_a": 3,
-        "effect_color_b": 16,
-        "danger_type": 0
-      }
-    },
-    "oe_ruin14": {
-      "palette": 53,
-      "fade_palette": 42,
-      "fade_strength": 0.326087,
-      "grime": 0.0,
-      "effect_color_a": 13,
-      "effect_color_b": 18,
-      "danger_type": 1,
-      "screen0": {
-        "palette": 53,
-        "fade_palette": 42,
-        "fade_strength": 0.326087,
-        "grime": 0.0,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 1
-      },
-      "screen1": {
-        "palette": 53,
-        "fade_palette": 42,
-        "fade_strength": 0.326087,
-        "grime": 0.0,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 1
-      },
-      "screen2": {
-        "palette": 53,
-        "fade_palette": 42,
-        "fade_strength": 0.3152174,
-        "grime": 0.0,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 1
-      },
-      "screen3": {
-        "palette": 53,
-        "fade_palette": 42,
-        "fade_strength": 0.3152174,
-        "grime": 0.0,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 1
-      }
-    },
-    "oe_ruin17": {
-      "palette": 53,
-      "fade_palette": 42,
-      "fade_strength": 0.3043478,
-      "grime": 0.0,
-      "effect_color_a": 3,
-      "effect_color_b": 16,
-      "danger_type": 0,
-      "screen0": {
-        "palette": 53,
-        "fade_palette": 42,
-        "fade_strength": 0.3043478,
-        "grime": 0.0,
-        "effect_color_a": 3,
-        "effect_color_b": 16,
-        "danger_type": 0
-      },
-      "screen1": {
-        "palette": 53,
-        "fade_palette": 42,
-        "fade_strength": 0.3586957,
-        "grime": 0.0,
-        "effect_color_a": 3,
-        "effect_color_b": 16,
-        "danger_type": 0
-      },
-      "screen2": {
-        "palette": 53,
-        "fade_palette": 42,
-        "fade_strength": 0.4347826,
-        "grime": 0.0,
-        "effect_color_a": 3,
-        "effect_color_b": 16,
-        "danger_type": 0
-      }
-    },
-    "oe_ruin16": {
-      "palette": 53,
-      "fade_palette": 3,
-      "fade_strength": 0.5978261,
-      "grime": 0.0,
-      "effect_color_a": 3,
-      "effect_color_b": 16,
-      "danger_type": 0,
-      "screen0": {
-        "palette": 53,
-        "fade_palette": 3,
-        "fade_strength": 0.5978261,
-        "grime": 0.0,
-        "effect_color_a": 3,
-        "effect_color_b": 16,
-        "danger_type": 0
-      },
-      "screen1": {
-        "palette": 53,
-        "fade_palette": 3,
-        "fade_strength": 0.6847826,
-        "grime": 0.0,
-        "effect_color_a": 3,
-        "effect_color_b": 16,
-        "danger_type": 0
-      }
-    },
-    "oe_ruin11": {
-      "palette": 53,
-      "fade_palette": 42,
-      "fade_strength": 0.1630435,
-      "grime": 0.0,
-      "effect_color_a": 3,
-      "effect_color_b": 16,
-      "danger_type": 0,
-      "screen0": {
-        "palette": 53,
-        "fade_palette": 42,
-        "fade_strength": 0.1630435,
-        "grime": 0.0,
-        "effect_color_a": 3,
-        "effect_color_b": 16,
-        "danger_type": 0
-      },
-      "screen1": {
-        "palette": 53,
-        "fade_palette": 42,
-        "fade_strength": 0.3369565,
-        "grime": 0.0,
-        "effect_color_a": 3,
-        "effect_color_b": 16,
-        "danger_type": 0
-      },
-      "screen2": {
-        "palette": 53,
-        "fade_palette": 42,
-        "fade_strength": 0.6086956,
-        "grime": 0.0,
-        "effect_color_a": 3,
-        "effect_color_b": 16,
-        "danger_type": 0
-      }
-    },
-    "oe_ruin10": {
-      "palette": 53,
-      "fade_palette": 42,
-      "fade_strength": 0.4021739,
-      "grime": 0.0,
-      "effect_color_a": 3,
-      "effect_color_b": 16,
-      "danger_type": 0,
-      "screen0": {
-        "palette": 53,
-        "fade_palette": 42,
-        "fade_strength": 0.4021739,
-        "grime": 0.0,
-        "effect_color_a": 3,
-        "effect_color_b": 16,
-        "danger_type": 0
-      },
-      "screen1": {
-        "palette": 53,
-        "fade_palette": 42,
-        "fade_strength": 0.4347826,
-        "grime": 0.0,
-        "effect_color_a": 3,
-        "effect_color_b": 16,
-        "danger_type": 0
-      }
-    },
-    "oe_ruin13": {
-      "palette": 53,
-      "fade_palette": 42,
-      "fade_strength": 0.4456522,
-      "grime": 0.0,
-      "effect_color_a": 3,
-      "effect_color_b": 16,
-      "danger_type": 0
-    },
-    "oe_ruin12": {
-      "palette": 53,
-      "fade_palette": 42,
-      "fade_strength": 0.5434783,
-      "grime": 0.0,
-      "effect_color_a": 13,
-      "effect_color_b": 18,
-      "danger_type": 1,
-      "screen0": {
-        "palette": 53,
-        "fade_palette": 42,
-        "fade_strength": 0.5434783,
-        "grime": 0.0,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 1
-      },
-      "screen1": {
-        "palette": 53,
-        "fade_palette": 42,
-        "fade_strength": 0.7065217,
-        "grime": 0.0,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 1
-      }
-    },
-    "oe_ruin25": {
-      "palette": 53,
-      "fade_palette": 42,
-      "fade_strength": 0.3152174,
-      "grime": 0.0,
-      "effect_color_a": 3,
-      "effect_color_b": 16,
-      "danger_type": 0,
-      "screen0": {
-        "palette": 53,
-        "fade_palette": 42,
-        "fade_strength": 0.3152174,
-        "grime": 0.0,
-        "effect_color_a": 3,
-        "effect_color_b": 16,
-        "danger_type": 0
-      },
-      "screen1": {
-        "palette": 53,
-        "fade_palette": 42,
-        "fade_strength": 0.3152174,
-        "grime": 0.0,
-        "effect_color_a": 3,
-        "effect_color_b": 16,
-        "danger_type": 0
-      }
-    },
-    "oe_ruin22": {
-      "palette": 53,
-      "fade_palette": 42,
-      "fade_strength": 0.423913,
-      "grime": 0.0,
-      "effect_color_a": 3,
-      "effect_color_b": 16,
-      "danger_type": 0
-    },
-    "oe_ruin21": {
-      "palette": 53,
-      "fade_palette": 42,
-      "fade_strength": 0.3913043,
-      "grime": 0.0,
-      "effect_color_a": 3,
-      "effect_color_b": 16,
-      "danger_type": 0,
-      "screen0": {
-        "palette": 53,
-        "fade_palette": 42,
-        "fade_strength": 0.3913043,
-        "grime": 0.0,
-        "effect_color_a": 3,
-        "effect_color_b": 16,
-        "danger_type": 0
-      },
-      "screen1": {
-        "palette": 53,
-        "fade_palette": 42,
-        "fade_strength": 0.3913043,
-        "grime": 0.0,
-        "effect_color_a": 3,
-        "effect_color_b": 16,
-        "danger_type": 0
-      }
-    },
-    "oe_ruin24": {
-      "palette": 53,
-      "fade_palette": 42,
-      "fade_strength": 0.3152174,
-      "grime": 0.0,
-      "effect_color_a": 13,
-      "effect_color_b": 18,
-      "danger_type": 1,
-      "screen0": {
-        "palette": 53,
-        "fade_palette": 42,
-        "fade_strength": 0.3152174,
-        "grime": 0.0,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 1
-      },
-      "screen1": {
-        "palette": 53,
-        "fade_palette": 42,
-        "fade_strength": 0.3152174,
-        "grime": 0.0,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 1
-      },
-      "screen2": {
-        "palette": 53,
-        "fade_palette": 42,
-        "fade_strength": 0.3152174,
-        "grime": 0.0,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 1
-      }
-    },
-    "oe_ruin23": {
-      "palette": 53,
-      "fade_palette": 3,
-      "fade_strength": 0.1630435,
-      "grime": 0.0,
-      "effect_color_a": 3,
-      "effect_color_b": 16,
-      "danger_type": 0,
-      "screen0": {
-        "palette": 53,
-        "fade_palette": 3,
-        "fade_strength": 0.1630435,
-        "grime": 0.0,
-        "effect_color_a": 3,
-        "effect_color_b": 16,
-        "danger_type": 0
-      },
-      "screen1": {
-        "palette": 53,
-        "fade_palette": 3,
-        "fade_strength": 0.3695652,
-        "grime": 0.0,
-        "effect_color_a": 3,
-        "effect_color_b": 16,
-        "danger_type": 0
-      },
-      "screen2": {
-        "palette": 53,
-        "fade_palette": 3,
-        "fade_strength": 0.5652174,
-        "grime": 0.0,
-        "effect_color_a": 3,
-        "effect_color_b": 16,
-        "danger_type": 0
-      }
-    },
-    "oe_ruin20": {
-      "palette": 53,
-      "fade_palette": 3,
-      "fade_strength": 0.2173913,
-      "grime": 0.0,
-      "effect_color_a": 3,
-      "effect_color_b": 16,
-      "danger_type": 0,
-      "screen0": {
-        "palette": 53,
-        "fade_palette": 3,
-        "fade_strength": 0.2173913,
-        "grime": 0.0,
-        "effect_color_a": 3,
-        "effect_color_b": 16,
-        "danger_type": 0
-      },
-      "screen1": {
-        "palette": 53,
-        "fade_palette": 3,
-        "fade_strength": 0.2173913,
-        "grime": 0.0,
-        "effect_color_a": 3,
-        "effect_color_b": 16,
-        "danger_type": 0
-      },
-      "screen2": {
-        "palette": 53,
-        "fade_palette": 3,
-        "fade_strength": 0.2173913,
-        "grime": 0.0,
-        "effect_color_a": 3,
-        "effect_color_b": 16,
-        "danger_type": 0
-      },
-      "screen3": {
-        "palette": 53,
-        "fade_palette": 3,
-        "fade_strength": 0.2173913,
-        "grime": 0.0,
-        "effect_color_a": 3,
-        "effect_color_b": 16,
-        "danger_type": 0
-      },
-      "screen4": {
-        "palette": 53,
-        "fade_palette": 3,
-        "fade_strength": 0.2173913,
-        "grime": 0.0,
-        "effect_color_a": 3,
-        "effect_color_b": 16,
-        "danger_type": 0
-      },
-      "screen5": {
-        "palette": 53,
-        "fade_palette": 3,
-        "fade_strength": 0.2173913,
-        "grime": 0.0,
-        "effect_color_a": 3,
-        "effect_color_b": 16,
-        "danger_type": 0
-      }
-    },
-    "oe_exitpath": {
-      "palette": 54,
-      "fade_palette": 3,
-      "fade_strength": 0.4673913,
-      "grime": 0.0,
-      "effect_color_a": 13,
-      "effect_color_b": 18,
-      "danger_type": 1,
-      "screen0": {
-        "palette": 54,
-        "fade_palette": 3,
-        "fade_strength": 0.4673913,
-        "grime": 0.0,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 1
-      },
-      "screen1": {
-        "palette": 54,
-        "fade_palette": 3,
-        "fade_strength": 0.5108696,
-        "grime": 0.0,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 1
-      }
-    },
-    "oe_sextra": {
-      "palette": 53,
-      "fade_palette": 3,
-      "fade_strength": 0.6847826,
-      "grime": 0.0,
-      "danger_type": 0
-    },
-    "oe_ruinfronthall": {
-      "palette": 53,
-      "fade_palette": 42,
-      "fade_strength": 0.3152174,
-      "grime": 0.0,
-      "effect_color_a": 13,
-      "effect_color_b": 18,
-      "danger_type": 1,
-      "screen0": {
-        "palette": 53,
-        "fade_palette": 42,
-        "fade_strength": 0.3152174,
-        "grime": 0.0,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 1
-      },
-      "screen1": {
-        "palette": 53,
-        "fade_palette": 42,
-        "fade_strength": 0.423913,
-        "grime": 0.0,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 1
-      }
-    },
-    "oe_treetop": {
-      "palette": 53,
-      "fade_palette": 42,
-      "fade_strength": 0.0,
-      "grime": 0.0,
-      "effect_color_a": 13,
-      "effect_color_b": 18,
-      "danger_type": 1,
-      "screen0": {
-        "palette": 53,
-        "fade_palette": 42,
-        "fade_strength": 0.0,
-        "grime": 0.0,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 1
-      },
-      "screen1": {
-        "palette": 53,
-        "fade_palette": 42,
-        "fade_strength": 0.07608695,
-        "grime": 0.0,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 1
-      },
-      "screen2": {
-        "palette": 53,
-        "fade_palette": 42,
-        "fade_strength": 0.1630435,
-        "grime": 0.0,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 1
-      }
-    },
-    "oe_jungle01": {
-      "palette": 53,
-      "fade_palette": 42,
-      "fade_strength": 0.0,
-      "grime": 0.0,
-      "effect_color_a": 13,
-      "effect_color_b": 18,
-      "danger_type": 1,
-      "screen0": {
-        "palette": 53,
-        "fade_palette": 42,
-        "fade_strength": 0.0,
-        "grime": 0.0,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 1
-      },
-      "screen1": {
-        "palette": 53,
-        "fade_palette": 42,
-        "fade_strength": 0.1195652,
-        "grime": 0.0,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 1
-      },
-      "screen2": {
-        "palette": 53,
-        "fade_palette": 42,
-        "fade_strength": 0.2282609,
-        "grime": 0.0,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 1
-      }
-    },
-    "oe_jungle03": {
-      "palette": 53,
-      "fade_palette": 42,
-      "fade_strength": 0.2717391,
-      "grime": 0.0,
-      "effect_color_a": 13,
-      "effect_color_b": 18,
-      "danger_type": 1,
-      "screen0": {
-        "palette": 53,
-        "fade_palette": 42,
-        "fade_strength": 0.2717391,
-        "grime": 0.0,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 1
-      },
-      "screen1": {
-        "palette": 53,
-        "fade_palette": 42,
-        "fade_strength": 0.1847826,
-        "grime": 0.0,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 1
-      },
-      "screen2": {
-        "palette": 53,
-        "fade_palette": 42,
-        "fade_strength": 0.2717391,
-        "grime": 0.0,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 1
-      }
-    },
-    "oe_jungle02": {
-      "palette": 53,
-      "fade_palette": 42,
-      "fade_strength": 0.1630435,
-      "grime": 0.0,
-      "effect_color_a": 13,
-      "effect_color_b": 18,
-      "danger_type": 1
-    },
-    "oe_jungle05": {
-      "palette": 54,
-      "fade_palette": 42,
-      "fade_strength": 0.3695652,
-      "grime": 0.0,
-      "effect_color_a": 6,
-      "effect_color_b": 18,
-      "danger_type": 1,
-      "screen0": {
-        "palette": 54,
-        "fade_palette": 42,
-        "fade_strength": 0.3695652,
-        "grime": 0.0,
-        "effect_color_a": 6,
-        "effect_color_b": 18,
-        "danger_type": 1
-      },
-      "screen1": {
-        "palette": 54,
-        "fade_palette": 42,
-        "fade_strength": 0.3695652,
-        "grime": 0.0,
-        "effect_color_a": 6,
-        "effect_color_b": 18,
-        "danger_type": 1
-      },
-      "screen2": {
-        "palette": 54,
-        "fade_palette": 42,
-        "fade_strength": 0.4347826,
-        "grime": 0.0,
-        "effect_color_a": 6,
-        "effect_color_b": 18,
-        "danger_type": 1
-      }
-    },
-    "oe_jungle04": {
-      "palette": 54,
-      "fade_palette": 42,
-      "fade_strength": 0.2173913,
-      "grime": 0.19565220177173615,
-      "effect_color_a": 6,
-      "effect_color_b": 18,
-      "danger_type": 1,
-      "screen0": {
-        "palette": 54,
-        "fade_palette": 42,
-        "fade_strength": 0.2173913,
-        "grime": 0.19565220177173615,
-        "effect_color_a": 6,
-        "effect_color_b": 18,
-        "danger_type": 1
-      },
-      "screen1": {
-        "palette": 54,
-        "fade_palette": 42,
-        "fade_strength": 0.1956522,
-        "grime": 0.19565220177173615,
-        "effect_color_a": 6,
-        "effect_color_b": 18,
-        "danger_type": 1
-      }
-    },
-    "oe_jungle06": {
-      "palette": 54,
-      "fade_palette": 42,
-      "fade_strength": 0.2173913,
-      "grime": 0.0,
-      "effect_color_a": 6,
-      "effect_color_b": 18,
-      "danger_type": 1,
-      "screen0": {
-        "palette": 54,
-        "fade_palette": 42,
-        "fade_strength": 0.2173913,
-        "grime": 0.0,
-        "effect_color_a": 6,
-        "effect_color_b": 18,
-        "danger_type": 1
-      },
-      "screen1": {
-        "palette": 54,
-        "fade_palette": 42,
-        "fade_strength": 0.2173913,
-        "grime": 0.0,
-        "effect_color_a": 6,
-        "effect_color_b": 18,
-        "danger_type": 1
-      }
-    },
-    "oe_ruincourtyard": {
-      "palette": 53,
-      "fade_palette": 42,
-      "fade_strength": 0.2065217,
-      "grime": 0.0,
-      "effect_color_a": 13,
-      "effect_color_b": 18,
-      "danger_type": 1,
-      "screen0": {
-        "palette": 53,
-        "fade_palette": 42,
-        "fade_strength": 0.2065217,
-        "grime": 0.0,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 1
-      },
-      "screen1": {
-        "palette": 53,
-        "fade_palette": 42,
-        "fade_strength": 0.2934783,
-        "grime": 0.0,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 1
-      },
-      "screen2": {
-        "palette": 53,
-        "fade_palette": 42,
-        "fade_strength": 0.3369565,
-        "grime": 0.0,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 1
-      },
-      "screen3": {
-        "palette": 53,
-        "fade_palette": 42,
-        "fade_strength": 0.3369565,
-        "grime": 0.0,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 1
-      },
-      "screen4": {
-        "palette": 53,
-        "fade_palette": 42,
-        "fade_strength": 0.7391304,
-        "grime": 0.0,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 1
-      },
-      "screen5": {
-        "palette": 53,
-        "fade_palette": 42,
-        "fade_strength": 0.3478261,
-        "grime": 0.0,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 1
-      }
-    },
-    "oe_rail04": {
-      "palette": 19,
-      "fade_palette": 8,
-      "fade_strength": 0.6304348,
-      "grime": 0.0,
-      "effect_color_b": 18,
-      "danger_type": 2
-    },
-    "oe_rail03": {
-      "palette": 10,
-      "fade_palette": 14,
-      "fade_strength": 0.8260869,
-      "grime": 0.0,
-      "effect_color_a": 21,
-      "effect_color_b": 21,
-      "danger_type": 1,
-      "screen0": {
-        "palette": 10,
-        "fade_palette": 14,
-        "fade_strength": 0.8260869,
-        "grime": 0.0,
-        "effect_color_a": 21,
-        "effect_color_b": 21,
-        "danger_type": 1
-      },
-      "screen1": {
-        "palette": 10,
-        "fade_palette": 14,
-        "fade_strength": 0.6847826,
-        "grime": 0.0,
-        "effect_color_a": 21,
-        "effect_color_b": 21,
-        "danger_type": 1
-      },
-      "screen2": {
-        "palette": 10,
-        "fade_palette": 14,
-        "fade_strength": 0.6195652,
-        "grime": 0.0,
-        "effect_color_a": 21,
-        "effect_color_b": 21,
-        "danger_type": 1
-      },
-      "screen3": {
-        "palette": 10,
-        "fade_palette": 14,
-        "fade_strength": 0.5543478,
-        "grime": 0.0,
-        "effect_color_a": 21,
-        "effect_color_b": 21,
-        "danger_type": 1
-      },
-      "screen4": {
-        "palette": 10,
-        "fade_palette": 14,
-        "fade_strength": 0.5,
-        "grime": 0.0,
-        "effect_color_a": 21,
-        "effect_color_b": 21,
-        "danger_type": 1
-      },
-      "screen5": {
-        "palette": 10,
-        "fade_palette": 14,
-        "fade_strength": 0.75,
-        "grime": 0.0,
-        "effect_color_a": 21,
-        "effect_color_b": 21,
-        "danger_type": 1
-      },
-      "screen6": {
-        "palette": 10,
-        "fade_palette": 14,
-        "fade_strength": 0.6630435,
-        "grime": 0.0,
-        "effect_color_a": 21,
-        "effect_color_b": 21,
-        "danger_type": 1
-      },
-      "screen7": {
-        "palette": 10,
-        "fade_palette": 14,
-        "fade_strength": 0.5869565,
-        "grime": 0.0,
-        "effect_color_a": 21,
-        "effect_color_b": 21,
-        "danger_type": 1
-      },
-      "screen8": {
-        "palette": 10,
-        "fade_palette": 14,
-        "fade_strength": 0.5326087,
-        "grime": 0.0,
-        "effect_color_a": 21,
-        "effect_color_b": 21,
-        "danger_type": 1
-      },
-      "screen9": {
-        "palette": 10,
-        "fade_palette": 14,
-        "fade_strength": 0.4891304,
-        "grime": 0.0,
-        "effect_color_a": 21,
-        "effect_color_b": 21,
-        "danger_type": 1
-      }
-    },
-    "oe_rail02": {
-      "palette": 53,
-      "fade_palette": 53,
-      "fade_strength": 1.0,
-      "grime": 0.0,
-      "effect_color_a": 13,
-      "effect_color_b": 18,
-      "danger_type": 1,
-      "screen0": {
-        "palette": 53,
-        "fade_palette": 53,
-        "fade_strength": 1.0,
-        "grime": 0.0,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 1
-      },
-      "screen1": {
-        "palette": 53,
-        "fade_palette": 53,
-        "fade_strength": 0.6521739,
-        "grime": 0.0,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 1
-      },
-      "screen2": {
-        "palette": 53,
-        "fade_palette": 53,
-        "fade_strength": 0.3043478,
-        "grime": 0.0,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 1
-      },
-      "screen3": {
-        "palette": 53,
-        "fade_palette": 53,
-        "fade_strength": 0.0,
-        "grime": 0.0,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 1
-      }
-    },
-    "oe_rail01": {
-      "palette": 14,
-      "fade_palette": 10,
-      "fade_strength": 0.5543478,
-      "grime": 0.19565220177173615,
-      "effect_color_a": 0,
-      "effect_color_b": 2,
-      "danger_type": 3,
-      "screen0": {
-        "palette": 14,
-        "fade_palette": 10,
-        "fade_strength": 0.5543478,
-        "grime": 0.19565220177173615,
-        "effect_color_a": 0,
-        "effect_color_b": 2,
-        "danger_type": 3
-      },
-      "screen1": {
-        "palette": 14,
-        "fade_palette": 10,
-        "fade_strength": 0.5652174,
-        "grime": 0.19565220177173615,
-        "effect_color_a": 0,
-        "effect_color_b": 2,
-        "danger_type": 3
-      },
-      "screen2": {
-        "palette": 14,
-        "fade_palette": 10,
-        "fade_strength": 0.5760869,
-        "grime": 0.19565220177173615,
-        "effect_color_a": 0,
-        "effect_color_b": 2,
-        "danger_type": 3
-      },
-      "screen3": {
-        "palette": 14,
-        "fade_palette": 10,
-        "fade_strength": 0.5978261,
-        "grime": 0.19565220177173615,
-        "effect_color_a": 0,
-        "effect_color_b": 2,
-        "danger_type": 3
-      },
-      "screen4": {
-        "palette": 14,
-        "fade_palette": 10,
-        "fade_strength": 0.6086956,
-        "grime": 0.19565220177173615,
-        "effect_color_a": 0,
-        "effect_color_b": 2,
-        "danger_type": 3
-      },
-      "screen5": {
-        "palette": 14,
-        "fade_palette": 10,
-        "fade_strength": 0.6195652,
-        "grime": 0.19565220177173615,
-        "effect_color_a": 0,
-        "effect_color_b": 2,
-        "danger_type": 3
-      },
-      "screen6": {
-        "palette": 14,
-        "fade_palette": 10,
-        "fade_strength": 0.5108696,
-        "grime": 0.19565220177173615,
-        "effect_color_a": 0,
-        "effect_color_b": 2,
-        "danger_type": 3
-      },
-      "screen7": {
-        "palette": 14,
-        "fade_palette": 10,
-        "fade_strength": 0.5326087,
-        "grime": 0.19565220177173615,
-        "effect_color_a": 0,
-        "effect_color_b": 2,
-        "danger_type": 3
-      },
-      "screen8": {
-        "palette": 14,
-        "fade_palette": 10,
-        "fade_strength": 0.5652174,
-        "grime": 0.19565220177173615,
-        "effect_color_a": 0,
-        "effect_color_b": 2,
-        "danger_type": 3
-      },
-      "screen9": {
-        "palette": 14,
-        "fade_palette": 10,
-        "fade_strength": 0.5869565,
-        "grime": 0.19565220177173615,
-        "effect_color_a": 0,
-        "effect_color_b": 2,
-        "danger_type": 3
-      },
-      "screen10": {
-        "palette": 14,
-        "fade_palette": 10,
-        "fade_strength": 0.5978261,
-        "grime": 0.19565220177173615,
-        "effect_color_a": 0,
-        "effect_color_b": 2,
-        "danger_type": 3
-      },
-      "screen11": {
-        "palette": 14,
-        "fade_palette": 10,
-        "fade_strength": 0.6086956,
-        "grime": 0.19565220177173615,
-        "effect_color_a": 0,
-        "effect_color_b": 2,
-        "danger_type": 3
-      }
-    },
-    "oe_rail06": {
-      "palette": 19,
-      "fade_palette": 8,
-      "fade_strength": 0.5978261,
-      "grime": 0.30434781312942505,
-      "effect_color_b": 18,
-      "danger_type": 0,
-      "screen0": {
-        "palette": 19,
-        "fade_palette": 8,
-        "fade_strength": 0.5978261,
-        "grime": 0.30434781312942505,
-        "effect_color_b": 18,
-        "danger_type": 0
-      },
-      "screen1": {
-        "palette": 19,
-        "fade_palette": 8,
-        "fade_strength": 0.6086956,
-        "grime": 0.30434781312942505,
-        "effect_color_b": 18,
-        "danger_type": 0
-      },
-      "screen2": {
-        "palette": 19,
-        "fade_palette": 8,
-        "fade_strength": 0.6195652,
-        "grime": 0.30434781312942505,
-        "effect_color_b": 18,
-        "danger_type": 0
-      },
-      "screen3": {
-        "palette": 19,
-        "fade_palette": 8,
-        "fade_strength": 0.6304348,
-        "grime": 0.30434781312942505,
-        "effect_color_b": 18,
-        "danger_type": 0
-      },
-      "screen4": {
-        "palette": 19,
-        "fade_palette": 8,
-        "fade_strength": 0.6413044,
-        "grime": 0.30434781312942505,
-        "effect_color_b": 18,
-        "danger_type": 0
-      },
-      "screen5": {
-        "palette": 19,
-        "fade_palette": 8,
-        "fade_strength": 0.6521739,
-        "grime": 0.30434781312942505,
-        "effect_color_b": 18,
-        "danger_type": 0
-      }
-    },
-    "oe_rail05": {
-      "palette": 19,
-      "fade_palette": 8,
-      "fade_strength": 0.6521739,
-      "grime": 0.0,
-      "effect_color_a": 16,
-      "effect_color_b": 18,
-      "danger_type": 2,
-      "screen0": {
-        "palette": 19,
-        "fade_palette": 8,
-        "fade_strength": 0.6521739,
-        "grime": 0.0,
-        "effect_color_a": 16,
-        "effect_color_b": 18,
-        "danger_type": 2
-      },
-      "screen1": {
-        "palette": 19,
-        "fade_palette": 8,
-        "fade_strength": 0.6413044,
-        "grime": 0.0,
-        "effect_color_a": 16,
-        "effect_color_b": 18,
-        "danger_type": 2
-      },
-      "screen2": {
-        "palette": 19,
-        "fade_palette": 8,
-        "fade_strength": 0.6413044,
-        "grime": 0.0,
-        "effect_color_a": 16,
-        "effect_color_b": 18,
-        "danger_type": 2
-      }
-    },
-    "oe_spire": {
-      "palette": 23,
-      "fade_palette": 14,
-      "fade_strength": 0.6847826,
-      "grime": 0.0,
-      "effect_color_a": 6,
-      "effect_color_b": 18,
-      "danger_type": 1,
-      "screen0": {
-        "palette": 23,
-        "fade_palette": 14,
-        "fade_strength": 0.6847826,
-        "grime": 0.0,
-        "effect_color_a": 6,
-        "effect_color_b": 18,
-        "danger_type": 1
-      },
-      "screen1": {
-        "palette": 23,
-        "fade_palette": 14,
-        "fade_strength": 0.6304348,
-        "grime": 0.0,
-        "effect_color_a": 6,
-        "effect_color_b": 18,
-        "danger_type": 1
-      }
-    },
-    "oe_brokendrain": {
-      "palette": 53,
-      "fade_palette": 3,
-      "fade_strength": 0.326087,
-      "grime": 0.0,
-      "effect_color_a": 16,
-      "effect_color_b": 18,
-      "danger_type": 3,
-      "screen0": {
-        "palette": 53,
-        "fade_palette": 3,
-        "fade_strength": 0.326087,
-        "grime": 0.0,
-        "effect_color_a": 16,
-        "effect_color_b": 18,
-        "danger_type": 3
-      },
-      "screen1": {
-        "palette": 53,
-        "fade_palette": 3,
-        "fade_strength": 0.3804348,
-        "grime": 0.0,
-        "effect_color_a": 16,
-        "effect_color_b": 18,
-        "danger_type": 3
-      }
-    },
-    "oe_midshelter": {
-      "palette": 53,
-      "fade_palette": 42,
-      "fade_strength": 0.1195652,
-      "grime": 0.0,
-      "effect_color_a": 13,
-      "effect_color_b": 18,
-      "danger_type": 1
-    },
-    "oe_backfilter": {
-      "palette": 14,
-      "fade_palette": 3,
-      "fade_strength": 0.6630435,
-      "grime": 0.0,
-      "effect_color_a": 13,
-      "effect_color_b": 18,
-      "danger_type": 1
-    },
-    "oe_tower11": {
-      "palette": 14,
-      "fade_palette": 8,
-      "fade_strength": 0.6521739,
-      "grime": 0.18478259444236755,
-      "effect_color_a": 0,
-      "effect_color_b": 18,
-      "danger_type": 3
-    },
-    "oe_tower12": {
-      "palette": 14,
-      "fade_palette": 8,
-      "fade_strength": 0.4565217,
-      "grime": 0.21739129722118378,
-      "effect_color_a": 0,
-      "effect_color_b": 18,
-      "danger_type": 3,
-      "screen0": {
-        "palette": 14,
-        "fade_palette": 8,
-        "fade_strength": 0.4565217,
-        "grime": 0.21739129722118378,
-        "effect_color_a": 0,
-        "effect_color_b": 18,
-        "danger_type": 3
-      },
-      "screen1": {
-        "palette": 14,
-        "fade_palette": 8,
-        "fade_strength": 0.4565217,
-        "grime": 0.21739129722118378,
-        "effect_color_a": 0,
-        "effect_color_b": 18,
-        "danger_type": 3
-      }
-    },
-    "oe_tower13": {
-      "palette": 14,
-      "fade_palette": 8,
-      "fade_strength": 0.5760869,
-      "grime": 0.21739129722118378,
-      "effect_color_a": 0,
-      "effect_color_b": 18,
-      "danger_type": 3,
-      "screen0": {
-        "palette": 14,
-        "fade_palette": 8,
-        "fade_strength": 0.5760869,
-        "grime": 0.21739129722118378,
-        "effect_color_a": 0,
-        "effect_color_b": 18,
-        "danger_type": 3
-      },
-      "screen1": {
-        "palette": 14,
-        "fade_palette": 8,
-        "fade_strength": 0.5760869,
-        "grime": 0.21739129722118378,
-        "effect_color_a": 0,
-        "effect_color_b": 18,
-        "danger_type": 3
-      }
-    },
-    "oe_tower14": {
-      "palette": 14,
-      "fade_palette": 8,
-      "fade_strength": 0.7826087,
-      "grime": 0.21739129722118378,
-      "effect_color_a": 0,
-      "effect_color_b": 18,
-      "danger_type": 3,
-      "screen0": {
-        "palette": 14,
-        "fade_palette": 8,
-        "fade_strength": 0.7826087,
-        "grime": 0.21739129722118378,
-        "effect_color_a": 0,
-        "effect_color_b": 18,
-        "danger_type": 3
-      },
-      "screen1": {
-        "palette": 14,
-        "fade_palette": 8,
-        "fade_strength": 0.7717391,
-        "grime": 0.21739129722118378,
-        "effect_color_a": 0,
-        "effect_color_b": 18,
-        "danger_type": 3
-      }
-    },
-    "oe_wormpit": {
-      "palette": 54,
-      "fade_palette": 3,
-      "fade_strength": 0.7065217,
-      "grime": 0.0,
-      "effect_color_a": 13,
-      "effect_color_b": 18,
-      "danger_type": 1
-    },
-    "oe_tower01": {
-      "palette": 14,
-      "fade_palette": 10,
-      "fade_strength": 0.5652174,
-      "grime": 0.30434781312942505,
-      "effect_color_a": 0,
-      "effect_color_b": 0,
-      "danger_type": 3,
-      "screen0": {
-        "palette": 14,
-        "fade_palette": 10,
-        "fade_strength": 0.5652174,
-        "grime": 0.30434781312942505,
-        "effect_color_a": 0,
-        "effect_color_b": 0,
-        "danger_type": 3
-      },
-      "screen1": {
-        "palette": 14,
-        "fade_palette": 10,
-        "fade_strength": 0.6086956,
-        "grime": 0.30434781312942505,
-        "effect_color_a": 0,
-        "effect_color_b": 0,
-        "danger_type": 3
-      },
-      "screen2": {
-        "palette": 14,
-        "fade_palette": 10,
-        "fade_strength": 0.6521739,
-        "grime": 0.30434781312942505,
-        "effect_color_a": 0,
-        "effect_color_b": 0,
-        "danger_type": 3
-      },
-      "screen3": {
-        "palette": 14,
-        "fade_palette": 10,
-        "fade_strength": 0.6956522,
-        "grime": 0.30434781312942505,
-        "effect_color_a": 0,
-        "effect_color_b": 0,
-        "danger_type": 3
-      }
-    },
-    "oe_tower02": {
-      "palette": 14,
-      "fade_palette": 10,
-      "fade_strength": 0.6086956,
-      "grime": 0.21739129722118378,
-      "effect_color_a": 13,
-      "effect_color_b": 18,
-      "danger_type": 3,
-      "screen0": {
-        "palette": 14,
-        "fade_palette": 10,
-        "fade_strength": 0.6086956,
-        "grime": 0.21739129722118378,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 3
-      },
-      "screen1": {
-        "palette": 14,
-        "fade_palette": 10,
-        "fade_strength": 0.6304348,
-        "grime": 0.21739129722118378,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 3
-      },
-      "screen2": {
-        "palette": 14,
-        "fade_palette": 10,
-        "fade_strength": 0.6086956,
-        "grime": 0.21739129722118378,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 3
-      },
-      "screen3": {
-        "palette": 14,
-        "fade_palette": 10,
-        "fade_strength": 0.5978261,
-        "grime": 0.21739129722118378,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 3
-      },
-      "screen4": {
-        "palette": 14,
-        "fade_palette": 10,
-        "fade_strength": 0.5978261,
-        "grime": 0.21739129722118378,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 3
-      }
-    },
-    "oe_tower03": {
-      "palette": 14,
-      "fade_palette": 10,
-      "fade_strength": 0.5543478,
-      "grime": 0.21739129722118378,
-      "effect_color_a": 0,
-      "effect_color_b": 2,
-      "danger_type": 3,
-      "screen0": {
-        "palette": 14,
-        "fade_palette": 10,
-        "fade_strength": 0.5543478,
-        "grime": 0.21739129722118378,
-        "effect_color_a": 0,
-        "effect_color_b": 2,
-        "danger_type": 3
-      },
-      "screen1": {
-        "palette": 14,
-        "fade_palette": 10,
-        "fade_strength": 0.5978261,
-        "grime": 0.21739129722118378,
-        "effect_color_a": 0,
-        "effect_color_b": 2,
-        "danger_type": 3
-      },
-      "screen2": {
-        "palette": 14,
-        "fade_palette": 10,
-        "fade_strength": 0.6304348,
-        "grime": 0.21739129722118378,
-        "effect_color_a": 0,
-        "effect_color_b": 2,
-        "danger_type": 3
-      }
-    },
-    "oe_tower04": {
-      "palette": 14,
-      "fade_palette": 10,
-      "fade_strength": 0.6630435,
-      "grime": 0.21739129722118378,
-      "effect_color_a": 13,
-      "effect_color_b": 18,
-      "danger_type": 3,
-      "screen0": {
-        "palette": 14,
-        "fade_palette": 10,
-        "fade_strength": 0.6630435,
-        "grime": 0.21739129722118378,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 3
-      },
-      "screen1": {
-        "palette": 14,
-        "fade_palette": 10,
-        "fade_strength": 0.6413044,
-        "grime": 0.21739129722118378,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 3
-      },
-      "screen2": {
-        "palette": 14,
-        "fade_palette": 10,
-        "fade_strength": 0.6195652,
-        "grime": 0.21739129722118378,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 3
-      },
-      "screen3": {
-        "palette": 14,
-        "fade_palette": 10,
-        "fade_strength": 0.6413044,
-        "grime": 0.21739129722118378,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 3
-      },
-      "screen4": {
-        "palette": 14,
-        "fade_palette": 10,
-        "fade_strength": 0.6739131,
-        "grime": 0.21739129722118378,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 3
-      },
-      "screen5": {
-        "palette": 14,
-        "fade_palette": 10,
-        "fade_strength": 0.6739131,
-        "grime": 0.21739129722118378,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 3
-      },
-      "screen6": {
-        "palette": 14,
-        "fade_palette": 10,
-        "fade_strength": 0.6739131,
-        "grime": 0.21739129722118378,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 3
-      },
-      "screen7": {
-        "palette": 14,
-        "fade_palette": 10,
-        "fade_strength": 0.6739131,
-        "grime": 0.21739129722118378,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 3
-      }
-    },
-    "oe_tower05": {
-      "palette": 14,
-      "fade_palette": 10,
-      "fade_strength": 0.5652174,
-      "grime": 0.30434781312942505,
-      "effect_color_a": 0,
-      "effect_color_b": 0,
-      "danger_type": 3,
-      "screen0": {
-        "palette": 14,
-        "fade_palette": 10,
-        "fade_strength": 0.5652174,
-        "grime": 0.30434781312942505,
-        "effect_color_a": 0,
-        "effect_color_b": 0,
-        "danger_type": 3
-      },
-      "screen1": {
-        "palette": 14,
-        "fade_palette": 10,
-        "fade_strength": 0.6086956,
-        "grime": 0.30434781312942505,
-        "effect_color_a": 0,
-        "effect_color_b": 0,
-        "danger_type": 3
-      },
-      "screen2": {
-        "palette": 14,
-        "fade_palette": 10,
-        "fade_strength": 0.6521739,
-        "grime": 0.30434781312942505,
-        "effect_color_a": 0,
-        "effect_color_b": 0,
-        "danger_type": 3
-      },
-      "screen3": {
-        "palette": 14,
-        "fade_palette": 10,
-        "fade_strength": 0.6956522,
-        "grime": 0.30434781312942505,
-        "effect_color_a": 0,
-        "effect_color_b": 0,
-        "danger_type": 3
-      }
-    },
-    "oe_tower06": {
-      "palette": 14,
-      "fade_palette": 10,
-      "fade_strength": 0.4673913,
-      "grime": 0.21739129722118378,
-      "effect_color_a": 0,
-      "effect_color_b": 2,
-      "danger_type": 3,
-      "screen0": {
-        "palette": 14,
-        "fade_palette": 10,
-        "fade_strength": 0.4673913,
-        "grime": 0.21739129722118378,
-        "effect_color_a": 0,
-        "effect_color_b": 2,
-        "danger_type": 3
-      },
-      "screen1": {
-        "palette": 14,
-        "fade_palette": 10,
-        "fade_strength": 0.5217391,
-        "grime": 0.21739129722118378,
-        "effect_color_a": 0,
-        "effect_color_b": 2,
-        "danger_type": 3
-      },
-      "screen2": {
-        "palette": 14,
-        "fade_palette": 10,
-        "fade_strength": 0.5978261,
-        "grime": 0.21739129722118378,
-        "effect_color_a": 0,
-        "effect_color_b": 2,
-        "danger_type": 3
-      }
-    },
-    "oe_tower07": {
-      "palette": 14,
-      "fade_palette": 3,
-      "fade_strength": 0.4782609,
-      "grime": 0.0,
-      "effect_color_a": 13,
-      "effect_color_b": 18,
-      "danger_type": 3,
-      "screen0": {
-        "palette": 14,
-        "fade_palette": 3,
-        "fade_strength": 0.4782609,
-        "grime": 0.0,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 3
-      },
-      "screen1": {
-        "palette": 14,
-        "fade_palette": 3,
-        "fade_strength": 0.5,
-        "grime": 0.0,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 3
-      },
-      "screen2": {
-        "palette": 14,
-        "fade_palette": 3,
-        "fade_strength": 0.5760869,
-        "grime": 0.0,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 3
-      },
-      "screen3": {
-        "palette": 14,
-        "fade_palette": 3,
-        "fade_strength": 0.6521739,
-        "grime": 0.0,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 3
-      }
-    },
-    "oe_tower08": {
-      "palette": 53,
-      "fade_palette": 20,
-      "fade_strength": 0.1413043,
-      "grime": 0.0,
-      "effect_color_a": 3,
-      "effect_color_b": 16,
-      "danger_type": 0,
-      "screen0": {
-        "palette": 53,
-        "fade_palette": 20,
-        "fade_strength": 0.1413043,
-        "grime": 0.0,
-        "effect_color_a": 3,
-        "effect_color_b": 16,
-        "danger_type": 0
-      },
-      "screen1": {
-        "palette": 53,
-        "fade_palette": 20,
-        "fade_strength": 0.2717391,
-        "grime": 0.0,
-        "effect_color_a": 3,
-        "effect_color_b": 16,
-        "danger_type": 0
-      },
-      "screen2": {
-        "palette": 53,
-        "fade_palette": 20,
-        "fade_strength": 0.4347826,
-        "grime": 0.0,
-        "effect_color_a": 3,
-        "effect_color_b": 16,
-        "danger_type": 0
-      },
-      "screen3": {
-        "palette": 53,
-        "fade_palette": 20,
-        "fade_strength": 0.6195652,
-        "grime": 0.0,
-        "effect_color_a": 3,
-        "effect_color_b": 16,
-        "danger_type": 0
-      }
-    },
-    "oe_tower09": {
-      "palette": 14,
-      "fade_palette": 10,
-      "fade_strength": 0.5978261,
-      "grime": 0.21739129722118378,
-      "effect_color_a": 13,
-      "effect_color_b": 18,
-      "danger_type": 3,
-      "screen0": {
-        "palette": 14,
-        "fade_palette": 10,
-        "fade_strength": 0.5978261,
-        "grime": 0.21739129722118378,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 3
-      },
-      "screen1": {
-        "palette": 14,
-        "fade_palette": 10,
-        "fade_strength": 0.5760869,
-        "grime": 0.21739129722118378,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 3
-      },
-      "screen2": {
-        "palette": 14,
-        "fade_palette": 10,
-        "fade_strength": 0.5869565,
-        "grime": 0.21739129722118378,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 3
-      },
-      "screen3": {
-        "palette": 14,
-        "fade_palette": 10,
-        "fade_strength": 0.5869565,
-        "grime": 0.21739129722118378,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 3
-      },
-      "screen4": {
-        "palette": 14,
-        "fade_palette": 10,
-        "fade_strength": 0.5652174,
-        "grime": 0.21739129722118378,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 3
-      },
-      "screen5": {
-        "palette": 14,
-        "fade_palette": 10,
-        "fade_strength": 0.5869565,
-        "grime": 0.21739129722118378,
-        "effect_color_a": 13,
-        "effect_color_b": 18,
-        "danger_type": 3
-      }
-    },
-    "oe_tower10": {
-      "palette": 14,
-      "fade_palette": 10,
-      "fade_strength": 0.6304348,
-      "grime": 0.21739129722118378,
-      "effect_color_a": 0,
-      "effect_color_b": 18,
-      "danger_type": 3,
-      "screen0": {
-        "palette": 14,
-        "fade_palette": 10,
-        "fade_strength": 0.6304348,
-        "grime": 0.21739129722118378,
-        "effect_color_a": 0,
-        "effect_color_b": 18,
-        "danger_type": 3
-      },
-      "screen1": {
-        "palette": 14,
-        "fade_palette": 10,
-        "fade_strength": 0.6521739,
-        "grime": 0.21739129722118378,
-        "effect_color_a": 0,
-        "effect_color_b": 18,
-        "danger_type": 3
-      },
-      "screen2": {
-        "palette": 14,
-        "fade_palette": 10,
-        "fade_strength": 0.6847826,
-        "grime": 0.21739129722118378,
-        "effect_color_a": 0,
-        "effect_color_b": 18,
-        "danger_type": 3
       }
     }
   },
@@ -20395,6 +20395,27 @@
         "danger_type": 0
       }
     },
+    "waua_b03b": {
+      "palette": 100,
+      "fade_palette": 10,
+      "fade_strength": 0.7247372,
+      "grime": 0.0,
+      "danger_type": 0,
+      "screen0": {
+        "palette": 100,
+        "fade_palette": 10,
+        "fade_strength": 0.7247372,
+        "grime": 0.0,
+        "danger_type": 0
+      },
+      "screen1": {
+        "palette": 100,
+        "fade_palette": 10,
+        "fade_strength": 0.5017415,
+        "grime": 0.0,
+        "danger_type": 0
+      }
+    },
     "waua_c02": {
       "palette": 100,
       "fade_palette": 21,
@@ -20424,27 +20445,6 @@
         "fade_strength": 0.2415455,
         "grime": 0.10052060335874557,
         "effect_color_b": 13,
-        "danger_type": 0
-      }
-    },
-    "waua_b03b": {
-      "palette": 100,
-      "fade_palette": 10,
-      "fade_strength": 0.7247372,
-      "grime": 0.0,
-      "danger_type": 0,
-      "screen0": {
-        "palette": 100,
-        "fade_palette": 10,
-        "fade_strength": 0.7247372,
-        "grime": 0.0,
-        "danger_type": 0
-      },
-      "screen1": {
-        "palette": 100,
-        "fade_palette": 10,
-        "fade_strength": 0.5017415,
-        "grime": 0.0,
         "danger_type": 0
       }
     },
@@ -23396,15 +23396,6 @@
       "effect_color_b": 6,
       "danger_type": 1
     },
-    "dm_lab3": {
-      "palette": 24,
-      "fade_palette": 10,
-      "fade_strength": 0.8586956,
-      "grime": 0.0,
-      "effect_color_a": 12,
-      "effect_color_b": 6,
-      "danger_type": 0
-    },
     "dm_leg02": {
       "palette": 13,
       "fade_palette": 17,
@@ -23450,10 +23441,10 @@
         "danger_type": 1
       }
     },
-    "dm_lab4": {
+    "dm_lab3": {
       "palette": 24,
-      "fade_palette": 17,
-      "fade_strength": 0.06521739,
+      "fade_palette": 10,
+      "fade_strength": 0.8586956,
       "grime": 0.0,
       "effect_color_a": 12,
       "effect_color_b": 6,
@@ -23512,6 +23503,15 @@
         "effect_color_b": 6,
         "danger_type": 1
       }
+    },
+    "dm_lab4": {
+      "palette": 24,
+      "fade_palette": 17,
+      "fade_strength": 0.06521739,
+      "grime": 0.0,
+      "effect_color_a": 12,
+      "effect_color_b": 6,
+      "danger_type": 0
     },
     "dm_lab5": {
       "palette": 24,
@@ -51199,6 +51199,42 @@
         "danger_type": 0
       }
     },
+    "warg_g19": {
+      "palette": 81,
+      "fade_palette": 33,
+      "fade_strength": 0.7065217,
+      "grime": 0.0,
+      "effect_color_a": 18,
+      "effect_color_b": 10,
+      "danger_type": 0,
+      "screen0": {
+        "palette": 81,
+        "fade_palette": 33,
+        "fade_strength": 0.7065217,
+        "grime": 0.0,
+        "effect_color_a": 18,
+        "effect_color_b": 10,
+        "danger_type": 0
+      },
+      "screen1": {
+        "palette": 81,
+        "fade_palette": 33,
+        "fade_strength": 0.6521739,
+        "grime": 0.0,
+        "effect_color_a": 18,
+        "effect_color_b": 10,
+        "danger_type": 0
+      },
+      "screen2": {
+        "palette": 81,
+        "fade_palette": 33,
+        "fade_strength": 0.6086956,
+        "grime": 0.0,
+        "effect_color_a": 18,
+        "effect_color_b": 10,
+        "danger_type": 0
+      }
+    },
     "warg_o06_future": {
       "palette": 81,
       "fade_palette": 33,
@@ -51242,42 +51278,6 @@
         "effect_color_a": 9,
         "effect_color_b": 18,
         "danger_type": 4
-      }
-    },
-    "warg_g19": {
-      "palette": 81,
-      "fade_palette": 33,
-      "fade_strength": 0.7065217,
-      "grime": 0.0,
-      "effect_color_a": 18,
-      "effect_color_b": 10,
-      "danger_type": 0,
-      "screen0": {
-        "palette": 81,
-        "fade_palette": 33,
-        "fade_strength": 0.7065217,
-        "grime": 0.0,
-        "effect_color_a": 18,
-        "effect_color_b": 10,
-        "danger_type": 0
-      },
-      "screen1": {
-        "palette": 81,
-        "fade_palette": 33,
-        "fade_strength": 0.6521739,
-        "grime": 0.0,
-        "effect_color_a": 18,
-        "effect_color_b": 10,
-        "danger_type": 0
-      },
-      "screen2": {
-        "palette": 81,
-        "fade_palette": 33,
-        "fade_strength": 0.6086956,
-        "grime": 0.0,
-        "effect_color_a": 18,
-        "effect_color_b": 10,
-        "danger_type": 0
       }
     },
     "warg_g10": {

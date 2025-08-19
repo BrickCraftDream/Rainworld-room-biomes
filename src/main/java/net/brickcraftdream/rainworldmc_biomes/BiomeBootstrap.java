@@ -200,6 +200,7 @@ public class BiomeBootstrap {
                                            0,
                                            0);
         }
+
         try {
             saveImageToFile(image, "png", "/home/deck/IdeaProjects/Rainworld-MC_Biomes mojamap 1.21.1/src/main/resources/assets/rainworld/textures/dynamic/shader_data.png");
             saveImageToFile(image, "png", "/home/deck/IdeaProjects/room_creation_tool/src/main/resources/assets/room_creation_tool/textures/dynamic/shader_data.png");
@@ -210,6 +211,266 @@ public class BiomeBootstrap {
         generator.saveSpreadsheet("/home/deck/IdeaProjects/Rainworld-MC_Biomes mojamap/build/datagen/colored_new.html");
         jsonExporter.exportToFile("/home/deck/IdeaProjects/Rainworld-MC_Biomes mojamap 1.21.1/build/datagen/biomes.json");
         jsonExporter.exportToFile("/home/deck/IdeaProjects/Rainworld-MC_Biomes mojamap 1.21.1/src/main/resources/assets/rainworld/data/biomes.json");
+
+
+    }
+
+    public static class BiomeSettings {
+        private int sky;
+        private int fog;
+        private int water;
+        private int waterfog;
+        private int palette;
+        private int fadePalette;
+        private float fadeStrength;
+        private int grime;
+        private int effectColorA;
+        private int effectColorB;
+        private int dangerType;
+
+        public BiomeSettings(int sky, int fog, int water, int waterfog,
+                             int palette, int fadePalette, float fadeStrength,
+                             int grime, int effectColorA, int effectColorB,
+                             int dangerType) {
+            this.sky = sky;
+            this.fog = fog;
+            this.water = water;
+            this.waterfog = waterfog;
+            this.palette = palette;
+            this.fadePalette = fadePalette;
+            this.fadeStrength = fadeStrength;
+            this.grime = grime;
+            this.effectColorA = effectColorA;
+            this.effectColorB = effectColorB;
+            this.dangerType = dangerType;
+        }
+
+        public int getSky() { return sky; }
+        public void setSky(int sky) { this.sky = sky; }
+
+        public int getFog() { return fog; }
+        public void setFog(int fog) { this.fog = fog; }
+
+        public int getWater() { return water; }
+        public void setWater(int water) { this.water = water; }
+
+        public int getWaterfog() { return waterfog; }
+        public void setWaterfog(int waterfog) { this.waterfog = waterfog; }
+
+        public int getPalette() { return palette; }
+        public void setPalette(int palette) { this.palette = palette; }
+
+        public int getFadePalette() { return fadePalette; }
+        public void setFadePalette(int fadePalette) { this.fadePalette = fadePalette; }
+
+        public float getFadeStrength() { return fadeStrength; }
+        public void setFadeStrength(float fadeStrength) { this.fadeStrength = fadeStrength; }
+
+        public int getGrime() { return grime; }
+        public void setGrime(int grime) { this.grime = grime; }
+
+        public int getEffectColorA() { return effectColorA; }
+        public void setEffectColorA(int effectColorA) { this.effectColorA = effectColorA; }
+
+        public int getEffectColorB() { return effectColorB; }
+        public void setEffectColorB(int effectColorB) { this.effectColorB = effectColorB; }
+
+        public int getDangerType() { return dangerType; }
+        public void setDangerType(int dangerType) { this.dangerType = dangerType; }
+    }
+
+    private static Map<String, BiomeSettings> vanillaBiomes = new HashMap<>();
+
+    static {
+        vanillaBiomes.put("bitter_aerie",   new BiomeSettings(14739431, 14739431, 1252906, 1252906, 34, 37, 0, 0, 11, 3, 1));
+        vanillaBiomes.put("chimney_canopy", new BiomeSettings(11374458, 11374458, 3366750, 3366750, 6, 15, 0, 0, 10, 2, 0));
+        vanillaBiomes.put("depths", new BiomeSettings(0, 0, 16766566, 11634971, 20, 8, 0, 0, 13, 0, 0));
+        vanillaBiomes.put("drainage_system", new BiomeSettings(5728100, 5728100, 3366750, 3366750, 4, 8, 0, 0, 13, 6, 0));
+        vanillaBiomes.put("farm_arrays", new BiomeSettings(6057833, 6057833, 3035725, 3035725, 14, 15, 0, 0, 4, 18, 1));
+
+        vanillaBiomes.put("farm_arrays_sky_islands", new BiomeSettings(11374458, 11374458, 3366750, 3366750, 6, 15, 0, 0, 10, 2, 0));
+
+        vanillaBiomes.put("filtration_system", new BiomeSettings(11374458, 11374458, 3366750, 3366750, 6, 15, 0, 0, 10, 2, 0));
+        vanillaBiomes.put("five_pebbles", new BiomeSettings(11374458, 11374458, 3366750, 3366750, 6, 15, 0, 0, 10, 2, 0));
+        vanillaBiomes.put("garbage_wastes", new BiomeSettings(11374458, 11374458, 3366750, 3366750, 6, 15, 0, 0, 10, 2, 0));
+        vanillaBiomes.put("gutter", new BiomeSettings(11374458, 11374458, 3366750, 3366750, 6, 15, 0, 0, 10, 2, 0));
+        vanillaBiomes.put("industrial_complex", new BiomeSettings(11374458, 11374458, 3366750, 3366750, 6, 15, 0, 0, 10, 2, 0));
+        vanillaBiomes.put("memory_crypts", new BiomeSettings(11374458, 11374458, 3366750, 3366750, 6, 15, 0, 0, 10, 2, 0));
+        vanillaBiomes.put("moon_roof", new BiomeSettings(11374458, 11374458, 3366750, 3366750, 6, 15, 0, 0, 10, 2, 0));
+        vanillaBiomes.put("outer_expanse", new BiomeSettings(11374458, 11374458, 3366750, 3366750, 6, 15, 0, 0, 10, 2, 0));
+        vanillaBiomes.put("outskirts", new BiomeSettings(11374458, 11374458, 3366750, 3366750, 6, 15, 0, 0, 10, 2, 0));
+        vanillaBiomes.put("pipeyard", new BiomeSettings(11374458, 11374458, 3366750, 3366750, 6, 15, 0, 0, 10, 2, 0));
+        vanillaBiomes.put("precipice", new BiomeSettings(11374458, 11374458, 3366750, 3366750, 6, 15, 0, 0, 10, 2, 0));
+        vanillaBiomes.put("sh_0", new BiomeSettings(11374458, 11374458, 3366750, 3366750, 6, 15, 0, 0, 10, 2, 0));
+        vanillaBiomes.put("sh_1", new BiomeSettings(11374458, 11374458, 3366750, 3366750, 6, 15, 0, 0, 10, 2, 0));
+        vanillaBiomes.put("sh_2", new BiomeSettings(11374458, 11374458, 3366750, 3366750, 6, 15, 0, 0, 10, 2, 0));
+        vanillaBiomes.put("sh_3", new BiomeSettings(11374458, 11374458, 3366750, 3366750, 6, 15, 0, 0, 10, 2, 0));
+        vanillaBiomes.put("sh_4", new BiomeSettings(11374458, 11374458, 3366750, 3366750, 6, 15, 0, 0, 10, 2, 0));
+        vanillaBiomes.put("sh_5", new BiomeSettings(11374458, 11374458, 3366750, 3366750, 6, 15, 0, 0, 10, 2, 0));
+        vanillaBiomes.put("shoreline", new BiomeSettings(11374458, 11374458, 3366750, 3366750, 6, 15, 0, 0, 10, 2, 0));
+        vanillaBiomes.put("sky_0", new BiomeSettings(11374458, 11374458, 3366750, 3366750, 6, 15, 0, 0, 10, 2, 0));
+        vanillaBiomes.put("sky_islands", new BiomeSettings(11374458, 11374458, 3366750, 3366750, 6, 15, 0, 0, 10, 2, 0));
+        vanillaBiomes.put("ss_high", new BiomeSettings(11374458, 11374458, 3366750, 3366750, 6, 15, 0, 0, 10, 2, 0));
+        vanillaBiomes.put("submerged_superstructure", new BiomeSettings(11374458, 11374458, 3366750, 3366750, 6, 15, 0, 0, 10, 2, 0));
+        vanillaBiomes.put("subterranean", new BiomeSettings(11374458, 11374458, 3366750, 3366750, 6, 15, 0, 0, 10, 2, 0));
+        vanillaBiomes.put("subway", new BiomeSettings(11374458, 11374458, 3366750, 3366750, 6, 15, 0, 0, 10, 2, 0));
+        vanillaBiomes.put("sump_tunnel", new BiomeSettings(11374458, 11374458, 3366750, 3366750, 6, 15, 0, 0, 10, 2, 0));
+        vanillaBiomes.put("sunken_pier", new BiomeSettings(11374458, 11374458, 3366750, 3366750, 6, 15, 0, 0, 10, 2, 0));
+        vanillaBiomes.put("underhang", new BiomeSettings(11374458, 11374458, 3366750, 3366750, 6, 15, 0, 0, 10, 2, 0));
+        vanillaBiomes.put("vents", new BiomeSettings(11374458, 11374458, 3366750, 3366750, 6, 15, 0, 0, 10, 2, 0));
+        vanillaBiomes.put("wall_lower", new BiomeSettings(11374458, 11374458, 3366750, 3366750, 6, 15, 0, 0, 10, 2, 0));
+        vanillaBiomes.put("wall_middle", new BiomeSettings(11374458, 11374458, 3366750, 3366750, 6, 15, 0, 0, 10, 2, 0));
+        vanillaBiomes.put("wall_top", new BiomeSettings(11374458, 11374458, 3366750, 3366750, 6, 15, 0, 0, 10, 2, 0));
+        vanillaBiomes.put("wall_upper", new BiomeSettings(11374458, 11374458, 3366750, 3366750, 6, 15, 0, 0, 10, 2, 0));
+    }
+
+    private static void registerBuiltinBiomes(BootstrapContext<Biome> biomeRegisterable, int indexTemp, BufferedImage image) {
+        for(Map.Entry<String, BiomeSettings> entry : vanillaBiomes.entrySet()) {
+            String biomeName = entry.getKey();
+            BiomeSettings settings = entry.getValue();
+            registerBuiltinBiome(biomeRegisterable, biomeName, indexTemp + 2,
+                    settings.getSky(), settings.getFog(), settings.getWater(), settings.getWaterfog());
+            indexTemp = roomToImage(image, settings.getPalette(), settings.getFadePalette(),
+                    settings.getFadeStrength(), settings.getGrime(),
+                    settings.getEffectColorA(), settings.getEffectColorB(),
+                    settings.getDangerType(), indexTemp, biomeName);
+        }
+
+        /// TODO: Figure out what palette this biome should have
+        registerBuiltinBiome(biomeRegisterable, "depths", indexTemp + 2, 0, 0, 16766566, 11634971);
+        indexTemp = roomToImage(image, 34, 37, 0, 0, 11, 3, 1, indexTemp, "bitter_aerie");
+
+
+        registerBuiltinBiome(biomeRegisterable, "drainage_system", indexTemp + 2, 14739431, 14739431, 1252906, 1252906);
+        indexTemp = roomToImage(image, 34, 37, 0, 0, 11, 3, 1, indexTemp, "bitter_aerie");
+
+        registerBuiltinBiome(biomeRegisterable, "farm_arrays", indexTemp + 2, 14739431, 14739431, 1252906, 1252906);
+        indexTemp = roomToImage(image, 34, 37, 0, 0, 11, 3, 1, indexTemp, "bitter_aerie");
+
+        /// TODO: Figure out what palette this biome should have
+        registerBuiltinBiome(biomeRegisterable, "farm_arrays_sky_islads", indexTemp + 2, 14739431, 14739431, 1252906, 1252906);
+        indexTemp = roomToImage(image, 34, 37, 0, 0, 11, 3, 1, indexTemp, "bitter_aerie");
+
+        registerBuiltinBiome(biomeRegisterable, "filtration_system", indexTemp + 2, 14739431, 14739431, 1252906, 1252906);
+        indexTemp = roomToImage(image, 34, 37, 0, 0, 11, 3, 1, indexTemp, "bitter_aerie");
+
+        registerBuiltinBiome(biomeRegisterable, "five_pebbles", indexTemp + 2, 14739431, 14739431, 1252906, 1252906);
+        indexTemp = roomToImage(image, 34, 37, 0, 0, 11, 3, 1, indexTemp, "bitter_aerie");
+
+        registerBuiltinBiome(biomeRegisterable, "garbage_wastes", indexTemp + 2, 14739431, 14739431, 1252906, 1252906);
+        indexTemp = roomToImage(image, 34, 37, 0, 0, 11, 3, 1, indexTemp, "bitter_aerie");
+
+        /// TODO: Figure out what palette this biome should have
+        registerBuiltinBiome(biomeRegisterable, "gutter", indexTemp + 2, 14739431, 14739431, 1252906, 1252906);
+        indexTemp = roomToImage(image, 34, 37, 0, 0, 11, 3, 1, indexTemp, "bitter_aerie");
+
+        registerBuiltinBiome(biomeRegisterable, "industrial_complex", indexTemp + 2, 14739431, 14739431, 1252906, 1252906);
+        indexTemp = roomToImage(image, 34, 37, 0, 0, 11, 3, 1, indexTemp, "bitter_aerie");
+
+        registerBuiltinBiome(biomeRegisterable, "memory_crypts", indexTemp + 2, 14739431, 14739431, 1252906, 1252906);
+        indexTemp = roomToImage(image, 34, 37, 0, 0, 11, 3, 1, indexTemp, "bitter_aerie");
+
+        /// TODO: Figure out what palette this biome should have
+        registerBuiltinBiome(biomeRegisterable, "moon_roof", indexTemp + 2, 14739431, 14739431, 1252906, 1252906);
+        indexTemp = roomToImage(image, 34, 37, 0, 0, 11, 3, 1, indexTemp, "bitter_aerie");
+
+        registerBuiltinBiome(biomeRegisterable, "outer_expanse", indexTemp + 2, 14739431, 14739431, 1252906, 1252906);
+        indexTemp = roomToImage(image, 34, 37, 0, 0, 11, 3, 1, indexTemp, "bitter_aerie");
+
+        registerBuiltinBiome(biomeRegisterable, "outskirts", indexTemp + 2, 14739431, 14739431, 1252906, 1252906);
+        indexTemp = roomToImage(image, 34, 37, 0, 0, 11, 3, 1, indexTemp, "bitter_aerie");
+
+        registerBuiltinBiome(biomeRegisterable, "pipeyard", indexTemp + 2, 14739431, 14739431, 1252906, 1252906);
+        indexTemp = roomToImage(image, 34, 37, 0, 0, 11, 3, 1, indexTemp, "bitter_aerie");
+
+        registerBuiltinBiome(biomeRegisterable, "precipice", indexTemp + 2, 14739431, 14739431, 1252906, 1252906);
+        indexTemp = roomToImage(image, 34, 37, 0, 0, 11, 3, 1, indexTemp, "bitter_aerie");
+
+        /// TODO: What is this biome? Shaded? Or something along the lines of The Wall?
+        registerBuiltinBiome(biomeRegisterable, "sh_0", indexTemp + 2, 14739431, 14739431, 1252906, 1252906);
+        indexTemp = roomToImage(image, 34, 37, 0, 0, 11, 3, 1, indexTemp, "bitter_aerie");
+
+        registerBuiltinBiome(biomeRegisterable, "sh_1", indexTemp + 2, 14739431, 14739431, 1252906, 1252906);
+        indexTemp = roomToImage(image, 34, 37, 0, 0, 11, 3, 1, indexTemp, "bitter_aerie");
+
+        registerBuiltinBiome(biomeRegisterable, "sh_2", indexTemp + 2, 14739431, 14739431, 1252906, 1252906);
+        indexTemp = roomToImage(image, 34, 37, 0, 0, 11, 3, 1, indexTemp, "bitter_aerie");
+
+        registerBuiltinBiome(biomeRegisterable, "sh_3", indexTemp + 2, 14739431, 14739431, 1252906, 1252906);
+        indexTemp = roomToImage(image, 34, 37, 0, 0, 11, 3, 1, indexTemp, "bitter_aerie");
+
+        registerBuiltinBiome(biomeRegisterable, "sh_4", indexTemp + 2, 14739431, 14739431, 1252906, 1252906);
+        indexTemp = roomToImage(image, 34, 37, 0, 0, 11, 3, 1, indexTemp, "bitter_aerie");
+
+        registerBuiltinBiome(biomeRegisterable, "sh_5", indexTemp + 2, 14739431, 14739431, 1252906, 1252906);
+        indexTemp = roomToImage(image, 34, 37, 0, 0, 11, 3, 1, indexTemp, "bitter_aerie");
+
+        registerBuiltinBiome(biomeRegisterable, "shoreline", indexTemp + 2, 14739431, 14739431, 1252906, 1252906);
+        indexTemp = roomToImage(image, 34, 37, 0, 0, 11, 3, 1, indexTemp, "bitter_aerie");
+
+        /// TODO: What is this biome? I guess maybe something in Sky Islands
+        registerBuiltinBiome(biomeRegisterable, "sky_0", indexTemp + 2, 14739431, 14739431, 1252906, 1252906);
+        indexTemp = roomToImage(image, 34, 37, 0, 0, 11, 3, 1, indexTemp, "bitter_aerie");
+
+        registerBuiltinBiome(biomeRegisterable, "sky_islands", indexTemp + 2, 14739431, 14739431, 1252906, 1252906);
+        indexTemp = roomToImage(image, 34, 37, 0, 0, 11, 3, 1, indexTemp, "bitter_aerie");
+
+        registerBuiltinBiome(biomeRegisterable, "ss_high", indexTemp + 2, 14739431, 14739431, 1252906, 1252906);
+        indexTemp = roomToImage(image, 34, 37, 0, 0, 11, 3, 1, indexTemp, "bitter_aerie");
+
+        registerBuiltinBiome(biomeRegisterable, "submerged_superstructure", indexTemp + 2, 14739431, 14739431, 1252906, 1252906);
+        indexTemp = roomToImage(image, 34, 37, 0, 0, 11, 3, 1, indexTemp, "bitter_aerie");
+
+        registerBuiltinBiome(biomeRegisterable, "subterranean", indexTemp + 2, 14739431, 14739431, 1252906, 1252906);
+        indexTemp = roomToImage(image, 34, 37, 0, 0, 11, 3, 1, indexTemp, "bitter_aerie");
+
+        /// TODO: What even is this? Can I go from point A to B using this?
+        registerBuiltinBiome(biomeRegisterable, "subway", indexTemp + 2, 14739431, 14739431, 1252906, 1252906);
+        indexTemp = roomToImage(image, 34, 37, 0, 0, 11, 3, 1, indexTemp, "bitter_aerie");
+
+        registerBuiltinBiome(biomeRegisterable, "sump_tunnel", indexTemp + 2, 14739431, 14739431, 1252906, 1252906);
+        indexTemp = roomToImage(image, 34, 37, 0, 0, 11, 3, 1, indexTemp, "bitter_aerie");
+
+        registerBuiltinBiome(biomeRegisterable, "sunken_pier", indexTemp + 2, 14739431, 14739431, 1252906, 1252906);
+        indexTemp = roomToImage(image, 34, 37, 0, 0, 11, 3, 1, indexTemp, "bitter_aerie");
+
+        registerBuiltinBiome(biomeRegisterable, "underhang", indexTemp + 2, 14739431, 14739431, 1252906, 1252906);
+        indexTemp = roomToImage(image, 34, 37, 0, 0, 11, 3, 1, indexTemp, "bitter_aerie");
+
+        /// TODO: Another nonesense biome. SUS. Amogus.
+        registerBuiltinBiome(biomeRegisterable, "vents", indexTemp + 2, 14739431, 14739431, 1252906, 1252906);
+        indexTemp = roomToImage(image, 34, 37, 0, 0, 11, 3, 1, indexTemp, "bitter_aerie");
+
+        registerBuiltinBiome(biomeRegisterable, "wall_lower", indexTemp + 2, 14739431, 14739431, 1252906, 1252906);
+        indexTemp = roomToImage(image, 34, 37, 0, 0, 11, 3, 1, indexTemp, "bitter_aerie");
+
+        registerBuiltinBiome(biomeRegisterable, "wall_middle", indexTemp + 2, 14739431, 14739431, 1252906, 1252906);
+        indexTemp = roomToImage(image, 34, 37, 0, 0, 11, 3, 1, indexTemp, "bitter_aerie");
+
+        registerBuiltinBiome(biomeRegisterable, "wall_top", indexTemp + 2, 14739431, 14739431, 1252906, 1252906);
+        indexTemp = roomToImage(image, 34, 37, 0, 0, 11, 3, 1, indexTemp, "bitter_aerie");
+
+        registerBuiltinBiome(biomeRegisterable, "wall_upper", indexTemp + 2, 14739431, 14739431, 1252906, 1252906);
+        indexTemp = roomToImage(image, 34, 37, 0, 0, 11, 3, 1, indexTemp, "bitter_aerie");
+    }
+
+    private static void registerBuiltinBiome(BootstrapContext<Biome> biomeRegisterable, String biomeName, int indexTemp, int sky, int fog, int water, int waterfog) {
+        ResourceKey<Biome> BIOME = ResourceKey.create(
+                Registries.BIOME, ResourceLocation.withDefaultNamespace(biomeName));
+
+        biomeRegisterable.register(BIOME, new Biome.BiomeBuilder()
+                .generationSettings(BiomeGenerationSettings.EMPTY)
+                .mobSpawnSettings(MobSpawnSettings.EMPTY)
+                .hasPrecipitation(false)
+                .temperature(indexTemp)
+                .downfall(0)
+                .specialEffects((new BiomeSpecialEffects.Builder())
+                        .skyColor(sky)
+                        .fogColor(fog)
+                        .waterColor(water)
+                        .waterFogColor(waterfog)
+                        .build())
+                .build());
     }
 
     private static void registerBiome(BootstrapContext<Biome> biomeRegisterable, String filename, int indexTemp) {
@@ -239,10 +500,10 @@ public class BiomeBootstrap {
             return new Biome.BiomeBuilder()
                 .generationSettings(BiomeGenerationSettings.EMPTY)
                 .mobSpawnSettings(MobSpawnSettings.EMPTY)
-                .hasPrecipitation(false)
+                .hasPrecipitation(true)
                 //.temperature(temperature(filename))
                 .temperature(indexTemp)
-                .downfall(0)
+                .downfall(1)
                 .specialEffects((new BiomeSpecialEffects.Builder())
                     .skyColor(sky(filename))
                     .fogColor(fog(filename))
@@ -297,7 +558,7 @@ public class BiomeBootstrap {
             return new Biome.BiomeBuilder()
                     .generationSettings(BiomeGenerationSettings.EMPTY)
                     .mobSpawnSettings(MobSpawnSettings.EMPTY)
-                    .hasPrecipitation(false)
+                    .hasPrecipitation(true)
                     .temperature(indexTemp)
                     .downfall(0.5f)
                     .specialEffects((new BiomeSpecialEffects.Builder())

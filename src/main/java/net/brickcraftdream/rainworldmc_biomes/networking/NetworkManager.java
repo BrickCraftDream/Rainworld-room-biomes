@@ -2,6 +2,7 @@ package net.brickcraftdream.rainworldmc_biomes.networking;
 
 import com.google.gson.JsonElement;
 import io.netty.buffer.Unpooled;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.GlobalPos;
 import net.minecraft.core.UUIDUtil;
 import net.minecraft.core.registries.Registries;
@@ -14,6 +15,8 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.level.biome.Biome;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.ByteArrayInputStream;
@@ -28,6 +31,8 @@ import java.util.zip.InflaterInputStream;
 import static net.brickcraftdream.rainworldmc_biomes.Rainworld_MC_Biomes.MOD_ID;
 
 public class NetworkManager {
+    private static final Logger LOGGER = LogManager.getLogger(NetworkManager.class);
+
     public static final ResourceLocation MAIN_PACKET_ID = ResourceLocation.fromNamespaceAndPath(MOD_ID, "main_packet");
 
     public static final ResourceLocation SELECTED_LOCATIONS_PACKET_ID = ResourceLocation.fromNamespaceAndPath(MOD_ID, "selected_locations_packet");
@@ -125,6 +130,7 @@ public class NetworkManager {
         public static final CustomPacketPayload.Type<BiomeSyncFromClientPacket> ID = new CustomPacketPayload.Type<>(BIOME_SYNC_FROM_CLIENT_PACKET_ID);
         public static final StreamCodec<RegistryFriendlyByteBuf, BiomeSyncFromClientPacket> CODEC = StreamCodec.of(
                 (buf, packet) -> {
+                    LOGGER.info("Encoding BiomeSyncFromClientPacket with image data length: {}", packet.imageData.length);
                     byte[] imageData = packet.imageData;
                     if(imageData == null) {
                         imageData = new byte[0];
@@ -163,6 +169,7 @@ public class NetworkManager {
         public static final CustomPacketPayload.Type<BiomeSyncPacket> ID = new CustomPacketPayload.Type<>(BIOME_SYNC_PACKET_ID);
         public static final StreamCodec<RegistryFriendlyByteBuf, BiomeSyncPacket> CODEC = StreamCodec.of(
                 (buf, packet) ->  {
+                    LOGGER.info("Encoding BiomeSyncPacket with config data length: {}", packet.configData.toString().length());
                     byte[] imageData = packet.imageData;
                     if(imageData == null) {
                         imageData = new byte[0];
@@ -190,6 +197,7 @@ public class NetworkManager {
         public static final CustomPacketPayload.Type<BiomeUpdateDataRequestPacket> ID = new CustomPacketPayload.Type<>(BIOME_UPDATE_DATA_REQUEST_PACKET_ID);
         public static final StreamCodec<RegistryFriendlyByteBuf, BiomeUpdateDataRequestPacket> CODEC = StreamCodec.of(
                 (buf, packet) -> {
+                    LOGGER.info("Encoding BiomeUpdateDataRequestPacket with {} biome names and image data length: {}", packet.biomeNames.size(), packet.imageData.length);
                     ByteBufCodecs.INT.encode(buf, packet.biomeNames.size());
                     for(String name : packet.biomeNames) {
                         ByteBufCodecs.STRING_UTF8.encode(buf, name);
@@ -228,6 +236,8 @@ public class NetworkManager {
 
         public static final StreamCodec<RegistryFriendlyByteBuf, BiomeUpdatePacket> CODEC = StreamCodec.of(
                 (buf, packet) -> {
+                    LOGGER.info("Encoding BiomeUpdatePacket with custom name: {}, internal name: {}, palette: {}, fadePalette: {}, fadeStrength: {}, grime: {}, effectColorA: {}, effectColorB: {}, dangerType: {}, imageData length: {}",
+                            packet.customBiomeName, packet.internalBiomeName, packet.palette, packet.fadePalette, packet.fadeStrength, packet.grime, packet.effectColorA, packet.effectColorB, packet.dangerType, packet.imageData.length);
                     ByteBufCodecs.STRING_UTF8.encode(buf, packet.customBiomeName());
                     ByteBufCodecs.STRING_UTF8.encode(buf, packet.internalBiomeName());
                     ByteBufCodecs.INT.encode(buf, packet.palette());
@@ -331,16 +341,11 @@ public class NetworkManager {
             }
         };
 
-
-        //public static final StreamCodec<RegistryFriendlyByteBuf, BiomePlacePayload2> CODEC = StreamCodec.composite(
-        //        listCodec, BiomePlacePayload2::pos,
-        //        ByteBufCodecs.STRING_UTF8, BiomePlacePayload2::biomeNamespace,
-        //        ByteBufCodecs.STRING_UTF8, BiomePlacePayload2::biomePath,
-        //        BiomePlacePayload2::new);
-
         public static final StreamCodec<RegistryFriendlyByteBuf, BiomePlacePayload2> CODEC = new StreamCodec<>() {
             @Override
             public void encode(RegistryFriendlyByteBuf buf, BiomePlacePayload2 payload) {
+                LOGGER.info("Encoding BiomePlacePayload2 with {} positions, namespace: {}, path: {}",
+                        payload.pos().size(), payload.biomeNamespace(), payload.biomePath());
                 // Create temp buffer
                 FriendlyByteBuf tempBuf = new FriendlyByteBuf(Unpooled.buffer());
 
@@ -362,6 +367,7 @@ public class NetworkManager {
                 byte[] compressed = byteOut.toByteArray();
                 buf.writeVarInt(compressed.length);
                 buf.writeBytes(compressed);
+                LOGGER.info("Encoded BiomePlacePayload2 with size: {}", byteOut.size());
             }
 
             @Override
@@ -385,11 +391,43 @@ public class NetworkManager {
 
                 // Read from decompressed buffer
                 FriendlyByteBuf tempBuf = new FriendlyByteBuf(Unpooled.wrappedBuffer(byteOut.toByteArray()));
-                List<GlobalPos> pos = listCodec.decode(tempBuf);
+                List<GlobalPos> rawPos = listCodec.decode(tempBuf);
                 String ns = tempBuf.readUtf();
                 String path = tempBuf.readUtf();
 
-                return new BiomePlacePayload2(pos, ns, path);
+                // Expand rectangular regions
+                List<GlobalPos> expanded = new ArrayList<>();
+
+                for (int i = 0; i + 1 < rawPos.size(); i += 2) {
+                    GlobalPos first = rawPos.get(i);
+                    GlobalPos second = rawPos.get(i + 1);
+
+                    if (!first.dimension().equals(second.dimension())) {
+                        throw new IllegalStateException("Mismatched dimensions in BiomePlacePayload2: " +
+                                first.dimension() + " vs " + second.dimension());
+                    }
+
+                    BlockPos pos1 = first.pos();
+                    BlockPos pos2 = second.pos();
+
+                    int minX = Math.min(pos1.getX(), pos2.getX());
+                    int maxX = Math.max(pos1.getX(), pos2.getX());
+                    int minY = Math.min(pos1.getY(), pos2.getY());
+                    int maxY = Math.max(pos1.getY(), pos2.getY());
+                    int minZ = Math.min(pos1.getZ(), pos2.getZ());
+                    int maxZ = Math.max(pos1.getZ(), pos2.getZ());
+
+                    // Generate all block positions inside the box
+                    for (int x = minX; x <= maxX; x++) {
+                        for (int y = minY; y <= maxY; y++) {
+                            for (int z = minZ; z <= maxZ; z++) {
+                                expanded.add(GlobalPos.of(first.dimension(), new BlockPos(x, y, z)));
+                            }
+                        }
+                    }
+                }
+
+                return new BiomePlacePayload2(expanded, ns, path);
             }
         };
 
@@ -397,36 +435,35 @@ public class NetworkManager {
         public @NotNull Type<? extends CustomPacketPayload> type() {
             return ID;
         }
+    }
 
-        public static byte[] splitByteArray(byte[] data, int totalParts, int partIndex) {
-            if (partIndex < 0 || partIndex >= totalParts) {
-                throw new IllegalArgumentException("Part index must be between 0 and " + (totalParts - 1));
-            }
-
-            if (totalParts <= 0) {
-                throw new IllegalArgumentException("Total parts must be greater than 0");
-            }
-
-            if (data == null || data.length == 0) {
-                return new byte[0];
-            }
-
-            // Calculate the size of each part
-            int baseSize = data.length / totalParts;
-            int remainder = data.length % totalParts;
-
-            // Calculate the start position for the requested part
-            int startPos = partIndex * baseSize + Math.min(partIndex, remainder);
-
-            // Calculate the size of the requested part (some parts might be 1 byte larger due to remainder)
-            int partSize = baseSize + (partIndex < remainder ? 1 : 0);
-
-            // Create and fill the result array
-            byte[] result = new byte[partSize];
-            System.arraycopy(data, startPos, result, 0, partSize);
-
-            return result;
+    public static byte[] splitByteArray(byte[] data, int totalParts, int partIndex) {
+        if (partIndex < 0 || partIndex >= totalParts) {
+            throw new IllegalArgumentException("Part index must be between 0 and " + (totalParts - 1));
         }
 
+        if (totalParts <= 0) {
+            throw new IllegalArgumentException("Total parts must be greater than 0");
+        }
+
+        if (data == null || data.length == 0) {
+            return new byte[0];
+        }
+
+        // Calculate the size of each part
+        int baseSize = data.length / totalParts;
+        int remainder = data.length % totalParts;
+
+        // Calculate the start position for the requested part
+        int startPos = partIndex * baseSize + Math.min(partIndex, remainder);
+
+        // Calculate the size of the requested part (some parts might be 1 byte larger due to remainder)
+        int partSize = baseSize + (partIndex < remainder ? 1 : 0);
+
+        // Create and fill the result array
+        byte[] result = new byte[partSize];
+        System.arraycopy(data, startPos, result, 0, partSize);
+
+        return result;
     }
 }

@@ -154,7 +154,14 @@ public class DataHandler {
                                 }
                             }
                             else {
-                                box.setValue(String.valueOf((int) value));
+                                if(box.identifier.contains("strength") || box.identifier.contains("grime")) {
+                                    box.setValue(String.valueOf(value).substring(0, Math.min(String.valueOf(value).length(), 4)));
+                                    //System.out.println(String.valueOf(value).substring(0, 4) + " " + box.identifier);
+                                    //System.out.println(String.valueOf(value).matches("^\\d+(\\.\\d+)?$"));
+                                }
+                                else {
+                                    box.setValue(String.valueOf((int) value));
+                                }
                             }
                         }
                     }

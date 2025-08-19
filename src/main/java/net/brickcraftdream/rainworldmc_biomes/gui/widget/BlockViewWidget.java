@@ -14,6 +14,7 @@ import net.brickcraftdream.rainworldmc_biomes.ColorPicker;
 import net.brickcraftdream.rainworldmc_biomes.client.BoxRenderer;
 import net.brickcraftdream.rainworldmc_biomes.gui.DataHandler;
 import net.brickcraftdream.rainworldmc_biomes.networking.BiomeImageProcessorClient;
+import net.irisshaders.iris.Iris;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.color.block.BlockColors;
 import net.minecraft.client.gui.GuiGraphics;
